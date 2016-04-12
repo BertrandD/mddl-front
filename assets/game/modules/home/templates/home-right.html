@@ -1,0 +1,14 @@
+<div ng-controller="BasementResourceController as ctrl">
+    <h3>{{ 'basement.availableResourcesInBasement' | translate: {basement: ctrl.selectedBasement._id} }}</h3>
+
+    <table>
+        <tr>
+            <th>{{ 'app.word.resources' | translate }}</th>
+            <th>{{ 'app.word.amount' | translate }}</th>
+        </tr>
+        <tr ng-repeat="(name, amount) in ctrl.selectedBasement.resources">
+            <td class="text-center">{{ name | translate }}</td>
+            <td class="text-center">{{ amount }}</td>
+        </tr>
+    </table>
+</div>

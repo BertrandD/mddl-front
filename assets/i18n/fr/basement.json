@@ -1,0 +1,16 @@
+{
+  "basement": {
+    "availableResourcesInBasement": "Ressources disponible à {basement}",
+    "available": {
+      "buildings": {
+        "for": {
+          "construction": "Bâtiments disponibles à la construction"
+        }
+      }
+    },
+    "buildings": "Bâtiments",
+    "no": {
+      "buildings": "Aucun bâtiment"
+    }
+  }
+}

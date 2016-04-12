@@ -1,0 +1,35 @@
+@import '../../variables/variables';
+
+$center-width: 700px;
+$right-width: 350px;
+$max-height: 450px;
+
+.app {
+  display: flex;
+  justify-content:center;
+  height: 100%;
+  background: #222;
+}
+
+.app-center,
+.app-right {
+  max-height: 70%;
+  background: $gray-light;
+  padding:$spacing-gutter;
+  overflow: auto;
+}
+
+.app-center {
+  width:70%;
+  margin:50px 30px;
+}
+
+.app-left {
+  width:450px;
+}
+
+.app-right {
+  width:$right-width;
+
+  margin:50px 50px 50px 30px;
+}

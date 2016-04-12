@@ -1,0 +1,22 @@
+<div class="sidebar-nav navbar-collapse">
+    <ul class="nav">
+        <li data-ng-class="{'active': app.isState('app.home')}">
+            <a ui-sref="app.home">
+                <i class="glyphicon glyphicon-home"></i>
+                <span class="font-bold">Home</span>
+            </a>
+        </li>
+        <li data-ng-class="{'active': app.isState('app.users') || app.isState('app.user') }">
+            <a ui-sref="app.users">
+                <i class="fa fa-users"></i>
+                <span class="font-bold">Users</span>
+            </a>
+        </li>
+        <li data-ng-class="{'active': app.isState('app.ideas') || app.isState('app.newIdea')}">
+            <a ui-sref="app.ideas">
+                <i class="fa fa-book"></i>
+                <span class="font-bold">Ideas</span>
+            </a>
+        </li>
+    </ul>
+</div>

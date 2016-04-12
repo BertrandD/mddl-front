@@ -1,0 +1,26 @@
+{
+  "app": {
+    "menu": {
+      "home": "Home",
+      "myProfile": "My profile",
+      "logout": "Logout"
+    },
+    "hello": "Hello {name}!",
+    "word": {
+      "name": "Name",
+      "level": "Level",
+      "action": "Action",
+      "description": "Description",
+      "price": "Price",
+      "timeLeft": "Time left",
+      "resources": "Resources",
+      "amount": "Amount",
+      "build": "Build",
+      "upgrade": "Upgrade",
+      "max": {
+        "level": "Max level"
+      },
+      "buildTime": "Build time"
+    }
+  }
+}

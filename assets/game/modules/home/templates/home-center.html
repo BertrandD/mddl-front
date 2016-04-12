@@ -1,0 +1,78 @@
+<div ng-controller="HomeController as ctrl">
+    {{ 'app.hello' | translate: {name: app.me.username }  }}
+
+
+    <h3>
+        {{:: ctrl.basement.name }}
+    </h3>
+
+    <h4>{{ 'basement.buildings' | translate }} : </h4>
+
+    <table ng-if="ctrl.basement.buildings.length > 0">
+        <tr>
+            <th>{{ 'app.word.name' | translate }}</th>
+            <th>{{ 'app.word.level' | translate }}</th>
+            <th>{{ 'app.word.action' | translate }}</th>
+        </tr>
+        <tr ng-repeat="building in ctrl.basement.buildings track by building._id">
+            <td>{{:: building.name }} {{:: building._id }}</td>
+            <td>{{ building.level }}</td>
+            <td class="text-center">
+                <button ng-disabled="ctrl.isPresentInQueue(building)"  ng-click="ctrl.upgrade(building)"> {{ 'app.word.upgrade' | translate }}</button>
+            </td>
+        </tr>
+    </table>
+
+    <span ng-if="ctrl.basement.buildings.length === 0">{{ 'basement.no.buildings' | translate }}</span>
+
+    <div ng-if="ctrl.buildingQueue.length > 0">
+        <h4>Building queue :</h4>
+
+        <table>
+            <tr>
+                <th>{{ 'app.word.name' | translate }}</th>
+                <th></th>
+                <th>{{ 'app.word.timeLeft' | translate }}</th>
+            </tr>
+            <tr ng-repeat="queue in ctrl.buildingQueue">
+                <td>{{:: queue.building.name }} {{:: queue.building._id }}</td>
+                <td>{{:: queue.building.level }} --> {{:: queue.building.level +1 }}</td>
+                <td>
+                    <mw-progress progress="100 * ( 1 - ( queue.timeLeft) / queue.building.build_time)">
+                        <mw-timer from="queue.timeLeft" on-end="ctrl.completeBuild(queue)"></mw-timer>
+                        /
+                        {{:: queue.building.build_time }}
+                    </mw-progress>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <h3>{{ 'basement.available.buildings.for.construction' | translate }}</h3>
+
+    <table>
+        <tr>
+            <th>{{ 'app.word.name' | translate }}</th>
+            <th>{{ 'app.word.description' | translate }}</th>
+            <th>{{ 'app.word.max.level' | translate }}</th>
+            <th>{{ 'app.word.buildTime' | translate }}</th>
+            <th>{{ 'app.word.price' | translate }}</th>
+            <th>{{ 'app.word.action' | translate }}</th>
+        </tr>
+        <tr ng-repeat="building in ctrl.availableBuildings">
+            <td>{{:: building.name }}</td>
+            <td>{{:: building.description }}</td>
+            <td>{{:: building.maxLevel }}</td>
+            <td>{{:: building.build_time }}</td>
+            <td>
+                <ul>
+                    <li ng-repeat="(name, amount) in building.dependencies.resources">{{ name | translate }} : {{ amount }}</li>
+                </ul>
+            </td>
+            <td class="text-center">
+                <button ng-click="ctrl.build(building)">{{ 'app.word.build' | translate }}</button>
+            </td>
+        </tr>
+    </table>
+
+</div>

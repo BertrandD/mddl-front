@@ -1,0 +1,27 @@
+@import '../../variables/variables';
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  th {
+    background-color: $gray-dark;
+    color: $gray-light;
+    padding: $spacing-inner;
+
+    &:not(:last-child) {
+      border-right: 1px solid $gray-light;
+    }
+  }
+
+  tr {
+    &:nth-of-type(odd) {
+      transition: background 2000ms ease;
+      background-color: darken(#fff, 40);
+    }
+    &:hover {
+      transition: background 200ms ease;
+      background-color: darken(#fff,50);
+    }
+  }
+
+}
