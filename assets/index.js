@@ -10,6 +10,7 @@ import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 import App from './containers/App';
 import rootReducer from './reducers';
 import LoginPage from './containers/LoginPage';
+import HomePage from './containers/HomePage';
 
 const logger = store => next => action => {
   console.group(action.type);
@@ -65,9 +66,9 @@ render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App} onEnter={requireAuth}>
+        <Route path="home" components={{center: HomePage, right: HomePage}} />
       </Route>
-      <Route path="/login" component={LoginPage}>
-      </Route>
+      <Route path="/login" component={LoginPage} />
     </Router>
   </Provider>,
   document.getElementById('app')

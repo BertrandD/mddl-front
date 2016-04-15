@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 class App extends Component {
 
     render() {
+        const { center, right } = this.props;
         return (
             <div>
                 <div className="top-menu">
@@ -58,10 +59,10 @@ class App extends Component {
                          Popup content 1
                          </div>
                          </div>*/}
-                        <div ui-view="center"/>
+                        { center }
                     </div>
                     <div className="app-right">
-                        <div ui-view="right"/>
+                        { right }
                     </div>
                 </div>
                 <div className="notification-block">
