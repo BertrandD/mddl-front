@@ -9,10 +9,10 @@ class App extends Component {
             <div>
                 <div className="top-menu">
                     <div>
-                        <a>
+                        <Link to="/home">
                             <i className="fa fa-home"/>
                             <span className="font-bold">Home</span>
-                        </a>
+                        </Link>
                     </div>
                     <div>
                         {/*
