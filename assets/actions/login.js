@@ -1,6 +1,6 @@
 import { FETCH_LOGIN_SUCCESS, FETCH_LOGIN_ERROR } from '../constants/ActionTypes';
 import { push } from 'react-router-redux'
-import { postAsForm } from '../utils/post-as-form'
+import { postAsForm, fetch } from '../utils/post-as-form'
 
 function loginSuccess (user) {
   return {
@@ -27,4 +27,18 @@ export function fetchLogin ({ username, password }) {
         dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
       })
   };
+}
+
+export function fetchAuthentication () {
+  return dispatch => {
+    return fetch('http://localhost:8080/about/me')
+        .then(res => {
+          dispatch(loginSuccess(res.payload));
+          dispatch(push('/'));
+        })
+        .catch(res => {
+          dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
+          dispatch(push('/login'));
+        })
+  }
 }

@@ -3,8 +3,10 @@ import clone from 'safe-clone-deep'
 import httpFetch from 'isomorphic-fetch'
 
 function makeAuthenticatedRequest(url, opts) {
-    opts.headers = opts.headers || {};
-    opts.headers['X-auth-token'] = "a-secret";
+    if (localStorage.token) {
+        opts.headers = opts.headers || {};
+        opts.headers['X-auth-token'] = localStorage.token;
+    }
     return httpFetch(url, opts);
 }
 

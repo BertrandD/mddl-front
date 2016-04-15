@@ -22,6 +22,12 @@ const logger = store => next => action => {
 
 function configureStore(initialState = {}) {
 
+  if (localStorage.token) {
+    initialState.user = {
+      token: localStorage.token
+    }
+  }
+
   const store = createStore(
     rootReducer,
     initialState,
@@ -47,8 +53,7 @@ const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 function requireAuth(nextState, replace) {
-
-  if (!store.getState().user.username) {
+  if (!store.getState().user.token) {
     replace({
       pathname: '/login',
       state: { nextPathname: nextState.location.pathname }
