@@ -1,0 +1,23 @@
+@import '../../variables/variables';
+
+$notification-width: 250px;
+
+.notification-block {
+  display: flex;
+  flex-direction: column-reverse;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: $gray-dark;
+  padding: 2px;
+  z-index: $z-index-notifications;
+}
+
+.notification-block__item {
+  border: 1px solid $gray-dark;
+  padding: $spacing-inner;
+  width: $notification-width;
+  background-color: $gray-light;
+  cursor: pointer;
+  margin: 2px;
+}

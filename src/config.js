@@ -1,4 +1,4 @@
-let config = {
+var config = {
   app: {
     port: 3000,
     ip: '0.0.0.0',

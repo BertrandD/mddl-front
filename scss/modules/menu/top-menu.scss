@@ -1,0 +1,21 @@
+@import '../../variables/variables';
+@import '../../mixins/mixins';
+
+.top-menu {
+  @include list-unstyled();
+
+  position: absolute;
+  left:0;
+  right:0;
+  background: $gray-dark;
+  padding: $spacing-inner $spacing-gutter*3;
+  color: #fff;
+
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    @include link(#fff);
+    padding: 0 $spacing-inner;
+  }
+}
