@@ -11,32 +11,25 @@ class Login extends Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
 
-        const email = this.refs.email.value
-        const password = this.refs.pass.value
+        const username = this.refs.username.value;
+        const password = this.refs.password.value;
 
-        this.props.onSubmit({email, password});
+        this.props.onSubmit({username, password});
     }
 
     render() {
         return (
-            <form name="form" className="form-validation" onSubmit={this.handleSubmit.bind(this)}>
-                <div className="list-group list-group-sm">
-                    <div className="list-group-item">
-                        <input type="text" ref="username" placeholder="Username"
-                               className="form-control no-border" autofocus="true"
-                               required/>
-                    </div>
-                    <div className="list-group-item">
-                        <input type="password" ref="password" placeholder="Password"
-                               className="form-control no-border" required/>
-                    </div>
+            <form name="form" onSubmit={this.handleSubmit.bind(this)}>
+                <div className="auth__inputs">
+                    <input type="text" ref="username" placeholder="Username" autofocus="true" required/>
+                    <input type="password" ref="password" placeholder="Password" required/>
                 </div>
-                <button type="submit" className="btn btn-lg btn-success btn-block">
+                <button type="submit">
                     Log in
                 </button>
-                <button type="button" className="btn btn-lg btn-success btn-block">
+                <button type="button">
                     Register
                 </button>
             </form>

@@ -11,6 +11,14 @@ import App from './containers/App';
 import rootReducer from './reducers';
 import LoginPage from './containers/LoginPage';
 
+const logger = store => next => action => {
+  console.group(action.type);
+  console.info('dispatching', action);
+  let result = next(action);
+  console.log('next state', store.getState());
+  console.groupEnd(action.type);
+  return result
+};
 
 function configureStore(initialState = {}) {
 
@@ -19,6 +27,7 @@ function configureStore(initialState = {}) {
     initialState,
     applyMiddleware(
       thunkMiddleware,
+      logger,
       routerMiddleware(browserHistory)
     )
   )
@@ -38,8 +47,8 @@ const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 function requireAuth(nextState, replace) {
-  console.log(store.getState().user);
-  if (!store.getState().user.email) {
+
+  if (!store.getState().user.username) {
     replace({
       pathname: '/login',
       state: { nextPathname: nextState.location.pathname }

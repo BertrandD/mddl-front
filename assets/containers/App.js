@@ -2,33 +2,91 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 class App extends Component {
-  render () {
-    const { children } = this.props;
-    return (
-      <div>
-        <header className="app-header navbar" role="menu">
-          <div className="navbar-header bg-dark">
-            <Link to="/" className="navbar-brand text-lt">
-              <i className="fa fa-btc" />
-            <span className="hidden-folded m-l-xs">
-              Ad Manager
-            </span>
-            </Link>
-          </div>
-        </header>
-
-        <aside className="app-aside hidden-xs bg-dark">
-          <div className="aside-wrap">
-            <div className="navi-wrap">
-              <Nav />
+    render() {
+        return (
+            <div>
+                <div className="top-menu">
+                    <div>
+                        <a>
+                            <i className="fa fa-home"/>
+                            <span className="font-bold">Home</span>
+                        </a>
+                    </div>
+                    <div>
+                        {/*
+                         <span>
+                         <span ng-repeat="(name, amount) in ctrl.selectedBasement.resources">
+                         {{ name | translate }}: {{ amount }}
+                         </span>
+                         </span>
+                         */}
+                        <a>
+                            <i className="fa fa-user"/>
+                            <span className="font-bold">My profile</span>
+                        </a>
+                        <a>
+                            <i className="fa fa-lock"/>
+                            <span>Logout</span>
+                        </a>
+                        {/*{ version }*/}
+                        {/*<span ng-repeat="language in app.availableLanguages">
+                         <label class="cursor-pointer">
+                         <input type="radio"
+                         class="cursor-pointer"
+                         ng-click="app.changeLanguage()"
+                         ng-value="language"
+                         ng-model="app.language">
+                         {{:: language }}
+                         </label>
+                         </span>*/}
+                    </div>
+                </div>
+                <div className="app">
+                    <div className="app-left"/>
+                    <div className="app-center">
+                        {/*        <div class="popup" mw-draggable ng-if="app.openPopup">
+                         <div class="popup__title-bar">
+                         <div class="popup__title">
+                         Popup 1
+                         </div>
+                         <div class="popup__actions">
+                         <span class="fa fa-close" ng-click="app.openPopup = false"></span>
+                         </div>
+                         </div>
+                         <div class="popup__content" ng-mousedown="$event.stopPropagation()">
+                         Popup content 1
+                         </div>
+                         </div>*/}
+                        <div ui-view="center"/>
+                    </div>
+                    <div className="app-right">
+                        <div ui-view="right"/>
+                    </div>
+                </div>
+                <div className="notification-block">
+                    {/*    <div class="notification-block__item" ng-repeat="notif in ctrl.notifications">
+                     {{ notif.content }}
+                     </div>*/}
+                </div>
+                <div className="bottom-menu">
+                    <div className="bottom-menu__container">
+                        <div className="bottom-menu__item" ng-click="app.openPopup = !app.openPopup">
+                            Toggle popup
+                        </div>
+                        <div className="bottom-menu__item" ng-click="app.sendNotif()">
+                            Send notification
+                        </div>
+                        <div className="bottom-menu__item" ng-click="app.consumeResources()">
+                            Consume 100 metal
+                        </div>
+                        <div className="bottom-menu__item">
+                            Menu 4
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </aside>
-
-        <div className="app-content" role="main">{children}</div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 export default App;

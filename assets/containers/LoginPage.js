@@ -11,23 +11,23 @@ class LoginPage extends Component {
     }
 
     render() {
-
         return (
-
-            <div className="container login-form">
-                <div className="block text-center"><h1>MiddleWar V2</h1></div>
-                <div className="block">
-                    <div className="wrapper text-center m-t m-b">
+            <div className="app">
+                <div className="auth">
+                    <h1 className="auth__title">MiddleWar V2</h1>
+                    <div className="auth__subtitle">
                         <strong>{ this.props.version }</strong>
                     </div>
-                    <div className="wrapper text-center m-t m-b">
+                    <div className="auth__subtitle">
                         <strong>Sign in to continue</strong>
                     </div>
-                    <Login />
+                    <div className="auth__error">
+                        { this.props.user.message }
+                    </div>
+
+                    <Login onSubmit={this.props.actions.fetchLogin}/>
                 </div>
             </div>
-
-
         );
     }
 }

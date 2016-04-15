@@ -1,28 +1,30 @@
-import fetch from 'isomorphic-fetch'
-import { FETCH_LOGIN_SUCCESS } from '../constants/ActionTypes';
+import { FETCH_LOGIN_SUCCESS, FETCH_LOGIN_ERROR } from '../constants/ActionTypes';
 import { push } from 'react-router-redux'
+import { postAsForm } from '../utils/post-as-form'
 
-function loginSuccess ({ email, password }) {
+function loginSuccess (user) {
   return {
     type: FETCH_LOGIN_SUCCESS,
-    payload: { email, password }
+    payload: user
   }
 }
 
-export function fetchLogin ({ email, password }) {
+function loginError (message) {
+  return {
+    type: FETCH_LOGIN_ERROR,
+    payload: { message }
+  }
+}
+
+export function fetchLogin ({ username, password }) {
   return dispatch => {
-    return fetch('/api/login', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    })
-      .then(res => res.json())
-      .then(json => {
-        dispatch(loginSuccess(json))
+    return postAsForm('http://localhost:8080/login', {username, password})
+      .then(res => {
+        dispatch(loginSuccess(res.payload));
         dispatch(push('/'));
+      })
+      .catch(res => {
+        dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
       })
   };
 }

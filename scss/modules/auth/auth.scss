@@ -1,0 +1,38 @@
+@import '../../variables/variables';
+
+.auth {
+  text-align: center;
+  align-self: center;
+
+  .auth__title,
+  .auth__subtitle {
+    color: #fff;
+    margin-bottom: $spacing-gutter*2;
+  }
+
+  .auth__error {
+    color: $error-color;
+    margin-bottom: $spacing-gutter*2;
+  }
+
+  input {
+    padding:$spacing-gutter*1.5 $spacing-gutter;
+    width:75%;
+    border:none;
+  }
+
+  .auth__inputs {
+
+    margin-bottom: $spacing-gutter*2;
+
+    & :last-child {
+      border-bottom-left-radius: $border-radius-base;
+      border-bottom-right-radius: $border-radius-base;
+    }
+    & :first-child {
+      border-top-left-radius: $border-radius-base;
+      border-top-right-radius: $border-radius-base;
+      border-bottom: 1px solid $gray-light;
+    }
+  }
+}
