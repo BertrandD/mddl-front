@@ -9,8 +9,9 @@ import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 
 import App from './modules/App';
 import rootReducer from './reducers';
-import LoginPage from './modules/auth/LoginContainer';
 import HomePage from './containers/HomePage';
+import LoginContainer from './modules/auth/LoginContainer';
+import BaseContainer from './modules/base/BaseContainer';
 
 const logger = store => next => action => {
   console.group(action.type);
@@ -37,7 +38,7 @@ function configureStore(initialState = {}) {
       logger,
       routerMiddleware(browserHistory)
     )
-  )
+  );
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
@@ -67,8 +68,9 @@ render(
     <Router history={history}>
       <Route path="/" component={App} onEnter={requireAuth}>
         <Route path="home" components={{center: HomePage, right: HomePage}} />
+        <Route path="base" components={{center: BaseContainer, right: HomePage}} />
       </Route>
-      <Route path="/login" component={LoginPage} />
+      <Route path="/login" component={LoginContainer} />
     </Router>
   </Provider>,
   document.getElementById('app')

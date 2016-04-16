@@ -2,7 +2,7 @@
 import clone from 'safe-clone-deep'
 import httpFetch from 'isomorphic-fetch'
 
-function makeAuthenticatedRequest(url, opts) {
+function makeAuthenticatedRequest(url, opts = {}) {
     if (localStorage.token) {
         opts.headers = opts.headers || {};
         opts.headers['X-auth-token'] = localStorage.token;

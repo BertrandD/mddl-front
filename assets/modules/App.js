@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import TopMenu from './TopMenu'
 
 class App extends Component {
 
@@ -7,42 +7,7 @@ class App extends Component {
         const { center, right } = this.props;
         return (
             <div>
-                <div className="top-menu">
-                    <div>
-                        <Link to="/home">
-                            <i className="fa fa-home"/>
-                            <span className="font-bold">Home</span>
-                        </Link>
-                    </div>
-                    <div>
-                        {/*
-                         <span>
-                         <span ng-repeat="(name, amount) in ctrl.selectedBasement.resources">
-                         {{ name | translate }}: {{ amount }}
-                         </span>
-                         </span>
-                         */}
-                        <a>
-                            <i className="fa fa-user"/>
-                            <span className="font-bold">My profile</span>
-                        </a>
-                        <a>
-                            <i className="fa fa-lock"/>
-                            <span>Logout</span>
-                        </a>
-                        {/*{ version }*/}
-                        {/*<span ng-repeat="language in app.availableLanguages">
-                         <label class="cursor-pointer">
-                         <input type="radio"
-                         class="cursor-pointer"
-                         ng-click="app.changeLanguage()"
-                         ng-value="language"
-                         ng-model="app.language">
-                         {{:: language }}
-                         </label>
-                         </span>*/}
-                    </div>
-                </div>
+                <TopMenu />
                 <div className="app">
                     <div className="app-left"/>
                     <div className="app-center">
