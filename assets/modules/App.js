@@ -72,14 +72,14 @@ class App extends Component {
                 </div>
                 <div className="bottom-menu">
                     <div className="bottom-menu__container">
-                        <div className="bottom-menu__item" ng-click="app.openPopup = !app.openPopup">
-                            Toggle popup
+                        <div className="bottom-menu__item">
+                            Menu 1
                         </div>
-                        <div className="bottom-menu__item" ng-click="app.sendNotif()">
-                            Send notification
+                        <div className="bottom-menu__item">
+                            Menu 2
                         </div>
-                        <div className="bottom-menu__item" ng-click="app.consumeResources()">
-                            Consume 100 metal
+                        <div className="bottom-menu__item">
+                            Menu 3
                         </div>
                         <div className="bottom-menu__item">
                             Menu 4
