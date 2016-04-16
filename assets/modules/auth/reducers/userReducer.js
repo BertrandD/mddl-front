@@ -1,4 +1,4 @@
-import { FETCH_LOGIN_SUCCESS, FETCH_LOGIN_ERROR } from '../constants/ActionTypes';
+import { FETCH_LOGIN_SUCCESS, FETCH_LOGIN_ERROR } from '../actions/LoginActionTypes';
 
 function user (state = {}, action) {
   switch (action.type) {

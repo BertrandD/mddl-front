@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Login from '../components/Login';
-import * as actions from '../actions/login';
+import Login from './components/Login';
+import * as actions from './actions/loginActions';
 
-class LoginPage extends Component {
+class LoginContainer extends Component {
 
     constructor(props, context) {
         super(props, context);
@@ -40,9 +40,9 @@ function mapDispatchToProps(dispatch) {
     return {actions: bindActionCreators(actions, dispatch)}
 }
 
-LoginPage.contextTypes = {
+LoginContainer.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
 

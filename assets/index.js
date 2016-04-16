@@ -7,9 +7,9 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 
-import App from './containers/App';
+import App from './modules/App';
 import rootReducer from './reducers';
-import LoginPage from './containers/LoginPage';
+import LoginPage from './modules/auth/LoginContainer';
 import HomePage from './containers/HomePage';
 
 const logger = store => next => action => {
