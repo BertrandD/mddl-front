@@ -31,7 +31,7 @@ export function fetchLogin ({ username, password }) {
 
 export function fetchAuthentication () {
   return dispatch => {
-    return fetch('http://localhost:8080/about/me')
+    return fetch('http://localhost:8080/me')
         .then(res => {
           dispatch(loginSuccess(res.payload));
           dispatch(push('/'));
