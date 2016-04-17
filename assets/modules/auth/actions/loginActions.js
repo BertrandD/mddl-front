@@ -34,10 +34,9 @@ export function fetchAuthentication () {
     return fetch('http://localhost:8080/me')
         .then(res => {
           dispatch(loginSuccess(res.payload));
-          dispatch(push('/'));
         })
         .catch(res => {
-          dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
+            dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
           dispatch(push('/login'));
         })
   }

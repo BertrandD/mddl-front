@@ -18,7 +18,7 @@ class PlayerCreationContainer extends Component {
             return (
                 <div>
                     Congratulations ! You just created the player <strong>{ this.props.player.name }</strong> !
-                    <Link to="/"> Go to home </Link>
+                    <Link to="/create/base"> Create my first base </Link>
                 </div>
             )
         }

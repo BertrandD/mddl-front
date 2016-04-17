@@ -17,10 +17,10 @@ function createPlayerSuccess (player) {
     }
 }
 
-function createPlayerFailure (player) {
+function createPlayerFailure (message) {
     return {
         type: CREATE_PLAYER_FAILURE,
-        payload: player
+        payload: message
     }
 }
 
@@ -50,7 +50,7 @@ export function fetchPlayer () {
                 if (res.payload && res.payload.length === 0) {
                     dispatch(push('/create/player'));
                 } else {
-                    dispatch(fetchPlayerSuccess(res.payload));
+                    dispatch(fetchPlayerSuccess(res.payload[0]));
                 }
             })
             .catch(res => {
