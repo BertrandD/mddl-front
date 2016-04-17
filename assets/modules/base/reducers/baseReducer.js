@@ -1,6 +1,6 @@
 import { FETCH_BASE_SUCCESS } from '../actions/BaseActionTypes';
 
-function user (state = {}, action) {
+function base (state = {}, action) {
     switch (action.type) {
         case FETCH_BASE_SUCCESS:
             return Object.assign({}, state, action.payload);
@@ -9,4 +9,4 @@ function user (state = {}, action) {
     }
 }
 
-export default user;
+export default base;
