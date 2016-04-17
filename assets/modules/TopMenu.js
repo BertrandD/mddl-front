@@ -14,7 +14,7 @@ class TopMenu extends Component {
             .then(() => {
                 this.props.actions.fetchPlayer()
             });
-        this.props.actions.fetchBase(this.props.user);
+        //this.props.actions.fetchBase(this.props.user);
     }
 
     render() {
@@ -28,7 +28,7 @@ class TopMenu extends Component {
                 </div>
                 <div>
                      <Link to="/base">
-                         Active base : { this.props.base.name }
+                         Active base : { this.props.base.name ? this.props.base.name : 'Coming soon' }
                      </Link>
                     <a>
                         <i className="fa fa-user"/>

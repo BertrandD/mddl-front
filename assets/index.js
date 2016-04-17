@@ -12,6 +12,7 @@ import rootReducer from './reducers';
 import HomePage from './containers/HomePage';
 import LoginContainer from './modules/auth/LoginContainer';
 import BaseContainer from './modules/base/BaseContainer';
+import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
 
 const logger = store => next => action => {
   console.group(action.type);
@@ -69,6 +70,9 @@ render(
       <Route path="/" component={App} onEnter={requireAuth}>
         <IndexRoute components={{center: HomePage, right: HomePage}} />
         <Route path="base" components={{center: BaseContainer, right: HomePage}} />
+
+        <Route path="create/player" components={{center: PlayerCreationContainer, right: HomePage}} />
+
       </Route>
       <Route path="/login" component={LoginContainer} />
     </Router>
