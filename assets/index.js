@@ -7,13 +7,6 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 
-import App from './modules/App';
-import rootReducer from './reducers';
-import HomePage from './containers/HomePage';
-import LoginContainer from './modules/auth/LoginContainer';
-import BaseContainer from './modules/base/BaseContainer';
-import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
-
 const logger = store => next => action => {
   console.group(action.type);
   console.info('dispatching', action);
@@ -64,14 +57,24 @@ function requireAuth(nextState, replace) {
   }
 }
 
+import App from './modules/App';
+import rootReducer from './reducers';
+import HomePage from './containers/HomePage';
+import LoginContainer from './modules/auth/LoginContainer';
+import BaseContainer from './modules/base/BaseCreationContainer';
+import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
+import BaseCreationContainer from './modules/base/BaseCreationContainer';
+
 render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App} onEnter={requireAuth}>
         <IndexRoute components={{center: HomePage, right: HomePage}} />
+        <Route path="home" components={{center: HomePage, right: HomePage}} />
         <Route path="base" components={{center: BaseContainer, right: HomePage}} />
 
         <Route path="create/player" components={{center: PlayerCreationContainer, right: HomePage}} />
+        <Route path="create/base" components={{center: BaseCreationContainer, right: HomePage}} />
 
       </Route>
       <Route path="/login" component={LoginContainer} />

@@ -12,9 +12,10 @@ class TopMenu extends Component {
         super(props);
         this.props.actions.fetchAuthentication()
             .then(() => {
-                this.props.actions.fetchPlayer()
+                this.props.actions.fetchPlayer().then(() => {
+                    this.props.actions.fetchBase(this.props.user)
+                })
             });
-        //this.props.actions.fetchBase(this.props.user);
     }
 
     render() {
@@ -28,11 +29,11 @@ class TopMenu extends Component {
                 </div>
                 <div>
                      <Link to="/base">
-                         Active base : { this.props.base.name ? this.props.base.name : 'Coming soon' }
+                         Active base : { this.props.base.name ? this.props.base.name : 'No base selected' }
                      </Link>
                     <a>
                         <i className="fa fa-user"/>
-                        <span className="font-bold">My profile</span>
+                        <span className="font-bold">{ this.props.player.name }</span>
                     </a>
                     <a>
                         <i className="fa fa-lock"/>
@@ -55,8 +56,8 @@ class TopMenu extends Component {
     }
 }
 
-function mapStateToProps({ user, base }) {
-    return {user, base};
+function mapStateToProps({ user, player, base }) {
+    return {user, player, base};
 }
 
 function mapDispatchToProps(dispatch) {
