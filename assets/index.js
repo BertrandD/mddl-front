@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
@@ -67,7 +67,7 @@ render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App} onEnter={requireAuth}>
-        <Route path="home" components={{center: HomePage, right: HomePage}} />
+        <IndexRoute components={{center: HomePage, right: HomePage}} />
         <Route path="base" components={{center: BaseContainer, right: HomePage}} />
       </Route>
       <Route path="/login" component={LoginContainer} />
