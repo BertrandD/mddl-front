@@ -1,11 +1,19 @@
 const express = require('express');
 const path = require('path');
 const config = require('./config');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const webpackConfig = require('../webpack.config.dev');
 
-let app = express();
+var app = express();
 
 app.set('env', config.app.env);
 app.use(express.static(path.join(__dirname, '../dist')));
+
+const compiler = webpack(webpackConfig);
+app.use(webpackDevMiddleware(compiler, { noInfo: false, publicPath: webpackConfig.output.publicPath }));
+app.use(webpackHotMiddleware(compiler));
 
 const statusController = require('./status');
 const versionController = require('./version');
@@ -13,7 +21,7 @@ const aboutMeController = require('./aboutMe');
 const rootController = require('./root');
 
 app.use('/status', statusController);
-app.use('/version', statusController);
+app.use('/version', versionController);
 app.use('/about/me', aboutMeController);
 app.use('/', rootController);
 
@@ -22,11 +30,7 @@ app.use('/', rootController);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  let err = new Error(`Not Found: "${req.url}"`);
-  err.status = 404;
-
-  //let url = req.url;
-  next(err);
+  res.sendFile(__dirname + '/root/index.html');
 });
 
 // error handlers
