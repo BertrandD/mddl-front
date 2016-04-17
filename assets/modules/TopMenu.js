@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchAuthentication } from './auth/actions/loginActions';
-import { fetchBase } from './base/actions/baseActions';
+import { fetchMyBases } from './base/actions/baseActions';
 import { fetchPlayer } from './player/actions/playerActions';
 import { Link } from 'react-router';
 
@@ -13,7 +13,7 @@ class TopMenu extends Component {
         this.props.actions.fetchAuthentication()
             .then(() => {
                 this.props.actions.fetchPlayer().then(() => {
-                    this.props.actions.fetchBase(this.props.user)
+                    this.props.actions.fetchMyBases()
                 })
             });
     }
@@ -61,7 +61,7 @@ function mapStateToProps({ user, player, base }) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ fetchAuthentication, fetchBase, fetchPlayer }, dispatch)}
+    return {actions: bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopMenu);

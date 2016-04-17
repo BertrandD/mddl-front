@@ -61,7 +61,7 @@ import App from './modules/App';
 import rootReducer from './reducers';
 import HomePage from './containers/HomePage';
 import LoginContainer from './modules/auth/LoginContainer';
-import BaseContainer from './modules/base/BaseCreationContainer';
+import BaseContainer from './modules/base/BaseContainer';
 import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
 import BaseCreationContainer from './modules/base/BaseCreationContainer';
 

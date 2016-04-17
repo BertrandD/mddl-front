@@ -42,7 +42,7 @@ export function createBase ({ baseName, player }) {
     }
 }
 
-export function fetchBase () {
+export function fetchMyBases () {
     return dispatch => {
         return fetch('http://localhost:8080/me/base')
             .then(res => {
@@ -50,7 +50,20 @@ export function fetchBase () {
                     dispatch(push('/create/base'));
                 } else {
                     dispatch(fetchBaseSuccess(res.payload[0]));
+                    dispatch(fetchBase(res.payload[0]))
                 }
+            })
+            .catch(res => {
+                dispatch(fetchBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+            })
+    };
+}
+
+export function fetchBase ({ id }) {
+    return dispatch => {
+        return fetch('http://localhost:8080/me/base/' + id)
+            .then(res => {
+                dispatch(fetchBaseSuccess(res.payload));
             })
             .catch(res => {
                 dispatch(fetchBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
