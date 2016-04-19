@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Timer from '../../core/components/Timer'
 
 class Base extends Component {
 
@@ -53,6 +54,9 @@ class Base extends Component {
                         </td>
                         <td>
                             {building.currentLevel} --> {building.currentLevel + 1}
+                        </td>
+                        <td>
+                            <Timer end={building.endsAt}/>
                         </td>
                     </tr>
                 ))}

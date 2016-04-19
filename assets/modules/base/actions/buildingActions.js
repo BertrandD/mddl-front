@@ -29,10 +29,11 @@ export function createBuilding ({ id }) {
                 dispatch(createBuildingFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'))
             })
             .then(res => {
-                dispatch(createBuildingStart(res.payload));
+                res.payload.endsAt = Date.now() + 3000;
                 setTimeout(() => {
                     dispatch(createBuildingEnd(res.payload))
-                }, res.payload.buildTime || 3000)
+                }, res.payload.buildTime || 3000);
+                dispatch(createBuildingStart(res.payload));
             })
     }
 }
