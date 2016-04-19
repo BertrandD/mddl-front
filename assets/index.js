@@ -8,7 +8,7 @@ import thunkMiddleware from 'redux-thunk'
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 
 const logger = store => next => action => {
-  console.group(action.type);
+  console.groupCollapsed(action.type);
   console.info('dispatching', action);
   let result = next(action);
   console.log('next state', store.getState());
