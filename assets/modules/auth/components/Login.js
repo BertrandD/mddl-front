@@ -19,6 +19,15 @@ class Login extends Component {
         this.props.onSubmit({username, password});
     }
 
+    handleRegister(e) {
+        e.preventDefault();
+
+        const username = this.refs.username.value;
+        const password = this.refs.password.value;
+
+        this.props.onRegister({username, password});
+    }
+
     render() {
         return (
             <form name="form" onSubmit={this.handleSubmit.bind(this)}>
@@ -29,7 +38,7 @@ class Login extends Component {
                 <button type="submit">
                     Log in
                 </button>
-                <button type="button">
+                <button type="button" onClick={this.handleRegister.bind(this)}>
                     Register
                 </button>
             </form>
@@ -38,7 +47,8 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    onRegister: PropTypes.func.isRequired
 };
 
 export default Login;

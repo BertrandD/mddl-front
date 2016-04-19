@@ -16,6 +16,19 @@ function loginError (message) {
   }
 }
 
+export function register({ username, password }) {
+    return dispatch => {
+        return postAsForm('http://localhost:8080/register', {username, password})
+            .then(res => {
+                dispatch(loginSuccess(res.payload));
+                dispatch(push('/'));
+            })
+            .catch(res => {
+                dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
+            })
+    };
+}
+
 export function fetchLogin ({ username, password }) {
   return dispatch => {
     return postAsForm('http://localhost:8080/login', {username, password})

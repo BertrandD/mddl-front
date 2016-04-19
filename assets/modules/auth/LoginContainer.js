@@ -25,7 +25,7 @@ class LoginContainer extends Component {
                         { this.props.user.message }
                     </div>
 
-                    <Login onSubmit={this.props.actions.fetchLogin}/>
+                    <Login onRegister={this.props.actions.register} onSubmit={this.props.actions.fetchLogin}/>
                 </div>
             </div>
         );
