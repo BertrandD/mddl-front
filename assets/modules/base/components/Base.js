@@ -23,10 +23,36 @@ class Base extends Component {
                             {building.buildingId}
                         </td>
                         <td>
-                            {building.level}
+                            {building.currentLevel}
                         </td>
                         <td>
                             <button disabled>Upgrade</button>
+                        </td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        )
+    }
+
+    renderBuildingQueue () {
+        return (
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Level</th>
+                    <th>Time left</th>
+                </tr>
+                </thead>
+                <tbody>
+                { this.props.base.buildingQueue.map((building, index) => (
+                    <tr key={index}>
+                        <td>
+                            {building.buildingId}
+                        </td>
+                        <td>
+                            {building.currentLevel} --> {building.currentLevel + 1}
                         </td>
                     </tr>
                 ))}
@@ -43,6 +69,10 @@ class Base extends Component {
                 <h4>Buildings : </h4>
 
                 { this.props.base.buildings && this.props.base.buildings.length > 0 ? this.renderBuildings() : 'No buildings' }
+
+                <h4>Building Queue : </h4>
+
+                { this.props.base.buildingQueue && this.props.base.buildingQueue.length > 0 ? this.renderBuildingQueue() : 'No buildings' }
 
                 <h4>Available buildings : </h4>
 
