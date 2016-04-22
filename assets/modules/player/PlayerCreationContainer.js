@@ -10,14 +10,14 @@ class PlayerCreationContainer extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.props.player.createSuccess = false;
     }
 
     render() {
-        if (this.props.player.createSuccess ) {
+        const currentPlayer = this.props.entities.players[this.props.currentPlayer.id];
+        if (currentPlayer) {
             return (
                 <div>
-                    Congratulations ! You just created the player <strong>{ this.props.player.name }</strong> !
+                    Congratulations ! You just created the player <strong>{ currentPlayer.name }</strong> !
                     <Link to="/create/base"> Create my first base </Link>
                 </div>
             )
@@ -25,15 +25,15 @@ class PlayerCreationContainer extends Component {
         return (
             <div>
                 Create a player ?
-                <PlayerCreation player={this.props.player} onSubmit={this.props.actions.createPlayer} />
+                <PlayerCreation onSubmit={this.props.actions.createPlayer} />
             </div>
         );
 
     }
 }
 
-function mapStateToProps({ player }) {
-    return { player };
+function mapStateToProps({ entities, currentPlayer }) {
+    return { entities, currentPlayer };
 }
 
 function mapDispatchToProps(dispatch) {

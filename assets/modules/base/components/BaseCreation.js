@@ -26,7 +26,6 @@ class BaseCreation extends Component {
                 <button type="submit">
                     Create base
                 </button>
-                { this.props.base.error }
             </form>
         )
     }

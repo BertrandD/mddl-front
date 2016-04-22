@@ -1,7 +1,7 @@
 import { FETCH_BUILDINGS_SUCCESS, FETCH_BUILDINGS_FAILURE } from './StaticActionTypes';
 import { postAsForm, fetch } from '../../../utils/post-as-form'
 import { normalize, arrayOf } from 'normalizr'
-import staticBuilding from '../../../shema/staticBuilding'
+import { staticBuilding } from '../../../schema/schemas.js'
 
 
 function fetchBuildingsSuccess (buildings) {
