@@ -2,10 +2,13 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, bindActionCreators } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
+import { fetchAuthentication } from './modules/auth/actions/loginActions'
+import { fetchPlayer } from './modules/player/actions/playerActions'
+import { fetchMyBases } from './modules/base/actions/baseActions'
 
 const logger = store => next => action => {
   console.groupCollapsed(action.type);
@@ -47,6 +50,15 @@ function configureStore(initialState = {}) {
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
+
+const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer }, store.dispatch);
+
+actions.fetchAuthentication()
+  .then(() => {
+    actions.fetchPlayer().then(() => {
+      actions.fetchMyBases()
+    })
+  });
 
 function requireAuth(nextState, replace) {
   if (!store.getState().user.token) {

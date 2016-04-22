@@ -10,13 +10,6 @@ class TopMenu extends Component {
 
     constructor(props) {
         super(props);
-        // FIXME move it to index.js with initialState
-        this.props.actions.fetchAuthentication()
-            .then(() => {
-                this.props.actions.fetchPlayer().then(() => {
-                    this.props.actions.fetchMyBases()
-                })
-            });
     }
 
     render() {
@@ -65,7 +58,7 @@ function mapStateToProps({ user, entities, currentPlayer, currentBase }) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer }, dispatch)}
+    return {actions: bindActionCreators({ }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopMenu);
