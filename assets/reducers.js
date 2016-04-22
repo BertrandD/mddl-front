@@ -5,7 +5,21 @@ import player, {currentPlayer, players} from './modules/player/reducers/playerRe
 import { staticBuildings } from './modules/static/reducers/staticReducer';
 import { routerReducer } from 'react-router-redux'
 
-const tt = combineReducers({staticBuildings, bases, players});
+const entitiesReducer = customCombineReducer({staticBuildings, bases, players});
+
+function customCombineReducer(reducers) {
+    return (state, action) => {
+        let newState = Object.assign({}, state);
+        Object.keys(action.payload.entities).forEach((key) => {
+            let t = {};
+            t[key] = reducers[key](action.payload.entities[key], Object.assign({}, action, {
+                payload: action.payload.entities[key]
+            }));
+            newState = Object.assign(newState, t);
+        });
+        return newState;
+    }
+}
 
 function entities(state = {
     staticBuildings: {},
@@ -13,7 +27,7 @@ function entities(state = {
     bases: {}
 }, action) {
     if (action.payload && action.payload.entities) {
-        return tt(Object.assign({}, state, action.payload.entities), Object.assign({}, action, {payload:action.payload.entities}));
+        return entitiesReducer(state, action);
     }
 
     return state;
