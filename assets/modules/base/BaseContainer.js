@@ -14,23 +14,31 @@ class BaseContainer extends Component {
     constructor(props, context) {
         super(props, context);
 
-        if (!this.props.staticBuildings || this.props.staticBuildings.length === 0) {
+        if (!this.props.entities.staticBuildings || Object.keys(this.props.entities.staticBuildings).length === 0) {
             this.props.actions.fetchBuildings();
         }
     }
 
     render() {
+        const currentBase = this.props.entities.bases[this.props.currentBase.id];
+        if (!currentBase) {
+            return (
+                <div>
+                    Loading base...
+                </div>
+            )
+        }
         return (
             <div>
-                <Base onCreateBuilding={this.props.actions.createBuilding} staticBuildings={this.props.staticBuildings} base={this.props.base} />
+                <Base onCreateBuilding={this.props.actions.createBuilding} staticBuildings={this.props.entities.staticBuildings} base={currentBase} />
             </div>
         );
 
     }
 }
 
-function mapStateToProps({ base, player, staticBuildings }) {
-    return { base, player, staticBuildings };
+function mapStateToProps({ currentBase, currentPlayer, entities }) {
+    return { currentBase, currentPlayer, entities };
 }
 
 function mapDispatchToProps(dispatch) {
