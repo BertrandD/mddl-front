@@ -5,19 +5,11 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { createStore, applyMiddleware, bindActionCreators } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 import { fetchAuthentication } from './modules/auth/actions/loginActions'
 import { fetchPlayer } from './modules/player/actions/playerActions'
 import { fetchMyBases } from './modules/base/actions/baseActions'
-
-const logger = store => next => action => {
-  console.groupCollapsed(action.type);
-  console.info('dispatching', action);
-  let result = next(action);
-  console.log('next state', store.getState());
-  console.groupEnd(action.type);
-  return result
-};
 
 function configureStore(initialState = {}) {
 
@@ -26,14 +18,17 @@ function configureStore(initialState = {}) {
       token: localStorage.token
     }
   }
+  const logger = createLogger({
+    collapsed: true
+  });
 
   const store = createStore(
     rootReducer,
     initialState,
     applyMiddleware(
       thunkMiddleware,
-      logger,
-      routerMiddleware(browserHistory)
+      routerMiddleware(browserHistory),
+      logger
     )
   );
 
