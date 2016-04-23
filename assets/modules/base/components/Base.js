@@ -1,11 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import Timer from '../../core/components/Timer'
 import map from 'lodash/map'
+import filter from 'lodash/filter'
+import reduce from 'lodash/reduce'
 
 class Base extends Component {
 
     constructor(props, context) {
         super(props, context);
+    }
+
+    getAvailableBuildings () {
+
+        const buildingIds = reduce([...this.props.base.buildings, ...this.props.base.buildingQueue], (result, building) => {
+            result.push(building.buildingId);
+            return result;
+        }, []);
+        console.log([...this.props.base.buildings, this.props.base.buildingQueue]);
+        console.log(buildingIds);
+        return filter(this.props.staticBuildings, (staticBuilding) => {
+            return !buildingIds.some((buildingId) => buildingId === staticBuilding.id)
+        })
     }
 
     renderBuildings() {
@@ -82,7 +97,7 @@ class Base extends Component {
                 <h4>Available buildings : </h4>
 
                 <div className="list">
-                    { map(this.props.staticBuildings, (building, index) => (
+                    { map(this.getAvailableBuildings(), (building, index) => (
                         <div key={index} className="list__item">
                             <div className="list__item__image">
                                 <img src="http://placehold.it/80x80" alt={building.name}/>
