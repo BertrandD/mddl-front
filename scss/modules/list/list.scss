@@ -1,0 +1,39 @@
+@import '../../variables/variables';
+
+.list {
+  .list__item {
+    display: flex;
+    align-items:stretch;
+    border: 2px solid $gray-dark;
+
+    &:not(:last-child) {
+      border-bottom:none;
+    }
+
+    .list__item__body,
+    .list__item__actions {
+      padding: $spacing-inner;
+    }
+
+    .list__item__image {
+
+    }
+
+    .list__item__body {
+      border-left: 1px solid $gray-dark;
+      border-right: 1px solid $gray-dark;
+
+      .list__item__title {
+        font-weight: 700;
+        margin-bottom: 3px;
+      }
+      .list__item__description {
+
+      }
+    }
+
+    .list__item__actions {
+
+    }
+  }
+}

@@ -33,6 +33,7 @@ export function createBuilding (currentBase, { id }) {
         return postAsForm('http://localhost:8080/building', { building: id })
             .catch(res => {
                 dispatch(createBuildingFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'))
+                return Promise.reject();
             })
             .then(res => {
                 res.payload.endsAt = Date.now() + 30000;
