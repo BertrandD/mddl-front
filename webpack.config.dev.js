@@ -21,7 +21,7 @@ module.exports = {
         exclude: /node_modules/,
         include: __dirname,
         query: {
-          "presets": ["es2015", "react", "react-hmre"]
+          "presets": ["es2015", "react", "react-hmre", 'stage-2']
         }
       },
       {
