@@ -10,15 +10,12 @@ class TopMenu extends Component {
 
     constructor(props) {
         super(props);
-        this.props.actions.fetchAuthentication()
-            .then(() => {
-                this.props.actions.fetchPlayer().then(() => {
-                    this.props.actions.fetchMyBases()
-                })
-            });
     }
 
     render() {
+        const currentPlayer = this.props.entities.players[this.props.currentPlayer.id];
+        const currentBase = this.props.entities.bases[this.props.currentBase.id];
+
         return (
             <div className="top-menu">
                 <div>
@@ -29,11 +26,11 @@ class TopMenu extends Component {
                 </div>
                 <div>
                      <Link to="/base">
-                         Active base : { this.props.base.name ? this.props.base.name : 'No base selected' }
+                         Active base : { currentBase ? currentBase.name : 'No base selected' }
                      </Link>
                     <a>
                         <i className="fa fa-user"/>
-                        <span className="font-bold">{ this.props.player.name }</span>
+                        <span className="font-bold">{ currentPlayer ? currentPlayer.name : 'No player active' }</span>
                     </a>
                     <a>
                         <i className="fa fa-lock"/>
@@ -56,12 +53,12 @@ class TopMenu extends Component {
     }
 }
 
-function mapStateToProps({ user, player, base }) {
-    return {user, player, base};
+function mapStateToProps({ user, entities, currentPlayer, currentBase }) {
+    return {user, entities, currentPlayer, currentBase};
 }
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer }, dispatch)}
+    return {actions: bindActionCreators({ }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopMenu);

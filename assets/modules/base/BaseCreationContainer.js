@@ -10,14 +10,15 @@ class BaseCreationContainer extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.props.base.createSuccess = false;
     }
 
     render() {
-        if (this.props.base.createSuccess ) {
+        const currentBase = this.props.entities.bases[this.props.currentBase.id];
+        const currentPlayer = this.props.entities.players[this.props.currentPlayer.id];
+        if (currentBase) {
             return (
                 <div>
-                    Congratulations ! You just created the base <strong>{ this.props.base.name }</strong> !
+                    Congratulations ! You just created the base <strong>{ currentBase.name }</strong> !
                     <Link to="/"> Go to home </Link>
                 </div>
             )
@@ -25,15 +26,15 @@ class BaseCreationContainer extends Component {
         return (
             <div>
                 Create a base ?
-                <BaseCreation base={this.props.base} player={this.props.player} onSubmit={this.props.actions.createBase} />
+                <BaseCreation player={currentPlayer} onSubmit={this.props.actions.createBase} />
             </div>
         );
 
     }
 }
 
-function mapStateToProps({ base, player }) {
-    return { base, player };
+function mapStateToProps({ currentBase, currentPlayer, entities }) {
+    return { currentBase, currentPlayer, entities };
 }
 
 function mapDispatchToProps(dispatch) {

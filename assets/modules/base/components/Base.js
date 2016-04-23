@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Timer from '../../core/components/Timer'
+import map from 'lodash/map'
 
 class Base extends Component {
 
@@ -80,14 +81,26 @@ class Base extends Component {
 
                 <h4>Available buildings : </h4>
 
-                { this.props.staticBuildings.map((building, index) => (
-                    <div key={index}>
-                        {building.name}
-                        <button onClick={this.props.onCreateBuilding.bind(this, building)}>Build</button>
-                    </div>
-                ))}
-
-
+                <div className="list">
+                    { map(this.props.staticBuildings, (building, index) => (
+                        <div key={index} className="list__item">
+                            <div className="list__item__image">
+                                <img src="http://placehold.it/80x80" alt={building.name}/>
+                            </div>
+                            <div className="list__item__body">
+                                <div className="list__item__title">
+                                    {building.name}
+                                </div>
+                                <div className="list__item__description">
+                                    {building.description}
+                                </div>
+                            </div>
+                            <div className="list__item__actions">
+                                <button onClick={this.props.onCreateBuilding.bind(this, building)}>Build</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         )
     }
@@ -96,7 +109,7 @@ class Base extends Component {
 Base.propTypes = {
     base: PropTypes.object.isRequired,
     onCreateBuilding: PropTypes.func.isRequired,
-    staticBuildings: PropTypes.array.isRequired
+    staticBuildings: PropTypes.object.isRequired
 };
 
 export default Base;

@@ -2,19 +2,14 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, bindActionCreators } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
-
-const logger = store => next => action => {
-  console.groupCollapsed(action.type);
-  console.info('dispatching', action);
-  let result = next(action);
-  console.log('next state', store.getState());
-  console.groupEnd(action.type);
-  return result
-};
+import { fetchAuthentication } from './modules/auth/actions/loginActions'
+import { fetchPlayer } from './modules/player/actions/playerActions'
+import { fetchMyBases } from './modules/base/actions/baseActions'
 
 function configureStore(initialState = {}) {
 
@@ -23,14 +18,17 @@ function configureStore(initialState = {}) {
       token: localStorage.token
     }
   }
+  const logger = createLogger({
+    collapsed: true
+  });
 
   const store = createStore(
     rootReducer,
     initialState,
     applyMiddleware(
       thunkMiddleware,
-      logger,
-      routerMiddleware(browserHistory)
+      routerMiddleware(browserHistory),
+      logger
     )
   );
 
@@ -47,6 +45,15 @@ function configureStore(initialState = {}) {
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
+
+const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer }, store.dispatch);
+
+actions.fetchAuthentication()
+  .then(() => {
+    actions.fetchPlayer().then(() => {
+      actions.fetchMyBases()
+    })
+  });
 
 function requireAuth(nextState, replace) {
   if (!store.getState().user.token) {

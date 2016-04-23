@@ -25,7 +25,6 @@ class PlayerCreation extends Component {
                 <button type="submit">
                     Create player
                 </button>
-                { this.props.player.error }
             </form>
         )
     }
