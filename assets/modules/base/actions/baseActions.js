@@ -44,7 +44,7 @@ export function createBase ({ baseName, player }) {
     return dispatch => {
         return postAsForm('http://localhost:8080/base', { name: baseName, player })
             .then(res => {
-                dispatch(createBaseSuccess(normalize(res.payload, base)));
+                dispatch(createBaseSuccess(normalize(res.payload, base).entities.bases));
                 dispatch(selectBase(res.payload));
             })
             .catch(res => {
@@ -60,7 +60,7 @@ export function fetchMyBases () {
                 if (res.payload && res.payload.length === 0) {
                     dispatch(push('/create/base'));
                 } else {
-                    dispatch(fetchBaseSuccess(normalize(res.payload, arrayOf(base))));
+                    dispatch(fetchBaseSuccess(normalize(res.payload, arrayOf(base)).entities.bases));
                     dispatch(selectBase(res.payload[0])); // FIXME select currentBase
                     dispatch(fetchBase(res.payload[0])); // FIXME move it ?
                 }
@@ -75,7 +75,7 @@ export function fetchBase ({ id }) {
     return dispatch => {
         return fetch('http://localhost:8080/me/base/' + id)
             .then(res => {
-                dispatch(fetchBaseSuccess(normalize(res.payload, base)));
+                dispatch(fetchBaseSuccess(normalize(res.payload, base).entities.bases));
             })
             .catch(res => {
                 dispatch(fetchBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));

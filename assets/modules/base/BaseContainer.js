@@ -30,7 +30,7 @@ class BaseContainer extends Component {
         }
         return (
             <div>
-                <Base onCreateBuilding={this.props.actions.createBuilding} staticBuildings={this.props.entities.staticBuildings} base={currentBase} />
+                <Base onCreateBuilding={this.props.actions.createBuilding.bind(this, currentBase)} staticBuildings={this.props.entities.staticBuildings} base={currentBase} />
             </div>
         );
 

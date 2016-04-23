@@ -23,7 +23,7 @@ export function fetchBuildings () {
         return fetch('http://localhost:8080/building_static/')
             .then(res => {
                 try {
-                    dispatch(fetchBuildingsSuccess(normalize(res.payload, arrayOf(staticBuilding))));
+                    dispatch(fetchBuildingsSuccess(normalize(res.payload, arrayOf(staticBuilding)).entities.staticBuildings));
                 } catch (e) {
                     console.error(e);
                 }

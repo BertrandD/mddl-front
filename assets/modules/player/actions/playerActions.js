@@ -45,7 +45,7 @@ export function createPlayer ({ playerName }) {
     return dispatch => {
         return postAsForm('http://localhost:8080/player', { name: playerName })
             .then(res => {
-                dispatch(createPlayerSuccess(normalize(res.payload, player)))
+                dispatch(createPlayerSuccess(normalize(res.payload, player).entities.players))
                 dispatch(selectPlayer(res.payload))
             })
             .catch(res => {
@@ -67,7 +67,7 @@ export function fetchPlayer () {
                     dispatch(push('/create/player'));
                     return Promise.reject();
                 } else {
-                    dispatch(fetchPlayerSuccess(normalize(res.payload, arrayOf(player))));
+                    dispatch(fetchPlayerSuccess(normalize(res.payload, arrayOf(player)).entities.players));
                     dispatch(selectPlayer(res.payload[0])); // FIXME : selecect currentPlayer
                 }
             })

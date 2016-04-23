@@ -19,6 +19,12 @@ export function bases(state = {}, action) {
         case CREATE_BASE_SUCCESS:
         case FETCH_BASE_SUCCESS:
             return Object.assign({}, state, action.payload);
+        case CREATE_BUILDING_START:
+        case CREATE_BUILDING_END:
+            return {
+                ...state,
+                [action.payload.base.id]: base(state[action.payload.base.id], action)
+            };
         default:
             return state;
     }
@@ -32,19 +38,19 @@ function base (state = {
         case CREATE_BUILDING_START:
             return Object.assign({}, state, {
                 buildingQueue: [
-                    ...state.buildingQueue,
-                    action.payload
+                    ...state.buildingQueue ? state.buildingQueue : [],
+                    action.payload.building
                 ]
             });
         case CREATE_BUILDING_END:
             return Object.assign({}, state, {
                 buildingQueue: state.buildingQueue.filter((building) => {
-                    return building.id !== action.payload.id
+                    return building.id !== action.payload.building.id
                 }),
                 buildings: [
                     ...state.buildings,
-                    Object.assign({}, action.payload, {
-                        currentLevel: action.payload.currentLevel+1
+                    Object.assign({}, action.payload.building, {
+                        currentLevel: action.payload.building.currentLevel+1
                     })
                 ]
             });

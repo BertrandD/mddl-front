@@ -33,8 +33,7 @@ class BaseCreation extends Component {
 
 BaseCreation.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    player: PropTypes.object.isRequired,
-    base: PropTypes.object.isRequired
+    player: PropTypes.object.isRequired
 };
 
 export default BaseCreation;
