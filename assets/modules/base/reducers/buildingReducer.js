@@ -24,11 +24,18 @@ export function buildings(state = {}, action) {
 
 export function building (state = {}, action) {
     switch (action.type) {
-        case BuldingsActions.UPGRADE_BUILDING_START:
         case BuldingsActions.CREATE_BUILDING_END:
             return Object.assign({}, state, action.payload.building);
+        case BuldingsActions.UPGRADE_BUILDING_START:
+            return Object.assign({}, state, {
+                queue: action.meta.queue,
+                endsAt: action.meta.queue[action.meta.queue.length - 1].endsAt
+            });
         case BuldingsActions.UPGRADE_BUILDING_END:
             return Object.assign({}, state, {
+                queue: [
+                    ...state.queue ? state.queue.slice(1) : []
+                ],
                 endsAt: 0,
                 currentLevel: state.currentLevel + 1
             });

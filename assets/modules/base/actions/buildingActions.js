@@ -29,12 +29,15 @@ export function createBuildingEnd (base, building) {
     }
 }
 
-function upgradeBuildingStart (base, building) {
+function upgradeBuildingStart (base, building, queue) {
     return {
         type: UPGRADE_BUILDING_START,
         payload: {
             base,
             building
+        },
+        meta: {
+            queue
         }
     }
 }
@@ -80,11 +83,47 @@ export function upgradeBuilding (currentBase, { id }) {
                 return Promise.reject();
             })
             .then(res => {
-                setTimeout(() => {
-                    dispatch(upgradeBuildingEnd(currentBase, Object.assign({}, res.payload)));
-                }, res.payload.endsAt - Date.now());
 
-                dispatch(upgradeBuildingStart(currentBase, res.payload));
+                if (res.meta.queue.length === 1 ) {
+                    dispatch(
+                        addEvent(
+                            Date.now(),
+                            res.meta.queue[0].endsAt,
+                            upgradeBuildingStart(currentBase, res.payload, res.meta.queue),
+                            upgradeBuildingEnd(currentBase, res.payload)
+                        )
+                    );
+                } else { //res.meta.queue.length >= 2
+                    dispatch(
+                        addEvent(
+                            res.meta.queue[res.meta.queue.length - 2].endsAt+1,
+                            res.meta.queue[res.meta.queue.length - 1].endsAt,
+                            upgradeBuildingStart(currentBase, res.payload, res.meta.queue),
+                            upgradeBuildingEnd(currentBase, res.payload)
+                        )
+                    );
+                }
             })
+    }
+}
+
+function addEvent(start, endsAt, actionStart, actionEnd) {
+    return dispatch => {
+        setTimeout(() => {
+            setTimeout(() => {
+                dispatch(actionEnd);
+            }, endsAt - Date.now());
+            dispatch(actionStart);
+        }, start - Date.now());
+
+        return {
+            type: 'ADD_EVENT',
+            payload: {
+                start,
+                endsAt,
+                actionStart,
+                actionEnd
+            }
+        }
     }
 }
