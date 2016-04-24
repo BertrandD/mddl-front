@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Timer from '../../core/components/Timer'
+import ProgressBar from '../../core/components/ProgressBar'
 import map from 'lodash/map'
 import filter from 'lodash/filter'
 import reduce from 'lodash/reduce'
@@ -42,8 +43,11 @@ class Base extends Component {
                             <td>
                                 { building.endsAt > 0 && (
                                     <span>
-                                        {building.currentLevel} --> {building.currentLevel + 1}
-                                        <Timer end={building.endsAt} />
+                                        <ProgressBar id={building.id} text={
+                                        <span>
+                                            {building.currentLevel} --> {building.currentLevel + 1}
+                                        </span>
+                                        } start={building.startedAt} end={building.endsAt}/>
                                     </span>
                                 ) || building.currentLevel}
                                 {building.queue && building.queue.map(event => {

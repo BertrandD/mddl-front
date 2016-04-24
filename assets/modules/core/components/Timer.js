@@ -27,7 +27,7 @@ class Timer extends Component {
 
         const seconds = (this.state.left / 1000).toFixed(0);
 
-        return (<p>Time left : <b>{seconds}</b></p>);
+        return (<span>{seconds}</span>);
     }
 }
 

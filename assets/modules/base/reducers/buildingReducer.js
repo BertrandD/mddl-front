@@ -8,7 +8,9 @@ export function buildings(state = {}, action) {
         case BuldingsActions.CREATE_BUILDING_START:
             return Object.assign({}, state, {
                 ...state,
-                [action.payload.building.id]: action.payload.building
+                [action.payload.building.id]: Object.assign({}, action.payload.building, {
+                    startedAt: /*action.payload.building.startedAt*/ Date.now() // FIXME
+                })
             });
         case BuldingsActions.CREATE_BUILDING_END:
         case BuldingsActions.UPGRADE_BUILDING_START:
@@ -26,7 +28,10 @@ export function buildings(state = {}, action) {
 export function building (state = {}, action) {
     switch (action.type) {
         case BuldingsActions.CREATE_BUILDING_END:
-            return Object.assign({}, state, action.payload.building);
+            return Object.assign({}, state, action.payload.building, {
+                endsAt: 0,
+                startedAt: 0
+            });
         case BuldingsActions.UPGRADE_BUILDING_WAIT:
             return Object.assign({}, state, {
                 queue: [
@@ -36,7 +41,8 @@ export function building (state = {}, action) {
             });
         case BuldingsActions.UPGRADE_BUILDING_START:
             return Object.assign({}, state, {
-                endsAt: action.meta.queue[action.meta.queue.length - 1].endsAt
+                endsAt: action.meta.queue[action.meta.queue.length - 1].endsAt,
+                startedAt: /*action.payload.building.startedAt*/ Date.now() // FIXME
             });
         case BuldingsActions.UPGRADE_BUILDING_END:
             return Object.assign({}, state, {
@@ -44,6 +50,7 @@ export function building (state = {}, action) {
                     ...state.queue ? state.queue.slice(1) : []
                 ],
                 endsAt: 0,
+                startedAt: 0,
                 currentLevel: state.currentLevel + 1
             });
         default:
