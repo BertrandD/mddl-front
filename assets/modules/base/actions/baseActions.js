@@ -3,6 +3,7 @@ import { postAsForm, fetch } from '../../../utils/post-as-form'
 import { push } from 'react-router-redux'
 import { normalize, arrayOf } from 'normalizr'
 import { base } from '../../../schema/schemas.js'
+import { upgradeBuildingEnd, createBuildingEnd } from './buildingActions'
 
 function fetchBaseSuccess (base) {
     return {
@@ -32,11 +33,31 @@ function createBaseFailure (message) {
     }
 }
 
+const threads = [];
 
 export function selectBase (base) {
-    return {
-        type: SELECT_BASE,
-        payload: base
+    return dispatch => {
+
+        threads.forEach((thread) => {
+            clearTimeout(thread);
+        });
+
+        base.buildingQueue.forEach((building) => {
+            if (building.endsAt > 0) {
+                threads.push(setTimeout(() => {
+                    if (building.currentLevel === 0) {
+                        dispatch(createBuildingEnd(base, building));
+                    } else {
+                        dispatch(upgradeBuildingEnd(base, building));
+                    }
+                }, building.endsAt - Date.now()));
+            }
+        });
+
+        dispatch({
+            type: SELECT_BASE,
+            payload: base
+        });
     }
 }
 
@@ -61,7 +82,11 @@ export function fetchMyBases () {
                     dispatch(push('/create/base'));
                 } else {
                     dispatch(fetchBaseSuccess(normalize(res.payload, arrayOf(base)).entities.bases));
-                    dispatch(selectBase(res.payload[0])); // FIXME select currentBase
+                    try {
+                        dispatch(selectBase(res.payload[0])); // FIXME select currentBase
+                    } catch(e) {
+                        console.error(e);
+                    }
                     dispatch(fetchBase(res.payload[0])); // FIXME move it ?
                 }
             })

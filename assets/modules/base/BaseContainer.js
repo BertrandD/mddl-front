@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createBase } from './actions/baseActions';
 import { fetchBase } from './actions/baseActions';
-import { createBuilding } from './actions/buildingActions';
+import { createBuilding, upgradeBuilding } from './actions/buildingActions';
 import { fetchBuildings } from '../static/actions/staticActions'
 import { Link } from 'react-router';
 
@@ -30,7 +30,9 @@ class BaseContainer extends Component {
         }
         return (
             <div>
-                <Base onCreateBuilding={this.props.actions.createBuilding.bind(this, currentBase)} staticBuildings={this.props.entities.staticBuildings} base={currentBase} />
+                <Base onCreateBuilding={this.props.actions.createBuilding.bind(this, currentBase)}
+                      onUpgradeBuilding={this.props.actions.upgradeBuilding.bind(this, currentBase)}
+                      staticBuildings={this.props.entities.staticBuildings} base={currentBase} />
             </div>
         );
 
@@ -42,7 +44,7 @@ function mapStateToProps({ currentBase, currentPlayer, entities }) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ createBase, fetchBuildings, createBuilding, fetchBase }, dispatch)}
+    return {actions: bindActionCreators({ createBase, fetchBuildings, createBuilding, upgradeBuilding, fetchBase }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BaseContainer);

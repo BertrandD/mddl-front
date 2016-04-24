@@ -22,7 +22,7 @@ export function fetch (url, data) {
         })
 }
 
-export function postAsForm(url, data) {
+export function postAsForm(url, data = {}) {
     var response;
     try {
         //safe clone of data

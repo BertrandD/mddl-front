@@ -41,7 +41,7 @@ class Base extends Component {
                             {building.currentLevel}
                         </td>
                         <td>
-                            <button disabled>Upgrade</button>
+                            <button onClick={this.props.onUpgradeBuilding.bind(this, building)}>Upgrade</button>
                         </td>
                     </tr>
                 ))}
@@ -122,6 +122,7 @@ class Base extends Component {
 Base.propTypes = {
     base: PropTypes.object.isRequired,
     onCreateBuilding: PropTypes.func.isRequired,
+    onUpgradeBuilding: PropTypes.func.isRequired,
     staticBuildings: PropTypes.object.isRequired
 };
 
