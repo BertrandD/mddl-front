@@ -16,8 +16,6 @@ class Base extends Component {
             result.push(building.buildingId);
             return result;
         }, []);
-        console.log([...this.props.base.buildings, this.props.base.buildingQueue]);
-        console.log(buildingIds);
         return filter(this.props.staticBuildings, (staticBuilding) => {
             return !buildingIds.some((buildingId) => buildingId === staticBuilding.id)
         })
