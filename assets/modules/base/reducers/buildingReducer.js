@@ -13,6 +13,7 @@ export function buildings(state = {}, action) {
         case BuldingsActions.CREATE_BUILDING_END:
         case BuldingsActions.UPGRADE_BUILDING_START:
         case BuldingsActions.UPGRADE_BUILDING_END:
+        case BuldingsActions.UPGRADE_BUILDING_WAIT:
             return {
                 ...state,
                 [action.payload.building.id]: building(state[action.payload.building.id], action)
@@ -26,9 +27,15 @@ export function building (state = {}, action) {
     switch (action.type) {
         case BuldingsActions.CREATE_BUILDING_END:
             return Object.assign({}, state, action.payload.building);
+        case BuldingsActions.UPGRADE_BUILDING_WAIT:
+            return Object.assign({}, state, {
+                queue: [
+                    ...state.queue ? state.queue : [],
+                    action.meta.event
+                ]
+            });
         case BuldingsActions.UPGRADE_BUILDING_START:
             return Object.assign({}, state, {
-                queue: action.meta.queue,
                 endsAt: action.meta.queue[action.meta.queue.length - 1].endsAt
             });
         case BuldingsActions.UPGRADE_BUILDING_END:

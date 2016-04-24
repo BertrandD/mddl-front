@@ -1,4 +1,4 @@
-import { CREATE_BUILDING_START, CREATE_BUILDING_END, CREATE_BUILDING_FAILURE, UPGRADE_BUILDING_END, UPGRADE_BUILDING_FAILURE, UPGRADE_BUILDING_START } from './BuildingActionTypes';
+import { UPGRADE_BUILDING_WAIT, CREATE_BUILDING_START, CREATE_BUILDING_END, CREATE_BUILDING_FAILURE, UPGRADE_BUILDING_END, UPGRADE_BUILDING_FAILURE, UPGRADE_BUILDING_START } from './BuildingActionTypes';
 import { postAsForm, fetch } from '../../../utils/post-as-form'
 import config from '../../../config'
 
@@ -46,6 +46,19 @@ function upgradeBuildingFailure (message) {
     return {
         type: UPGRADE_BUILDING_FAILURE,
         payload: message
+    }
+}
+
+function upgradeBuildingWait (base, building, event) {
+    return {
+        type: UPGRADE_BUILDING_WAIT,
+        payload: {
+            base,
+            building
+        },
+        meta: {
+            event
+        }
     }
 }
 
@@ -102,6 +115,7 @@ export function upgradeBuilding (currentBase, { id }) {
                             upgradeBuildingEnd(currentBase, res.payload)
                         )
                     );
+                    dispatch(upgradeBuildingWait(currentBase, res.payload, res.meta.queue[res.meta.queue.length - 1]))
                 }
             })
     }

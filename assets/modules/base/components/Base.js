@@ -46,6 +46,13 @@ class Base extends Component {
                                         <Timer end={building.endsAt} />
                                     </span>
                                 ) || building.currentLevel}
+                                {building.queue && building.queue.map(event => {
+                                    return (
+                                        <span key={event.id}>
+                                            --> {event.level}
+                                        </span>
+                                    );
+                                })}
                             </td>
                             <td>
                                 <button onClick={this.props.onUpgradeBuilding.bind(this, building)}>Upgrade</button>
