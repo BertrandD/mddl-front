@@ -64,12 +64,9 @@ export function createBuilding (currentBase, { id }) {
                 return Promise.reject();
             })
             .then(res => {
-                res.payload.endsAt = Date.now() + 30000;
-
                 setTimeout(() => {
                     dispatch(createBuildingEnd(currentBase, res.payload));
-                }, res.payload.buildTime || 30000);
-
+                }, res.payload.endsAt - Date.now());
                 dispatch(createBuildingStart(currentBase, res.payload));
             })
     }
@@ -83,11 +80,9 @@ export function upgradeBuilding (currentBase, { id }) {
                 return Promise.reject();
             })
             .then(res => {
-                res.payload.endsAt = Date.now() + 30000;
-
                 setTimeout(() => {
-                    dispatch(upgradeBuildingEnd(currentBase, res.payload));
-                }, res.payload.buildTime || 30000);
+                    dispatch(upgradeBuildingEnd(currentBase, Object.assign({}, res.payload)));
+                }, res.payload.endsAt - Date.now());
 
                 dispatch(upgradeBuildingStart(currentBase, res.payload));
             })

@@ -32,7 +32,9 @@ class BaseContainer extends Component {
             <div>
                 <Base onCreateBuilding={this.props.actions.createBuilding.bind(this, currentBase)}
                       onUpgradeBuilding={this.props.actions.upgradeBuilding.bind(this, currentBase)}
-                      staticBuildings={this.props.entities.staticBuildings} base={currentBase} />
+                      staticBuildings={this.props.entities.staticBuildings}
+                      buildings={this.props.entities.buildings}
+                      base={currentBase} />
             </div>
         );
 

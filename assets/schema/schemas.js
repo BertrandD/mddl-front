@@ -4,8 +4,13 @@ export const staticBuilding = new Schema('staticBuildings');
 export const user = new Schema('users');
 export const player = new Schema('players');
 export const base = new Schema('bases');
+export const building = new Schema('buildings');
 
 player.define({
     bases: arrayOf(base),
     currentBase: base
+});
+
+base.define({
+    buildings: arrayOf(building)
 });

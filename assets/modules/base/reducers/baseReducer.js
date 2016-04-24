@@ -18,11 +18,8 @@ export function bases(state = {}, action) {
     switch(action.type) {
         case BaseActions.CREATE_BASE_SUCCESS:
         case BaseActions.FETCH_BASE_SUCCESS:
-            return Object.assign({}, state, action.payload);
+            return Object.assign({}, state, action.payload.bases);
         case BuldingsActions.CREATE_BUILDING_START:
-        case BuldingsActions.CREATE_BUILDING_END:
-        case BuldingsActions.UPGRADE_BUILDING_START:
-        case BuldingsActions.UPGRADE_BUILDING_END:
             return {
                 ...state,
                 [action.payload.base.id]: base(state[action.payload.base.id], action)
@@ -33,36 +30,14 @@ export function bases(state = {}, action) {
 }
 
 function base (state = {
-    buildings: [], 
-    buildingQueue: []
+    buildings: []
 }, action) {
     switch (action.type) {
-        case BuldingsActions.UPGRADE_BUILDING_START:
-            return Object.assign({}, state, {
-                buildings: state.buildings.filter((building) => building.id !== action.payload.building.id),
-                buildingQueue: [
-                    ...state.buildingQueue ? state.buildingQueue : [],
-                    action.payload.building
-                ]
-            });
         case BuldingsActions.CREATE_BUILDING_START:
             return Object.assign({}, state, {
-                buildingQueue: [
-                    ...state.buildingQueue ? state.buildingQueue : [],
-                    action.payload.building
-                ]
-            });
-        case BuldingsActions.CREATE_BUILDING_END:
-        case BuldingsActions.UPGRADE_BUILDING_END:
-            return Object.assign({}, state, {
-                buildingQueue: state.buildingQueue.filter((building) => {
-                    return building.id !== action.payload.building.id
-                }),
                 buildings: [
                     ...state.buildings,
-                    Object.assign({}, action.payload.building, {
-                        currentLevel: action.payload.building.currentLevel+1
-                    })
+                    action.payload.building.id
                 ]
             });
         default:

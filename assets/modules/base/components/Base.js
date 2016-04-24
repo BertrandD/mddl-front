@@ -12,8 +12,8 @@ class Base extends Component {
 
     getAvailableBuildings () {
 
-        const buildingIds = reduce([...this.props.base.buildings, ...this.props.base.buildingQueue], (result, building) => {
-            result.push(building.buildingId);
+        const buildingIds = reduce([...this.props.base.buildings], (result, id) => {
+            result.push(this.props.buildings[id].buildingId);
             return result;
         }, []);
         return filter(this.props.staticBuildings, (staticBuilding) => {
@@ -32,48 +32,27 @@ class Base extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                { this.props.base.buildings.map((building, index) => (
-                    <tr key={index}>
-                        <td>
-                            {building.buildingId}
-                        </td>
-                        <td>
-                            {building.currentLevel}
-                        </td>
-                        <td>
-                            <button onClick={this.props.onUpgradeBuilding.bind(this, building)}>Upgrade</button>
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-        )
-    }
-
-    renderBuildingQueue () {
-        return (
-            <table>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Level</th>
-                    <th>Time left</th>
-                </tr>
-                </thead>
-                <tbody>
-                { this.props.base.buildingQueue.map((building, index) => (
-                    <tr key={index}>
-                        <td>
-                            {building.buildingId}
-                        </td>
-                        <td>
-                            {building.currentLevel} --> {building.currentLevel + 1}
-                        </td>
-                        <td>
-                            <Timer end={building.endsAt}/>
-                        </td>
-                    </tr>
-                ))}
+                { this.props.base.buildings.map((id, index) =>  {
+                    const building = this.props.buildings[id];
+                    return (
+                        <tr key={index}>
+                            <td>
+                                {this.props.staticBuildings[building.buildingId].name}
+                            </td>
+                            <td>
+                                { building.endsAt > 0 && (
+                                    <span>
+                                        {building.currentLevel} --> {building.currentLevel + 1}
+                                        <Timer end={building.endsAt} />
+                                    </span>
+                                ) || building.currentLevel}
+                            </td>
+                            <td>
+                                <button onClick={this.props.onUpgradeBuilding.bind(this, building)}>Upgrade</button>
+                            </td>
+                        </tr>
+                    )
+                })}
                 </tbody>
             </table>
         )
@@ -87,10 +66,6 @@ class Base extends Component {
                 <h4>Buildings : </h4>
 
                 { this.props.base.buildings && this.props.base.buildings.length > 0 ? this.renderBuildings() : 'No buildings' }
-
-                <h4>Building Queue : </h4>
-
-                { this.props.base.buildingQueue && this.props.base.buildingQueue.length > 0 ? this.renderBuildingQueue() : 'No buildings' }
 
                 <h4>Available buildings : </h4>
 
@@ -121,6 +96,7 @@ class Base extends Component {
 
 Base.propTypes = {
     base: PropTypes.object.isRequired,
+    buildings: PropTypes.object.isRequired,
     onCreateBuilding: PropTypes.func.isRequired,
     onUpgradeBuilding: PropTypes.func.isRequired,
     staticBuildings: PropTypes.object.isRequired

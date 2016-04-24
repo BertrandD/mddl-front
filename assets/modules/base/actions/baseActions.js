@@ -43,7 +43,7 @@ export function selectBase (base) {
             clearTimeout(thread);
         });
 
-        base.buildingQueue.forEach((building) => {
+        base.buildings.forEach((building) => {
             if (building.endsAt > 0) {
                 threads.push(setTimeout(() => {
                     if (building.currentLevel === 0) {
@@ -66,7 +66,7 @@ export function createBase ({ baseName, player }) {
     return dispatch => {
         return postAsForm(config.api.url + '/base', { name: baseName, player })
             .then(res => {
-                dispatch(createBaseSuccess(normalize(res.payload, base).entities.bases));
+                dispatch(createBaseSuccess(normalize(res.payload, base).entities));
                 dispatch(selectBase(res.payload));
             })
             .catch(res => {
@@ -82,7 +82,7 @@ export function fetchMyBases () {
                 if (res.payload && res.payload.length === 0) {
                     dispatch(push('/create/base'));
                 } else {
-                    dispatch(fetchBaseSuccess(normalize(res.payload, arrayOf(base)).entities.bases));
+                    dispatch(fetchBaseSuccess(normalize(res.payload, arrayOf(base)).entities));
                     try {
                         dispatch(selectBase(res.payload[0])); // FIXME select currentBase
                     } catch(e) {
@@ -101,7 +101,7 @@ export function fetchBase ({ id }) {
     return dispatch => {
         return fetch(config.api.url + '/me/base/' + id)
             .then(res => {
-                dispatch(fetchBaseSuccess(normalize(res.payload, base).entities.bases));
+                dispatch(fetchBaseSuccess(normalize(res.payload, base).entities));
             })
             .catch(res => {
                 dispatch(fetchBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
