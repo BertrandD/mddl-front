@@ -1,4 +1,6 @@
-/dist
+/src/dist
 .idea
 /npm-debug.log
 node_modules
+/src/config.js
+/dist

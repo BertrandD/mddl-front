@@ -11,9 +11,11 @@ var app = express();
 app.set('env', config.app.env);
 app.use(express.static(path.join(__dirname, '../dist')));
 
-const compiler = webpack(webpackConfig);
-app.use(webpackDevMiddleware(compiler, { noInfo: false, publicPath: webpackConfig.output.publicPath }));
-app.use(webpackHotMiddleware(compiler));
+if (config.app.env === 'dev') {
+  const compiler = webpack(webpackConfig);
+  app.use(webpackDevMiddleware(compiler, { noInfo: false, publicPath: webpackConfig.output.publicPath }));
+  app.use(webpackHotMiddleware(compiler));
+}
 
 const statusController = require('./status');
 const versionController = require('./version');
@@ -25,6 +27,7 @@ app.use('/version', versionController);
 app.use('/about/me', aboutMeController);
 app.use('/', rootController);
 
+app.use('/dist', express.static(__dirname + '/../dist'));
 
 // ## ERROR HANDLING
 

@@ -4,10 +4,11 @@ var argv = require('yargs').argv;
 
 module.exports = {
   entry: [
-    './assets'
+    './assets',
+    './scss/index'
   ],
   output: {
-    path: path.join(__dirname, 'src/Wizbii/AdManagerBundle/Resources/public'),
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
   },
   module: {
@@ -23,8 +24,15 @@ module.exports = {
             'stage-2'
           ]
         }
+      },
+      {
+        test: /\.scss$/,
+        loaders: ["style", "css?sourceMap", "sass?sourceMap"]
       }
-    ]
+    ],
+    sassLoader: {
+      includePaths: [path.resolve(__dirname, "./scss")]
+    }
   },
   plugins: [
     new webpack.DefinePlugin({
