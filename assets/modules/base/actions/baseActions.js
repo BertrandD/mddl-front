@@ -4,6 +4,7 @@ import { push } from 'react-router-redux'
 import { normalize, arrayOf } from 'normalizr'
 import { base } from '../../../schema/schemas.js'
 import { upgradeBuildingEnd, createBuildingEnd } from './buildingActions'
+import config from '../../../config'
 
 function fetchBaseSuccess (base) {
     return {
@@ -63,7 +64,7 @@ export function selectBase (base) {
 
 export function createBase ({ baseName, player }) {
     return dispatch => {
-        return postAsForm('http://localhost:8080/base', { name: baseName, player })
+        return postAsForm(config.api.url + '/base', { name: baseName, player })
             .then(res => {
                 dispatch(createBaseSuccess(normalize(res.payload, base).entities.bases));
                 dispatch(selectBase(res.payload));
@@ -76,7 +77,7 @@ export function createBase ({ baseName, player }) {
 
 export function fetchMyBases () {
     return dispatch => {
-        return fetch('http://localhost:8080/me/base')
+        return fetch(config.api.url + '/me/base')
             .then(res => {
                 if (res.payload && res.payload.length === 0) {
                     dispatch(push('/create/base'));
@@ -98,7 +99,7 @@ export function fetchMyBases () {
 
 export function fetchBase ({ id }) {
     return dispatch => {
-        return fetch('http://localhost:8080/me/base/' + id)
+        return fetch(config.api.url + '/me/base/' + id)
             .then(res => {
                 dispatch(fetchBaseSuccess(normalize(res.payload, base).entities.bases));
             })

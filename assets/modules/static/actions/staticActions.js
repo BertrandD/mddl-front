@@ -2,6 +2,7 @@ import { FETCH_BUILDINGS_SUCCESS, FETCH_BUILDINGS_FAILURE } from './StaticAction
 import { postAsForm, fetch } from '../../../utils/post-as-form'
 import { normalize, arrayOf } from 'normalizr'
 import { staticBuilding } from '../../../schema/schemas.js'
+import config from '../../../config'
 
 
 function fetchBuildingsSuccess (buildings) {
@@ -20,7 +21,7 @@ function fetchBuildingsFailure (message) {
 
 export function fetchBuildings () {
     return dispatch => {
-        return fetch('http://localhost:8080/building_static/')
+        return fetch(config.api.url + '/building_static/')
             .then(res => {
                 try {
                     dispatch(fetchBuildingsSuccess(normalize(res.payload, arrayOf(staticBuilding)).entities.staticBuildings));

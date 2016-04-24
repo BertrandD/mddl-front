@@ -3,6 +3,7 @@ import { push } from 'react-router-redux'
 import { postAsForm, fetch } from '../../../utils/post-as-form'
 import { normalize, arrayOf } from 'normalizr'
 import { user } from '../../../schema/schemas.js'
+import config from '../../../config'
 
 function loginSuccess (user) {
   return {
@@ -20,7 +21,7 @@ function loginError (message) {
 
 export function register({ username, password }) {
     return dispatch => {
-        return postAsForm('http://localhost:8080/register', {username, password})
+        return postAsForm(config.api.url + '/register', {username, password})
             .then(res => {
                 dispatch(loginSuccess(res.payload));
                 dispatch(push('/'));
@@ -33,7 +34,7 @@ export function register({ username, password }) {
 
 export function fetchLogin ({ username, password }) {
   return dispatch => {
-    return postAsForm('http://localhost:8080/login', {username, password})
+    return postAsForm(config.api.url + '/login', {username, password})
       .then(res => {
         dispatch(loginSuccess(res.payload));
         dispatch(push('/'));
@@ -46,7 +47,7 @@ export function fetchLogin ({ username, password }) {
 
 export function fetchAuthentication () {
   return dispatch => {
-    return fetch('http://localhost:8080/me')
+    return fetch(config.api.url + '/me')
         .catch(res => {
             dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
             dispatch(push('/login'));

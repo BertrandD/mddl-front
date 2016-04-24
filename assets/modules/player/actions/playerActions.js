@@ -3,6 +3,7 @@ import { postAsForm, fetch } from '../../../utils/post-as-form'
 import { push } from 'react-router-redux'
 import { normalize, arrayOf } from 'normalizr'
 import { player } from '../../../schema/schemas.js'
+import config from '../../../config'
 
 
 function fetchPlayerSuccess (player) {
@@ -43,7 +44,7 @@ export function selectPlayer (player) {
 
 export function createPlayer ({ playerName }) {
     return dispatch => {
-        return postAsForm('http://localhost:8080/player', { name: playerName })
+        return postAsForm(config.api.url + '/player', { name: playerName })
             .then(res => {
                 dispatch(createPlayerSuccess(normalize(res.payload, player).entities.players))
                 dispatch(selectPlayer(res.payload))
@@ -56,7 +57,7 @@ export function createPlayer ({ playerName }) {
 
 export function fetchPlayer () {
     return dispatch => {
-        return fetch('http://localhost:8080/me/player/')
+        return fetch(config.api.url + '/me/player/')
             .catch(res => {
                 dispatch(fetchPlayerFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
                 dispatch(push('/create/player'));

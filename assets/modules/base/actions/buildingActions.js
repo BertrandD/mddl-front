@@ -1,5 +1,6 @@
 import { CREATE_BUILDING_START, CREATE_BUILDING_END, CREATE_BUILDING_FAILURE, UPGRADE_BUILDING_END, UPGRADE_BUILDING_FAILURE, UPGRADE_BUILDING_START } from './BuildingActionTypes';
 import { postAsForm, fetch } from '../../../utils/post-as-form'
+import config from '../../../config'
 
 function createBuildingStart (base, building) {
     return {
@@ -57,7 +58,7 @@ export function upgradeBuildingEnd (base, building) {
 
 export function createBuilding (currentBase, { id }) {
     return dispatch => {
-        return postAsForm('http://localhost:8080/building', { building: id })
+        return postAsForm(config.api.url + '/building', { building: id })
             .catch(res => {
                 dispatch(createBuildingFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'))
                 return Promise.reject();
@@ -76,7 +77,7 @@ export function createBuilding (currentBase, { id }) {
 
 export function upgradeBuilding (currentBase, { id }) {
     return dispatch => {
-        return postAsForm('http://localhost:8080/building/' + id + '/upgrade')
+        return postAsForm(config.api.url + '/building/' + id + '/upgrade')
             .catch(res => {
                 dispatch(upgradeBuildingFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'))
                 return Promise.reject();
