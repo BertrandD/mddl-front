@@ -7,7 +7,7 @@ class Timer extends Component {
         this.state = {
             left: this.props.end - Date.now()
         };
-        setTimeout(this.tick.bind(this), 1000);
+        this.timer = setTimeout(this.tick.bind(this), 1000);
     }
 
     componentWillUnmount() {
