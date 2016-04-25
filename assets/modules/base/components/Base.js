@@ -43,17 +43,16 @@ class Base extends Component {
                             <td>
                                 { building.endsAt > 0 && (
                                     <span>
-                                        <ProgressBar id={building.id} text={
-                                        <span>
-                                            {building.currentLevel} --> {building.currentLevel + 1}
-                                        </span>
-                                        } start={building.startedAt} end={building.endsAt}/>
+                                        {building.currentLevel} <i className="fa fa-arrow-right"> </i> {building.currentLevel + 1}
+                                        <ProgressBar id={building.id} start={building.startedAt} end={building.endsAt} text={(
+                                            <Timer end={building.endsAt}/>
+                                        )}/>
                                     </span>
                                 ) || building.currentLevel}
                                 {building.queue && building.queue.map(event => {
                                     return (
                                         <span key={event.id}>
-                                            --> {event.level}
+                                            &nbsp;<i className="fa fa-arrow-right"> </i> {event.level}
                                         </span>
                                     );
                                 })}
