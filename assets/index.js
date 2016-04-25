@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { createStore, applyMiddleware, bindActionCreators } from 'redux';
+import { createStore, applyMiddleware, compose, bindActionCreators } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger';
@@ -25,11 +25,13 @@ function configureStore(initialState = {}) {
   const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(
-      thunkMiddleware,
-      routerMiddleware(browserHistory),
-      logger
-    )
+    compose(applyMiddleware(
+        thunkMiddleware,
+        routerMiddleware(browserHistory),
+        logger
+    ),
+    window.devToolsExtension ? window.devToolsExtension() : f => f)
+
   );
 
   if (module.hot) {
