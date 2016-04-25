@@ -13,10 +13,6 @@ class BaseContainer extends Component {
 
     constructor(props, context) {
         super(props, context);
-
-        if (!this.props.entities.staticBuildings || Object.keys(this.props.entities.staticBuildings).length === 0) {
-            this.props.actions.fetchBuildings();
-        }
     }
 
     render() {
