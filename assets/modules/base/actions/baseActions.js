@@ -6,6 +6,7 @@ import { base } from '../../../schema/schemas.js'
 import { upgradeBuildingWait, upgradeBuildingStart, upgradeBuildingEnd, createBuildingEnd } from './buildingActions'
 import config from '../../../config'
 import addEvent from '../../../utils/addEvent'
+import forEach from 'lodash/forEach'
 
 function fetchBaseSuccess(base, meta = null) {
     return {
@@ -87,18 +88,29 @@ export function fetchBase({ id }) {
             .then(res => {
                 dispatch(fetchBaseSuccess(normalize(res.payload, base).entities, res.meta));
                 try {
+                    const queue = {};
+
                     res.meta.queue.forEach((event, index) => {
-                        dispatch(
-                            addEvent(
-                                index === 0 ? event.building.startedAt : res.meta.queue[index - 1].endsAt + 1,
-                                event.endsAt,
-                                upgradeBuildingStart(res.payload, event.building, index === 0 ? event.building.startedAt : res.meta.queue[index - 1].endsAt + 1, event.endsAt),
-                                upgradeBuildingEnd(res.payload, event.building)
-                            )
-                        );
-                        if (index >= 1) {
-                            setTimeout(dispatch.bind(null, upgradeBuildingWait(res.payload, event.building, event)), 0);
-                        }
+                        queue[event.building.id] = [
+                            ...queue[event.building.id] ? queue[event.building.id] : [],
+                            event
+                        ]
+                    });
+
+                    forEach(queue, (buildingQueue) => {
+                        buildingQueue.forEach((event, index) => {
+                            dispatch(
+                                addEvent(
+                                    index === 0 ? event.building.startedAt : buildingQueue[index - 1].endsAt + 1,
+                                    event.endsAt,
+                                    upgradeBuildingStart(res.payload, event.building, index === 0 ? event.building.startedAt : buildingQueue[index - 1].endsAt + 1, event.endsAt),
+                                    upgradeBuildingEnd(res.payload, event.building)
+                                )
+                            );
+                            if (index >= 1) {
+                                setTimeout(dispatch.bind(null, upgradeBuildingWait(res.payload, event.building, event)), 0);
+                            }
+                        })
                     })
                 } catch (e) {
                     console.error(e)
