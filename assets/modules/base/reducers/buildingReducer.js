@@ -9,7 +9,7 @@ export function buildings(state = {}, action) {
             return Object.assign({}, state, {
                 ...state,
                 [action.payload.building.id]: Object.assign({}, action.payload.building, {
-                    startedAt: /*action.payload.building.startedAt*/ Date.now() // FIXME
+                    startedAt: action.payload.building.startedAt
                 })
             });
         case BuldingsActions.CREATE_BUILDING_END:
@@ -27,6 +27,13 @@ export function buildings(state = {}, action) {
 
 export function building (state = {}, action) {
     switch (action.type) {
+        case BaseActions.FETCH_BASE_SUCCESS:
+            return Object.assign({}, state, {
+                queue: [
+                    ...state.queue ? state.queue : [],
+                    action.meta.event
+                ]
+            });
         case BuldingsActions.CREATE_BUILDING_END:
             return Object.assign({}, state, action.payload.building, {
                 endsAt: 0,
@@ -41,8 +48,8 @@ export function building (state = {}, action) {
             });
         case BuldingsActions.UPGRADE_BUILDING_START:
             return Object.assign({}, state, {
-                endsAt: action.meta.queue[action.meta.queue.length - 1].endsAt,
-                startedAt: /*action.payload.building.startedAt*/ Date.now() // FIXME
+                endsAt: action.meta.endsAt,
+                startedAt: action.meta.startedAt
             });
         case BuldingsActions.UPGRADE_BUILDING_END:
             return Object.assign({}, state, {
