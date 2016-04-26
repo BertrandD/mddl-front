@@ -5,7 +5,7 @@ class ProgressBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            progress: 0
+            progress: (Date.now() - this.props.start) * 100 / (this.props.end - this.props.start)
         };
     }
 
