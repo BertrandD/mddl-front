@@ -1,0 +1,87 @@
+@import '../../../../scss/variables/variables';
+
+$town-width: 600px;
+$town-height: 600px;
+$cell-size: 125px;
+
+
+.Base {
+
+  #buildings {
+    width: $town-width;
+    height: $town-height;
+    border : 1px solid black;
+    margin: auto;
+    position: relative;
+
+    .cell{
+      position: absolute;
+      content: '0';
+      cursor: pointer;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+      &:hover{
+        background-color: #0ff;
+      }
+
+      .level{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+    }
+
+    .emptyCell{
+      background-color: grey;
+      width: $cell-size;
+      height: $cell-size;
+    }
+
+    #pos1{
+      top: $town-height / 4 - $cell-size / 2;
+      left: $town-width / 4 - $cell-size / 2;
+    }
+
+    #pos2{
+      top: $town-height / 4 - $cell-size / 2;
+      left: $town-width / 2 - $cell-size / 2;
+    }
+
+    #pos3{
+      top: $town-height / 4 - $cell-size / 2;
+      left: $town-width * 3 / 4 - $cell-size / 2;
+    }
+
+    #pos4{
+      top: $town-height / 2 - $cell-size / 2;
+      left: $town-width / 4 - $cell-size / 2;
+    }
+
+    #pos5{
+      top: $town-height / 2 - $cell-size / 2;
+      left: $town-width / 2 - $cell-size / 2;
+    }
+
+    #pos6{
+      top: $town-height / 2 - $cell-size / 2;
+      left: $town-width * 3 / 4 - $cell-size / 2;
+    }
+
+    #pos7{
+      top: $town-height * 3 / 4 - $cell-size / 2;
+      left: $town-width / 4 - $cell-size / 2;
+    }
+
+    #pos8{
+      top: $town-height * 3 / 4 - $cell-size / 2;
+      left: $town-width / 2 - $cell-size / 2;
+    }
+
+    #pos9{
+      top:  $town-height * 3 / 4 - $cell-size / 2;
+      left: $town-width  * 3 / 4 - $cell-size / 2;
+    }
+  }
+}

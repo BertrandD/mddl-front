@@ -5,6 +5,8 @@ import map from 'lodash/map'
 import filter from 'lodash/filter'
 import reduce from 'lodash/reduce'
 
+require('./Base.scss');
+
 class Base extends Component {
 
     constructor(props, context) {
@@ -68,37 +70,29 @@ class Base extends Component {
         )
     }
 
+    renderBaseBuildings () {
+        const cells = [];
+
+        for (var i = 1; i <= 9; i++) {
+            cells.push(
+                <div id="pos{i}"
+                     class="cell emptyCell">
+                </div>
+            );
+        }
+
+        return cells;
+    }
+
     render() {
         return (
-            <div>
-                <h2>Base : { this.props.base.name }</h2>
+            <div className="Base">
+                <h2>{ this.props.base.name }</h2>
 
-                <h4>Buildings : </h4>
-
-                { this.props.base.buildings && this.props.base.buildings.length > 0 ? this.renderBuildings() : 'No buildings' }
-
-                <h4>Available buildings : </h4>
-
-                <div className="list">
-                    { map(this.getAvailableBuildings(), (building, index) => (
-                        <div key={index} className="list__item">
-                            <div className="list__item__image">
-                                <img src="http://placehold.it/80x80" alt={building.name}/>
-                            </div>
-                            <div className="list__item__body">
-                                <div className="list__item__title">
-                                    {building.name}
-                                </div>
-                                <div className="list__item__description">
-                                    {building.description}
-                                </div>
-                            </div>
-                            <div className="list__item__actions">
-                                <button onClick={this.props.onCreateBuilding.bind(this, building)}>Build</button>
-                            </div>
-                        </div>
-                    ))}
+                <div id="buildings">
+                    {this.renderBaseBuildings()}
                 </div>
+
             </div>
         )
     }
