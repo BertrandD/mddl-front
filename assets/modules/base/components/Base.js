@@ -15,17 +15,6 @@ class Base extends Component {
         super(props, context);
     }
 
-    getAvailableBuildings () {
-
-        const buildingIds = reduce([...this.props.base.buildings], (result, id) => {
-            result.push(this.props.buildings[id].buildingId);
-            return result;
-        }, []);
-        return filter(this.props.staticBuildings, (staticBuilding) => {
-            return !buildingIds.some((buildingId) => buildingId === staticBuilding.id)
-        })
-    }
-
     renderBuildings() {
         return (
             <table>
@@ -79,20 +68,35 @@ class Base extends Component {
         map(this.props.base.buildings, (id) => {
             buildings.push(this.props.buildings[id]);
         });
-
-        for (var i = 1; i <= 9; i++) {
+        let building;
+        for (var i = 0; i < 9; i++) {
             if (buildings[i]) {
+                building = buildings[i];
+
                 cells.push(
-                    <div key={i} id={"pos"+i}
-                         onClick={this.props.onSelectCell.bind(null, PopupTypes.BUILDING,  buildings[i])}
+                    <div key={i} id={"pos"+(i+1)}
+                         onClick={this.props.onSelectCell.bind(null, PopupTypes.BUILDING,  building)}
                          className="cell">
                         <img src="http://placehold.it/60x60" />
-                        <div className="level">{buildings[i].currentLevel}</div>
+
+                        { building.endsAt > 0 && (
+                            <div className="level">
+                                {building.currentLevel} <i className="fa fa-arrow-right"> </i> {building.currentLevel + 1}
+                                <ProgressBar id={building.id} start={building.startedAt} end={building.endsAt} text={(
+                                    <Timer end={building.endsAt}/>
+                                )}/>
+                            </div>
+                        ) || (
+                            <div className="level">
+                                {building.currentLevel}
+                            </div>
+                        )}
+
                     </div>
                 )
             } else {
                 cells.push(
-                    <div key={i} id={"pos"+i}
+                    <div key={i} id={"pos"+(i+1)}
                          onClick={this.props.onSelectCell.bind(null, PopupTypes.EMPTY_CELL,  buildings[i])}
                          className="cell emptyCell">
                     </div>
