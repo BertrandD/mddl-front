@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TopMenu from './TopMenu'
+import Popup from './core/components/Popup/Popup'
 
 class App extends Component {
 
@@ -8,6 +9,8 @@ class App extends Component {
         return (
             <div>
                 <TopMenu />
+                <Popup />
+
                 <div className="app">
                     <div className="app-left"/>
                     <div className="app-center">

@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import Timer from '../../core/components/Timer'
 import ProgressBar from '../../core/components/ProgressBar'
-import Popup from '../../core/components/Popup.js';
+import Popup from '../../core/components/Popup/Popup.js';
 import map from 'lodash/map'
 import filter from 'lodash/filter'
 import reduce from 'lodash/reduce'
+import * as PopupTypes from '../../core/components/Popup/PopupTypes'
 
 require('./Base.scss');
 
@@ -83,6 +84,7 @@ class Base extends Component {
             if (buildings[i]) {
                 cells.push(
                     <div key={i} id={"pos"+i}
+                         onClick={this.props.onSelectCell.bind(null, PopupTypes.BUILDING,  buildings[i])}
                          className="cell">
                         <img src="http://placehold.it/60x60" />
                         <div className="level">{buildings[i].currentLevel}</div>
@@ -91,6 +93,7 @@ class Base extends Component {
             } else {
                 cells.push(
                     <div key={i} id={"pos"+i}
+                         onClick={this.props.onSelectCell.bind(null, PopupTypes.EMPTY_CELL,  buildings[i])}
                          className="cell emptyCell">
                     </div>
                 );
@@ -108,8 +111,6 @@ class Base extends Component {
                 <div id="buildings">
                     {this.renderBaseBuildings()}
                 </div>
-
-                <Popup />
             </div>
         )
     }
@@ -118,8 +119,7 @@ class Base extends Component {
 Base.propTypes = {
     base: PropTypes.object.isRequired,
     buildings: PropTypes.object.isRequired,
-    onCreateBuilding: PropTypes.func.isRequired,
-    onUpgradeBuilding: PropTypes.func.isRequired,
+    onSelectCell: PropTypes.func.isRequired,
     staticBuildings: PropTypes.object.isRequired
 };
 
