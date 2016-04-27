@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Timer from '../../core/components/Timer'
 import ProgressBar from '../../core/components/ProgressBar'
+import Popup from '../../core/components/Popup.js';
 import map from 'lodash/map'
 import filter from 'lodash/filter'
 import reduce from 'lodash/reduce'
@@ -72,13 +73,28 @@ class Base extends Component {
 
     renderBaseBuildings () {
         const cells = [];
+        const buildings = [];
+
+        map(this.props.base.buildings, (id) => {
+            buildings.push(this.props.buildings[id]);
+        });
 
         for (var i = 1; i <= 9; i++) {
-            cells.push(
-                <div id={"pos"+i}
-                     className="cell emptyCell">
-                </div>
-            );
+            if (buildings[i]) {
+                cells.push(
+                    <div key={i} id={"pos"+i}
+                         className="cell">
+                        <img src="http://placehold.it/60x60" />
+                        <div className="level">{buildings[i].currentLevel}</div>
+                    </div>
+                )
+            } else {
+                cells.push(
+                    <div key={i} id={"pos"+i}
+                         className="cell emptyCell">
+                    </div>
+                );
+            }
         }
 
         return cells;
@@ -93,6 +109,7 @@ class Base extends Component {
                     {this.renderBaseBuildings()}
                 </div>
 
+                <Popup />
             </div>
         )
     }
