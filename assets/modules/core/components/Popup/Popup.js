@@ -12,6 +12,22 @@ class Popup extends Component {
 
         this.state = {
             display: false
+        };
+
+        this.handleKeyDown = this.handleKeyDown.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.handleKeyDown)
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.handleKeyDown)
+    }
+
+    handleKeyDown(e) {
+        if (e.keyCode === 27) {
+            this.props.actions.closePopup();
         }
     }
 
