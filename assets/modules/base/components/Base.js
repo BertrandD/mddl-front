@@ -75,8 +75,8 @@ class Base extends Component {
 
         for (var i = 1; i <= 9; i++) {
             cells.push(
-                <div id="pos{i}"
-                     class="cell emptyCell">
+                <div id={"pos"+i}
+                     className="cell emptyCell">
                 </div>
             );
         }
