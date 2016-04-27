@@ -61,6 +61,7 @@ $positions: (
         height: 100%;
       }
       &:hover {
+        transition: background 0.5s ease;
         background-color: darken($gray-light, 10);
       }
 
