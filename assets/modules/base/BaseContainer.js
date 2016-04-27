@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createBase } from './actions/baseActions';
 import { fetchBase } from './actions/baseActions';
-import { createBuilding, upgradeBuilding } from './actions/buildingActions';
+import { openPopup } from '../core/actions/popupActions'
 import { fetchBuildings } from '../static/actions/staticActions'
 import { Link } from 'react-router';
-
 import Base from './components/Base'
 
 class BaseContainer extends Component {
@@ -26,8 +25,7 @@ class BaseContainer extends Component {
         }
         return (
             <div>
-                <Base onCreateBuilding={this.props.actions.createBuilding.bind(this, currentBase)}
-                      onUpgradeBuilding={this.props.actions.upgradeBuilding.bind(this, currentBase)}
+                <Base onSelectCell={this.props.actions.openPopup}
                       staticBuildings={this.props.entities.staticBuildings}
                       buildings={this.props.entities.buildings}
                       base={currentBase} />
@@ -42,7 +40,7 @@ function mapStateToProps({ currentBase, currentPlayer, entities }) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ createBase, fetchBuildings, createBuilding, upgradeBuilding, fetchBase }, dispatch)}
+    return {actions: bindActionCreators({ createBase, fetchBuildings, openPopup, fetchBase }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BaseContainer);

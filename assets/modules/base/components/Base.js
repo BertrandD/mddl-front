@@ -1,25 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import Timer from '../../core/components/Timer'
 import ProgressBar from '../../core/components/ProgressBar'
+import Popup from '../../core/components/Popup/Popup.js';
 import map from 'lodash/map'
 import filter from 'lodash/filter'
 import reduce from 'lodash/reduce'
+import * as PopupTypes from '../../core/components/Popup/PopupTypes'
+
+require('./Base.scss');
 
 class Base extends Component {
 
     constructor(props, context) {
         super(props, context);
-    }
-
-    getAvailableBuildings () {
-
-        const buildingIds = reduce([...this.props.base.buildings], (result, id) => {
-            result.push(this.props.buildings[id].buildingId);
-            return result;
-        }, []);
-        return filter(this.props.staticBuildings, (staticBuilding) => {
-            return !buildingIds.some((buildingId) => buildingId === staticBuilding.id)
-        })
     }
 
     renderBuildings() {
@@ -68,36 +61,59 @@ class Base extends Component {
         )
     }
 
+    renderBaseBuildings () {
+        const cells = [];
+        const buildings = [];
+
+        map(this.props.base.buildings, (id) => {
+            buildings.push(this.props.buildings[id]);
+        });
+        let building;
+        for (var i = 0; i < 9; i++) {
+            if (buildings[i]) {
+                building = buildings[i];
+
+                cells.push(
+                    <div key={i} id={"pos"+(i+1)}
+                         onClick={this.props.onSelectCell.bind(null, PopupTypes.BUILDING,  building)}
+                         className="cell">
+                        <img src="http://placehold.it/60x60" />
+
+                        { building.endsAt > 0 && (
+                            <div className="level">
+                                {building.currentLevel} <i className="fa fa-arrow-right"> </i> {building.currentLevel + 1}
+                                <ProgressBar id={building.id} start={building.startedAt} end={building.endsAt} text={(
+                                    <Timer end={building.endsAt}/>
+                                )}/>
+                            </div>
+                        ) || (
+                            <div className="level">
+                                {building.currentLevel}
+                            </div>
+                        )}
+
+                    </div>
+                )
+            } else {
+                cells.push(
+                    <div key={i} id={"pos"+(i+1)}
+                         onClick={this.props.onSelectCell.bind(null, PopupTypes.EMPTY_CELL,  buildings[i])}
+                         className="cell emptyCell">
+                    </div>
+                );
+            }
+        }
+
+        return cells;
+    }
+
     render() {
         return (
-            <div>
-                <h2>Base : { this.props.base.name }</h2>
+            <div className="Base">
+                <h2>{ this.props.base.name }</h2>
 
-                <h4>Buildings : </h4>
-
-                { this.props.base.buildings && this.props.base.buildings.length > 0 ? this.renderBuildings() : 'No buildings' }
-
-                <h4>Available buildings : </h4>
-
-                <div className="list">
-                    { map(this.getAvailableBuildings(), (building, index) => (
-                        <div key={index} className="list__item">
-                            <div className="list__item__image">
-                                <img src="http://placehold.it/80x80" alt={building.name}/>
-                            </div>
-                            <div className="list__item__body">
-                                <div className="list__item__title">
-                                    {building.name}
-                                </div>
-                                <div className="list__item__description">
-                                    {building.description}
-                                </div>
-                            </div>
-                            <div className="list__item__actions">
-                                <button onClick={this.props.onCreateBuilding.bind(this, building)}>Build</button>
-                            </div>
-                        </div>
-                    ))}
+                <div id="buildings">
+                    {this.renderBaseBuildings()}
                 </div>
             </div>
         )
@@ -107,8 +123,7 @@ class Base extends Component {
 Base.propTypes = {
     base: PropTypes.object.isRequired,
     buildings: PropTypes.object.isRequired,
-    onCreateBuilding: PropTypes.func.isRequired,
-    onUpgradeBuilding: PropTypes.func.isRequired,
+    onSelectCell: PropTypes.func.isRequired,
     staticBuildings: PropTypes.object.isRequired
 };
 

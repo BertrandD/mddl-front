@@ -1,0 +1,92 @@
+@import '../../../../scss/variables/variables';
+
+$town-width: 400px;
+$town-height: 400px;
+$cell-size: 60px;
+
+$positions: (
+        "1": (
+                "top": $town-height / 4 - $cell-size / 2,
+                "left": $town-width / 4 - $cell-size / 2
+        ),
+        "2": (
+                "top": $town-height / 4 - $cell-size / 2,
+                "left": $town-width / 2 - $cell-size / 2
+        ),
+        "3": (
+                "top": $town-height / 4 - $cell-size / 2,
+                "left": $town-width * 3 / 4 - $cell-size / 2
+        ),
+        "4": (
+                "top": $town-height / 2 - $cell-size / 2,
+                "left": $town-width / 4 - $cell-size / 2
+        ),
+        "5": (
+                "top": $town-height / 2 - $cell-size / 2,
+                "left": $town-width / 2 - $cell-size / 2
+        ),
+        "6": (
+                "top": $town-height / 2 - $cell-size / 2,
+                "left": $town-width * 3 / 4 - $cell-size / 2
+        ),
+        "7": (
+                "top": $town-height * 3 / 4 - $cell-size / 2,
+                "left": $town-width / 4 - $cell-size / 2
+        ),
+        "8": (
+                "top": $town-height * 3 / 4 - $cell-size / 2,
+                "left": $town-width / 2 - $cell-size / 2
+        ),
+        "9": (
+                "top": $town-height * 3 / 4 - $cell-size / 2,
+                "left": $town-width  * 3 / 4 - $cell-size / 2
+        ),
+);
+
+.Base {
+
+  #buildings {
+    width: $town-width;
+    height: $town-height;
+    border: 1px solid black;
+    margin: auto;
+    position: relative;
+
+    .cell {
+      position: absolute;
+      content: '0';
+      cursor: pointer;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+      &:hover {
+        transition: background 0.5s ease;
+        background-color: darken($gray-light, 10);
+      }
+
+      .level {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+    }
+
+    .emptyCell {
+      background-color: grey;
+      width: $cell-size;
+      height: $cell-size;
+    }
+
+
+    @each $key, $value in $positions {
+      #pos#{$key} {
+        @each $k, $v in $value {
+          #{$k}: #{$v}
+        }
+      }
+    }
+
+
+  }
+}
