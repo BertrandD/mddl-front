@@ -27,14 +27,13 @@ class Base extends Component {
                     <div key={i} id={"pos"+(i+1)}
                          onClick={this.props.onSelectCell.bind(null, PopupTypes.BUILDING,  {position: i, building})}
                          className="cell">
-                        <img src="http://placehold.it/60x60" />
 
                         { building.endsAt > 0 && (
-                            <div className="level">
-                                {building.currentLevel} <i className="fa fa-arrow-right"> </i> {building.currentLevel + 1}
-                                <ProgressBar id={building.id} start={building.startedAt} end={building.endsAt} text={(
-                                    <Timer end={building.endsAt}/>
-                                )}/>
+                            <div>
+                                <div className="level">
+                                    {building.currentLevel} <i className="fa fa-arrow-right"> </i> {building.currentLevel + 1}
+                                </div>
+                                <ProgressBar id={building.id} start={building.startedAt} end={building.endsAt} />
                             </div>
                         ) || (
                             <div className="level">
