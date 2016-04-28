@@ -82,7 +82,7 @@ $cell-height: 60px;
         width: 100%;
         border-bottom-left-radius: $border-radius-base;
         border-bottom-right-radius: $border-radius-base;
-        bottom: 0;
+        bottom: -1px;
         left:-1px;
       }
 
