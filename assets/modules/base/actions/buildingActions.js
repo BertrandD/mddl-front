@@ -3,13 +3,14 @@ import { postAsForm, fetch } from '../../../utils/post-as-form'
 import config from '../../../config'
 import addEvent from '../../../utils/addEvent'
 
-function createBuildingStart (base, building) {
+function createBuildingStart (base, building, meta) {
     return {
         type: CREATE_BUILDING_START,
         payload: {
             base,
             building
-        }
+        },
+        meta: meta
     }
 }
 
@@ -74,9 +75,9 @@ export function upgradeBuildingEnd (base, building) {
     }
 }
 
-export function createBuilding (currentBase, { id }) {
+export function createBuilding (currentBase, { id }, position) {
     return dispatch => {
-        return postAsForm(config.api.url + '/building', { building: id })
+        return postAsForm(config.api.url + '/building', { building: id, position })
             .catch(res => {
                 dispatch(createBuildingFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
                 return Promise.reject();
@@ -85,7 +86,7 @@ export function createBuilding (currentBase, { id }) {
                 setTimeout(() => {
                     dispatch(createBuildingEnd(currentBase, res.payload));
                 }, res.payload.endsAt - Date.now());
-                dispatch(createBuildingStart(currentBase, res.payload));
+                dispatch(createBuildingStart(currentBase, res.payload, {position}));
             })
     }
 }

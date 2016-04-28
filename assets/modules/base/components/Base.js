@@ -15,67 +15,17 @@ class Base extends Component {
         super(props, context);
     }
 
-    renderBuildings() {
-        return (
-            <table>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Level</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                { this.props.base.buildings.map((id, index) =>  {
-                    const building = this.props.buildings[id];
-                    return (
-                        <tr key={index}>
-                            <td>
-                                {this.props.staticBuildings[building.buildingId].name}
-                            </td>
-                            <td>
-                                { building.endsAt > 0 && (
-                                    <span>
-                                        {building.currentLevel} <i className="fa fa-arrow-right"> </i> {building.currentLevel + 1}
-                                        <ProgressBar id={building.id} start={building.startedAt} end={building.endsAt} text={(
-                                            <Timer end={building.endsAt}/>
-                                        )}/>
-                                    </span>
-                                ) || building.currentLevel}
-                                {building.queue && building.queue.map(event => {
-                                    return (
-                                        <span key={event.id}>
-                                            &nbsp;<i className="fa fa-arrow-right"> </i> {event.level}
-                                        </span>
-                                    );
-                                })}
-                            </td>
-                            <td>
-                                <button onClick={this.props.onUpgradeBuilding.bind(this, building)}>Upgrade</button>
-                            </td>
-                        </tr>
-                    )
-                })}
-                </tbody>
-            </table>
-        )
-    }
-
     renderBaseBuildings () {
         const cells = [];
-        const buildings = [];
 
-        map(this.props.base.buildings, (id) => {
-            buildings.push(this.props.buildings[id]);
-        });
         let building;
         for (var i = 0; i < 9; i++) {
-            if (buildings[i]) {
-                building = buildings[i];
+            if (this.props.base.buildingPositions[i]) {
+                building = this.props.buildings[this.props.base.buildingPositions[i]];
 
                 cells.push(
                     <div key={i} id={"pos"+(i+1)}
-                         onClick={this.props.onSelectCell.bind(null, PopupTypes.BUILDING,  building)}
+                         onClick={this.props.onSelectCell.bind(null, PopupTypes.BUILDING,  {position: i, building})}
                          className="cell">
                         <img src="http://placehold.it/60x60" />
 
@@ -97,7 +47,7 @@ class Base extends Component {
             } else {
                 cells.push(
                     <div key={i} id={"pos"+(i+1)}
-                         onClick={this.props.onSelectCell.bind(null, PopupTypes.EMPTY_CELL,  buildings[i])}
+                         onClick={this.props.onSelectCell.bind(null, PopupTypes.EMPTY_CELL,  {position: i})}
                          className="cell emptyCell">
                     </div>
                 );

@@ -23,7 +23,7 @@ class PopupEmptyCell extends Component {
     }
 
     handleCreate (building) {
-        this.props.actions.createBuilding(this.props.entities.bases[this.props.currentBase.id], building);
+        this.props.actions.createBuilding(this.props.entities.bases[this.props.currentBase.id], building, this.props.popup.data.position);
         this.props.actions.closePopup();
     }
 

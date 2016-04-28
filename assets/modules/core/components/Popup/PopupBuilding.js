@@ -8,11 +8,11 @@ import ProgressBar from '../../../core/components/ProgressBar'
 
 export class PopupBuildingTitle extends Component {
     render () {
-        const building = this.props.entities.buildings[this.props.popup.data.id];
+        const building = this.props.entities.buildings[this.props.popup.data.building.id];
 
         return (
             <span>
-               {this.props.entities.staticBuildings[this.props.popup.data.buildingId].name}
+               {this.props.entities.staticBuildings[this.props.popup.data.building.buildingId].name}
                 | Level {building.currentLevel}
 
                 { building.endsAt > 0 && (
@@ -33,12 +33,12 @@ class PopupBuilding extends Component {
     }
 
     render() {
-        const building = this.props.entities.buildings[this.props.popup.data.id];
+        const building = this.props.entities.buildings[this.props.popup.data.building.id];
 
         return (
             <div>
                 <div>
-                    {this.props.entities.staticBuildings[this.props.popup.data.buildingId].description}
+                    {this.props.entities.staticBuildings[this.props.popup.data.building.buildingId].description}
                 </div>
                 <div>
                     { building.endsAt > 0 && (
