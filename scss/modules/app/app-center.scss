@@ -8,7 +8,9 @@ $max-height: 450px;
   display: flex;
   justify-content:center;
   height: 100%;
-  background: #222;
+  background-image: url("../static/img/door-bg.jpg");
+  background-position: center;
+  background-size: cover;
 }
 
 .app-center,

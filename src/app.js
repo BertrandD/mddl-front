@@ -28,6 +28,7 @@ app.use('/about/me', aboutMeController);
 app.use('/', rootController);
 
 app.use('/dist', express.static(__dirname + '/../dist'));
+app.use('/img', express.static(__dirname + '/../static/img'));
 
 // ## ERROR HANDLING
 
