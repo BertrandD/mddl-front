@@ -51,7 +51,9 @@ $cell-height: 60px;
   #buildings {
     width: $town-width;
     height: $town-height;
-    border: 1px solid black;
+    border: 1px solid $gray-light;
+    border-radius: $border-radius-base;
+    background-color: #000;
     margin: auto;
     position: relative;
 

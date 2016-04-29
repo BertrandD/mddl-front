@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: [
@@ -26,7 +27,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: ["style", "css?sourceMap", "sass?sourceMap"]
+        loaders: ["style", "css?sourceMap", "postcss", "sass?sourceMap"]
       },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
@@ -35,6 +36,9 @@ module.exports = {
     sassLoader: {
       includePaths: [path.resolve(__dirname, "./scss")]
     }
+  },
+  postcss: function () {
+    return [autoprefixer];
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),

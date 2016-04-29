@@ -8,17 +8,18 @@ $max-height: 450px;
   display: flex;
   justify-content:center;
   height: 100%;
-  background-image: url("../static/img/door-bg.jpg");
-  background-position: center;
+  background: url("../static/img/space.jpg") center;
   background-size: cover;
 }
 
 .app-center,
 .app-right {
   max-height: 70%;
-  background: $gray-light;
   padding:$spacing-gutter;
+  border-radius: $border-radius-base;
   overflow: auto;
+  background: rgba(0,0,0,0.9);
+  color: $gray-light;
 }
 
 .app-center {
