@@ -75,6 +75,7 @@ import LoginContainer from './modules/auth/LoginContainer';
 import BaseContainer from './modules/base/BaseContainer';
 import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
 import BaseCreationContainer from './modules/base/BaseCreationContainer';
+import BaseRight from './modules/base/components/BaseRight'
 
 render(
   <Provider store={store}>
@@ -82,7 +83,7 @@ render(
       <Route path="/" component={App} onEnter={requireAuth}>
         <IndexRoute components={{center: HomePage, right: HomePage}} />
         <Route path="home" components={{center: HomePage, right: HomePage}} />
-        <Route path="base" components={{center: BaseContainer, right: HomePage}} />
+        <Route path="base" components={{center: BaseContainer, right: BaseRight}} />
 
         <Route path="create/player" components={{center: PlayerCreationContainer, right: HomePage}} />
         <Route path="create/base" components={{center: BaseCreationContainer, right: HomePage}} />
