@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var argv = require('yargs').argv;
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: [
