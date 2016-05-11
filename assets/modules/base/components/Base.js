@@ -62,7 +62,7 @@ class Base extends Component {
                 <h2>{ this.props.base.name }</h2>
 
                 <div id="buildings">
-                    {this.renderBaseBuildings()}
+                    Coming soon !
                 </div>
             </div>
         )
