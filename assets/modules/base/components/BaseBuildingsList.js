@@ -6,12 +6,21 @@ import './BaseBuildingsList.scss'
 
 class BaseBuildingsList extends Component {
 
+    handleSelectBuilding(sBuilding, building) {
+        if (building) {
+            this.props.onSelectBuilding(building)
+        } else {
+            this.props.onSelectStaticBuilding(sBuilding)
+        }
+    }
+
     render() {
 
         const orderedBuildings = {};
         const orderTypes = {
             [BuildingTypes.HEADQUARTER]: 'Headquarter',
-            [BuildingTypes.STORAGE]: 'Storage'
+            [BuildingTypes.STORAGE]: 'Storages',
+            [BuildingTypes.MINE]: 'Mines'
         };
 
         forEach(this.props.staticBuildings, (sBuilding) => {
@@ -23,20 +32,22 @@ class BaseBuildingsList extends Component {
 
         const baseBuildings = [];
 
-        this.props.baseBuildings.forEach((bBuilding) => {
-            baseBuildings[this.props.buildings[bBuilding].buildingId] = this.props.buildings[bBuilding];
+        this.props.base.buildings.forEach((building) => {
+            baseBuildings[building.buildingId] = building;
         });
 
         return (
             <div className="BaseBuildingsList">
                 {map(orderTypes,((type, key) => {
-
                     return (
                         <div key={key}>
-                            {orderedBuildings[key].map((sBuilding, index) => {
+
+                            <h3 className="BaseBuildingsListTitle">{orderTypes[key]}</h3>
+
+                            {orderedBuildings[key] && orderedBuildings[key].map((sBuilding, index) => {
                                 return (
                                     <div key={index} className="BaseBuildingsListItem">
-                                        <span onClick={this.props.onSelectBuilding.bind(null, sBuilding)}>
+                                        <span onClick={this.handleSelectBuilding.bind(this, sBuilding, baseBuildings[sBuilding.id])}>
                                             {sBuilding.name} {baseBuildings[sBuilding.id] && (
                                             <span>
                                                 - Level {baseBuildings[sBuilding.id].currentLevel}
@@ -62,10 +73,10 @@ class BaseBuildingsList extends Component {
 }
 
 BaseBuildingsList.propTypes = {
-    baseBuildings: PropTypes.array.isRequired,
     staticBuildings: PropTypes.object.isRequired,
-    buildings: PropTypes.object.isRequired,
-    onSelectBuilding: PropTypes.func.isRequired
+    base: PropTypes.object.isRequired,
+    onSelectBuilding: PropTypes.func.isRequired,
+    onSelectStaticBuilding: PropTypes.func.isRequired
 };
 
 export default BaseBuildingsList;

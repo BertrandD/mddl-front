@@ -5,17 +5,16 @@ import './BaseRight.scss'
 import BaseBuildingsList from './BaseBuildingsList'
 import { openPopup } from '../../core/actions/popupActions'
 import * as PopupTypes from '../../core/components/Popup/PopupTypes'
+import populateBase from '../utils/populateBase'
 
 class BaseRight extends Component {
 
-    handleSelectBuilding (sBuilding) {
-        this.props.actions.openPopup(PopupTypes.STATIC_BUILDING, sBuilding);
-    }
-
     render() {
 
-        const currentBase = this.props.entities.bases[this.props.currentBase.id];
-        if (!currentBase) {
+        const { base, staticBuildings } = this.props;
+        const { openPopup } = this.props.actions;
+
+        if (!this.props.base) {
             return (
                 <div>
                     Loading base...
@@ -38,10 +37,10 @@ class BaseRight extends Component {
                     </div>
                 </div>
                 <div className="BaseRightBody">
-                    <BaseBuildingsList baseBuildings={this.props.entities.bases[this.props.currentBase.id].buildings}
-                                       buildings={this.props.entities.buildings}
-                                       staticBuildings={this.props.entities.staticBuildings}
-                                       onSelectBuilding={this.handleSelectBuilding.bind(this)}/>
+                    <BaseBuildingsList base={base}
+                                       staticBuildings={staticBuildings}
+                                       onSelectBuilding={openPopup.bind(null, PopupTypes.BUILDING)}
+                                       onSelectStaticBuilding={openPopup.bind(null, PopupTypes.STATIC_BUILDING)}/>
                 </div>
             </div>
         )
@@ -49,7 +48,7 @@ class BaseRight extends Component {
 }
 
 function mapStateToProps({ currentBase, currentPlayer, entities }) {
-    return { currentBase, currentPlayer, entities };
+    return { currentPlayer, staticBuildings: entities.staticBuildings, base: populateBase(currentBase.id, entities) };
 }
 
 function mapDispatchToProps(dispatch) {

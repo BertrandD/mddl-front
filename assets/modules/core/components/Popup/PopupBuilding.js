@@ -8,11 +8,11 @@ import ProgressBar from '../../../core/components/ProgressBar'
 
 export class PopupBuildingTitle extends Component {
     render () {
-        const building = this.props.entities.buildings[this.props.popup.data.building.id];
+        const { building } = this.props;
 
         return (
             <span>
-               {this.props.entities.staticBuildings[this.props.popup.data.building.buildingId].name}
+               {this.props.sBuilding.name}
                 | Level {building.currentLevel}
 
                 { building.endsAt > 0 && (
@@ -29,16 +29,16 @@ export class PopupBuildingTitle extends Component {
 class PopupBuilding extends Component {
 
     handleUpgrade (building) {
-        this.props.actions.upgradeBuilding(this.props.entities.bases[this.props.currentBase.id], building)
+        this.props.actions.upgradeBuilding(this.props.base, building)
     }
 
     render() {
-        const building = this.props.entities.buildings[this.props.popup.data.building.id];
+        const { building, sBuilding } = this.props;
 
         return (
             <div>
                 <div>
-                    {this.props.entities.staticBuildings[this.props.popup.data.building.buildingId].description}
+                    {sBuilding.description}
                 </div>
                 <div>
                     { building.endsAt > 0 && (
@@ -65,7 +65,7 @@ class PopupBuilding extends Component {
 }
 
 function mapStateToProps({ popup, entities, currentBase }) {
-    return { popup, entities, currentBase };
+    return { base: entities.bases[currentBase.id], building: entities.buildings[popup.data.id], sBuilding: entities.staticBuildings[popup.data.buildingId] };
 }
 
 function mapDispatchToProps(dispatch) {

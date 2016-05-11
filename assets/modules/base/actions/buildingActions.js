@@ -75,7 +75,7 @@ export function upgradeBuildingEnd (base, building) {
     }
 }
 
-export function createBuilding (currentBase, { id }, position) {
+export function createBuilding (currentBase, { id }, position = -1) {
     return dispatch => {
         return postAsForm(config.api.url + '/building', { building: id, position })
             .catch(res => {

@@ -7,6 +7,7 @@ import { closePopup } from '../../actions/popupActions'
 import * as PopupTypes from './PopupTypes'
 import PopupEmptyCell from './PopupEmptyCell'
 import PopupBuilding, { PopupBuildingTitle } from './PopupBuilding'
+import PopupStaticBuilding, { PopupStaticBuildingTitle } from './PopupStaticBuilding'
 
 class Popup extends Component {
 
@@ -56,7 +57,9 @@ class Popup extends Component {
             case PopupTypes.EMPTY_CELL:
                 return "Empty cell";
             case PopupTypes.BUILDING:
-                return (<PopupBuildingTitle popup={this.props.popup} entities={this.props.entities} />);
+                return (<PopupBuildingTitle building={this.props.popup.data} sBuilding={this.props.staticBuildings[this.props.popup.data.buildingId]}/>);
+            case PopupTypes.STATIC_BUILDING:
+                return (<PopupStaticBuildingTitle sBuilding={this.props.popup.data}/>);
             default:
                 return "Popup title";
         }
@@ -68,6 +71,8 @@ class Popup extends Component {
                 return <PopupEmptyCell />;
             case PopupTypes.BUILDING:
                 return <PopupBuilding />;
+            case PopupTypes.STATIC_BUILDING:
+                return <PopupStaticBuilding />;
             default:
                 return "Popup title";
         }
@@ -99,7 +104,7 @@ class Popup extends Component {
 }
 
 function mapStateToProps({ popup, entities, currentBase }) {
-    return { popup, entities, currentBase };
+    return { popup, entities, staticBuildings: entities.staticBuildings, currentBase };
 }
 
 function mapDispatchToProps(dispatch) {
