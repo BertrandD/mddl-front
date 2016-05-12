@@ -1,6 +1,7 @@
 import { normalize, Schema, arrayOf } from 'normalizr'
 
 export const staticBuilding = new Schema('staticBuildings');
+export const staticItem = new Schema('staticItems', { idAttribute: 'itemId'} );
 export const user = new Schema('users');
 export const player = new Schema('players');
 export const base = new Schema('bases');

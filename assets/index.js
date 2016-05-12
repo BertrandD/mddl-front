@@ -10,7 +10,7 @@ import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 import { fetchAuthentication } from './modules/auth/actions/loginActions'
 import { fetchPlayer } from './modules/player/actions/playerActions'
 import { fetchMyBases } from './modules/base/actions/baseActions'
-import { fetchBuildings } from './modules/static/actions/staticActions'
+import { fetchBuildings, fetchItems } from './modules/static/actions/staticActions'
 
 function configureStore(initialState = {}) {
 
@@ -49,9 +49,10 @@ function configureStore(initialState = {}) {
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
-const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchBuildings }, store.dispatch);
+const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchItems, fetchBuildings }, store.dispatch);
 
 actions.fetchBuildings();
+actions.fetchItems();
 actions.fetchAuthentication()
   .then(() => {
     actions.fetchPlayer().then(() => {
