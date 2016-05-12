@@ -28,8 +28,16 @@ export class PopupBuildingTitle extends Component {
 
 class PopupBuilding extends Component {
 
+    constructor(props, ctx) {
+        super(props, ctx);
+        this.state = {
+            error: ''
+        }
+    }
     handleUpgrade (building) {
-        this.props.actions.upgradeBuilding(this.props.base, building)
+        this.props.actions.upgradeBuilding(this.props.base, building).catch(res => {
+            this.setState({error:res.meta.message});
+        });
     }
 
     render() {
@@ -58,6 +66,7 @@ class PopupBuilding extends Component {
                     })}
                 </div>
                 <button onClick={this.handleUpgrade.bind(this, building)}>Upgrade</button>
+                {this.state.error}
 
             </div>
         );

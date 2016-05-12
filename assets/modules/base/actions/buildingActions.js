@@ -80,7 +80,7 @@ export function createBuilding (currentBase, { id }, position = -1) {
         return postAsForm(config.api.url + '/building', { building: id, position })
             .catch(res => {
                 dispatch(createBuildingFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
-                return Promise.reject();
+                return Promise.reject(res);
             })
             .then(res => {
                 setTimeout(() => {
@@ -96,7 +96,7 @@ export function upgradeBuilding (currentBase, { id }) {
         return postAsForm(config.api.url + '/building/' + id + '/upgrade')
             .catch(res => {
                 dispatch(upgradeBuildingFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
-                return Promise.reject();
+                return Promise.reject(res);
             })
             .then(res => {
 
