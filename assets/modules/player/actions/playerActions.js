@@ -46,8 +46,9 @@ export function createPlayer ({ playerName }) {
     return dispatch => {
         return postAsForm(config.api.url + '/player', { name: playerName })
             .then(res => {
-                dispatch(createPlayerSuccess(normalize(res.payload, player).entities.players))
-                dispatch(selectPlayer(res.payload))
+                dispatch(createPlayerSuccess(normalize(res.payload, player).entities.players));
+                dispatch(selectPlayer(res.payload));
+                dispatch(push('/create/base'));
             })
             .catch(res => {
                 dispatch(createPlayerFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'))

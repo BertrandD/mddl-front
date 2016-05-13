@@ -11,6 +11,7 @@ import { fetchAuthentication } from './modules/auth/actions/loginActions'
 import { fetchPlayer } from './modules/player/actions/playerActions'
 import { fetchMyBases } from './modules/base/actions/baseActions'
 import { fetchBuildings, fetchItems } from './modules/static/actions/staticActions'
+import isEmpty from 'lodash/isEmpty'
 
 function configureStore(initialState = {}) {
 
@@ -51,32 +52,38 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchItems, fetchBuildings }, store.dispatch);
 
-const p1 = actions.fetchBuildings();
-const p2 = actions.fetchItems();
-const p3 = actions.fetchAuthentication()
+actions.fetchAuthentication()
     .then(() => {
       actions.fetchPlayer().then(() => {
         actions.fetchMyBases()
-      })
+      });
+      // FIXME ? Should I wait for my base before rendering the app ? Maybe add a loader ?
+      renderApp();
+    })
+    .catch(() => {
+      console.log('gg');
+      renderApp();
     });
 
-Promise.all([p1, p2, p3]).then(() => {
-  try {
-    console.info('All data fetched... Rendering app!');
-    renderApp();
-    console.info('App rendered');
-  } catch(e) {
-    console.error(e);
-  }
-});
 
-
-function requireAuth(nextState, replace) {
-  if (!store.getState().user.token) {
+function requireAuth(nextState, replace, next) {
+  console.log('requireAuth');
+  const state = store.getState();
+  if (!state.user.token) {
     replace({
       pathname: '/login',
       state: { nextPathname: nextState.location.pathname }
     })
+  }
+
+  if (!state.entities || !state.entities.staticBuildings || isEmpty(state.entities.staticBuildings)) {
+    const p1 = actions.fetchBuildings();
+    const p2 = actions.fetchItems();
+
+    Promise.all([p1, p2]).then(() => {
+      console.log('ghg');
+      next();
+    });
   }
 }
 

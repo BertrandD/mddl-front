@@ -24,7 +24,7 @@ export function register({ username, password }) {
         return postAsForm(config.api.url + '/register', {username, password})
             .then(res => {
                 dispatch(loginSuccess(res.payload));
-                dispatch(push('/'));
+                dispatch(push('/create/player'));
             })
             .catch(res => {
                 dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
