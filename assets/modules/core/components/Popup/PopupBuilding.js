@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { upgradeBuilding } from '../../../base/actions/buildingActions'
 import Timer from '../../../core/components/Timer'
 import ProgressBar from '../../../core/components/ProgressBar'
+import renderStaticBuildingsRequirements from '../../../static/utils/renderStaticBuildingsRequirements'
 
 
 export class PopupBuildingTitle extends Component {
@@ -41,7 +42,7 @@ class PopupBuilding extends Component {
     }
 
     render() {
-        const { building, sBuilding } = this.props;
+        const { building, sBuilding, items, buildings } = this.props;
 
         return (
             <div>
@@ -58,11 +59,7 @@ class PopupBuilding extends Component {
                         </span>
                     )}
 
-                    { sBuilding.requirements[building.currentLevel].resources.map((resource) => (
-                       <div>
-                           {items[resource.id].name} : {resource.count}
-                       </div>
-                    ))}
+                    {renderStaticBuildingsRequirements(sBuilding, building.currentLevel+1, items, buildings)}
 
                     {building.queue && building.queue.map(event => {
                         return (
@@ -81,7 +78,7 @@ class PopupBuilding extends Component {
 }
 
 function mapStateToProps({ popup, entities, currentBase }) {
-    return { items:entities.staticItems, base: entities.bases[currentBase.id], building: entities.buildings[popup.data.id], sBuilding: entities.staticBuildings[popup.data.buildingId] };
+    return { items:entities.staticItems, buildings:entities.staticBuildings, base: entities.bases[currentBase.id], building: entities.buildings[popup.data.id], sBuilding: entities.staticBuildings[popup.data.buildingId] };
 }
 
 function mapDispatchToProps(dispatch) {
