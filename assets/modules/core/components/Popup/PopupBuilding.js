@@ -57,6 +57,13 @@ class PopupBuilding extends Component {
                             )}/>
                         </span>
                     )}
+
+                    { sBuilding.requirements[building.currentLevel].resources.map((resource) => (
+                       <div>
+                           {items[resource.id].name} : {resource.count}
+                       </div>
+                    ))}
+
                     {building.queue && building.queue.map(event => {
                         return (
                             <span key={event.id}>
@@ -74,7 +81,7 @@ class PopupBuilding extends Component {
 }
 
 function mapStateToProps({ popup, entities, currentBase }) {
-    return { base: entities.bases[currentBase.id], building: entities.buildings[popup.data.id], sBuilding: entities.staticBuildings[popup.data.buildingId] };
+    return { items:entities.staticItems, base: entities.bases[currentBase.id], building: entities.buildings[popup.data.id], sBuilding: entities.staticBuildings[popup.data.buildingId] };
 }
 
 function mapDispatchToProps(dispatch) {

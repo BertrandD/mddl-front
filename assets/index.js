@@ -51,14 +51,25 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchItems, fetchBuildings }, store.dispatch);
 
-actions.fetchBuildings();
-actions.fetchItems();
-actions.fetchAuthentication()
-  .then(() => {
-    actions.fetchPlayer().then(() => {
-      actions.fetchMyBases()
-    })
-  });
+const p1 = actions.fetchBuildings();
+const p2 = actions.fetchItems();
+const p3 = actions.fetchAuthentication()
+    .then(() => {
+      actions.fetchPlayer().then(() => {
+        actions.fetchMyBases()
+      })
+    });
+
+Promise.all([p1, p2, p3]).then(() => {
+  try {
+    console.info('All data fetched... Rendering app!');
+    renderApp();
+    console.info('App rendered');
+  } catch(e) {
+    console.error(e);
+  }
+});
+
 
 function requireAuth(nextState, replace) {
   if (!store.getState().user.token) {
@@ -78,20 +89,22 @@ import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
 import BaseCreationContainer from './modules/base/BaseCreationContainer';
 import BaseRight from './modules/base/components/BaseRight'
 
-render(
-  <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={App} onEnter={requireAuth}>
-        <IndexRoute components={{center: HomePage, right: HomePage}} />
-        <Route path="home" components={{center: HomePage, right: HomePage}} />
-        <Route path="base" components={{center: BaseContainer, right: BaseRight}} />
+function renderApp() {
+  render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Route path="/" component={App} onEnter={requireAuth}>
+            <IndexRoute components={{center: HomePage, right: HomePage}} />
+            <Route path="home" components={{center: HomePage, right: HomePage}} />
+            <Route path="base" components={{center: BaseContainer, right: BaseRight}} />
 
-        <Route path="create/player" components={{center: PlayerCreationContainer, right: HomePage}} />
-        <Route path="create/base" components={{center: BaseCreationContainer, right: HomePage}} />
+            <Route path="create/player" components={{center: PlayerCreationContainer, right: HomePage}} />
+            <Route path="create/base" components={{center: BaseCreationContainer, right: HomePage}} />
 
-      </Route>
-      <Route path="/login" component={LoginContainer} />
-    </Router>
-  </Provider>,
-  document.getElementById('app')
-);
+          </Route>
+          <Route path="/login" component={LoginContainer} />
+        </Router>
+      </Provider>,
+      document.getElementById('app')
+  );
+}
