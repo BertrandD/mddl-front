@@ -5,6 +5,7 @@ import { fetchAuthentication } from './auth/actions/loginActions';
 import { fetchMyBases } from './base/actions/baseActions';
 import { fetchPlayer } from './player/actions/playerActions';
 import { Link } from 'react-router';
+import map from 'lodash/map'
 
 class TopMenu extends Component {
 
@@ -24,7 +25,7 @@ class TopMenu extends Component {
                     </Link>
                 </div>
                 <div>
-                    {base && base.inventory.RESOURCE.map((resource, index) => (
+                    {base && map(base.inventory.RESOURCE, (resource, index) => (
                         <span key={index} className={resource.count >= base.maxVolumes.max_volume_resources && "color-error"}>
                            {items[resource.templateId].name}: {resource.count} / {base.maxVolumes.max_volume_resources}
                        </span>

@@ -43,7 +43,7 @@ class PopupStaticBuilding extends Component {
                     {sBuilding.description}
                 </div>
                 <div>
-                    {renderStaticBuildingsRequirements(sBuilding, 1, items, buildings)}
+                    {renderStaticBuildingsRequirements(base, sBuilding, 1, items, buildings)}
                 </div>
                 <div>
                     <button onClick={this.handleClick.bind(this, base, sBuilding)}>Build</button>
