@@ -15,6 +15,11 @@ class TopMenu extends Component {
 
     render() {
         const { base, player, items } = this.props;
+        let resourcesCount = 0;
+
+        map(base.inventory.RESOURCE, (resource) => {
+            resourcesCount += resource.count;
+        });
 
         return (
             <div className="top-menu">
@@ -24,12 +29,15 @@ class TopMenu extends Component {
                         <span className="font-bold">Home</span>
                     </Link>
                 </div>
-                <div>
+                <div className={resourcesCount >= base.maxVolumes.max_volume_resources && "color-error"}>
                     {base && map(base.inventory.RESOURCE, (resource, index) => (
-                        <span key={index} className={resource.count >= base.maxVolumes.max_volume_resources && "color-error"}>
-                           {items[resource.templateId].name}: {resource.count} / {base.maxVolumes.max_volume_resources}
+                       <span key={index}>
+                           {items[resource.templateId].name}: {resource.count}
                        </span>
                     ))}
+                    <span>&nbsp;
+                        Storage: {resourcesCount} / {base.maxVolumes.max_volume_resources} ({(resourcesCount/(base.maxVolumes.max_volume_resources+0.1)).toFixed(2)}%)
+                    </span>
                 </div>
                 <div>
                      <Link to="/base">
