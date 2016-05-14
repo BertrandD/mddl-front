@@ -59,7 +59,7 @@ class PopupBuilding extends Component {
                         </span>
                     )}
 
-                    {renderStaticBuildingsRequirements(base, sBuilding, building.endsAt > 0 ? building.currentLevel + 1 : building.currentLevel + 2, items, buildings)}
+                    {renderStaticBuildingsRequirements(base, sBuilding, building.endsAt > 0 ? building.currentLevel + 2 : building.currentLevel + 1, items, buildings)}
 
                     {building.queue && building.queue.map(event => {
                         return (
