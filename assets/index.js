@@ -55,13 +55,12 @@ const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPla
 actions.fetchAuthentication()
     .then(() => {
       actions.fetchPlayer().then(() => {
-        actions.fetchMyBases()
+        actions.fetchMyBases().then(() => {
+          renderApp();
+        })
       });
-      // FIXME ? Should I wait for my base before rendering the app ? Maybe add a loader ?
-      renderApp();
     })
     .catch(() => {
-      console.log('gg');
       renderApp();
     });
 
@@ -81,7 +80,6 @@ function requireAuth(nextState, replace, next) {
     const p2 = actions.fetchItems();
 
     Promise.all([p1, p2]).then(() => {
-      console.log('ghg');
       next();
     });
   }
