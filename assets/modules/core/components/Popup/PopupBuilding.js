@@ -69,7 +69,11 @@ class PopupBuilding extends Component {
                         );
                     })}
                 </div>
-                <button onClick={this.handleUpgrade.bind(this, building)}>Upgrade</button>
+                {building.currentLevel < sBuilding.maxLevel && (
+                    <button onClick={this.handleUpgrade.bind(this, building)}>Upgrade</button>
+                ) || (
+                    <button>Level max reached ! </button>
+                )}
                 {this.state.error}
 
             </div>

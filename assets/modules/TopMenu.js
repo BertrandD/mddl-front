@@ -25,8 +25,8 @@ class TopMenu extends Component {
                 </div>
                 <div>
                     {base && base.inventory.RESOURCE.map((resource, index) => (
-                        <span key={index}>
-                           {items[resource.templateId].name}: {resource.count}
+                        <span key={index} className={resource.count >= base.maxVolumes.max_volume_resources && "color-error"}>
+                           {items[resource.templateId].name}: {resource.count} / {base.maxVolumes.max_volume_resources}
                        </span>
                     ))}
                 </div>
