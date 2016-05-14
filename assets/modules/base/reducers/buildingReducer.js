@@ -37,6 +37,7 @@ export function building (state = {}, action) {
         case BuldingsActions.CREATE_BUILDING_END:
             return Object.assign({}, state, action.payload.building, {
                 endsAt: 0,
+                currentLevel: 1,
                 startedAt: 0
             });
         case BuldingsActions.UPGRADE_BUILDING_WAIT:
