@@ -2,6 +2,9 @@ import { UPGRADE_BUILDING_WAIT, CREATE_BUILDING_START, CREATE_BUILDING_END, CREA
 import { postAsForm, fetch } from '../../../utils/post-as-form'
 import config from '../../../config'
 import addEvent from '../../../utils/addEvent'
+import { fetchBaseSuccess, updateBase } from './baseActions'
+import { normalize, arrayOf } from 'normalizr'
+import { base } from '../../../schema/schemas'
 
 function createBuildingStart (base, building, meta) {
     return {
@@ -85,8 +88,15 @@ export function createBuilding (currentBase, { id }, position = -1) {
             .then(res => {
                 setTimeout(() => {
                     dispatch(createBuildingEnd(currentBase, res.payload));
+                    dispatch(updateBase(currentBase));
                 }, res.payload.endsAt - Date.now());
                 dispatch(createBuildingStart(currentBase, res.payload, {position}));
+                try {
+                    console.log('yolo');
+                    dispatch(fetchBaseSuccess(normalize(res.meta.base, base).entities));
+                }catch (e) {
+                    console.error(e);
+                }
             })
     }
 }
@@ -106,7 +116,7 @@ export function upgradeBuilding (currentBase, { id }) {
                             Date.now(),
                             res.meta.queue[0].endsAt,
                             upgradeBuildingStart(currentBase, res.payload, Date.now(), res.meta.queue[0].endsAt),
-                            upgradeBuildingEnd(currentBase, res.payload)
+                            [upgradeBuildingEnd(currentBase, res.payload), updateBase(currentBase)]
                         )
                     );
                 } else { //res.meta.queue.length >= 2
@@ -115,10 +125,15 @@ export function upgradeBuilding (currentBase, { id }) {
                             res.meta.queue[res.meta.queue.length - 2].endsAt+1,
                             res.meta.queue[res.meta.queue.length - 1].endsAt,
                             upgradeBuildingStart(currentBase, res.payload, res.meta.queue[res.meta.queue.length - 2].endsAt+1, res.meta.queue[res.meta.queue.length - 1].endsAt),
-                            upgradeBuildingEnd(currentBase, res.payload)
+                            [upgradeBuildingEnd(currentBase, res.payload), updateBase(currentBase)]
                         )
                     );
                     dispatch(upgradeBuildingWait(currentBase, res.payload, res.meta.queue[res.meta.queue.length - 1]))
+                }
+                try {
+                    dispatch(fetchBaseSuccess(normalize(res.meta.base, base).entities));
+                }catch (e) {
+                    console.error(e);
                 }
             })
     }

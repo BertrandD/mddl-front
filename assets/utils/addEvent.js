@@ -2,7 +2,13 @@ export default function (start, endsAt, actionStart, actionEnd) {
     return dispatch => {
         setTimeout(() => {
             setTimeout(() => {
-                dispatch(actionEnd);
+                if (Array.isArray(actionEnd)) {
+                    actionEnd.forEach((action) => {
+                        dispatch(action);
+                    })
+                } else {
+                    dispatch(actionEnd);
+                }
             }, endsAt - Date.now());
             dispatch(actionStart);
         }, start - Date.now());

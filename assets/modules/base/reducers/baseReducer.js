@@ -37,7 +37,6 @@ export function bases(state = {}, action) {
             });
 
             return Object.assign({}, state, bases);
-        case BuldingsActions.UPGRADE_BUILDING_START:
         case BuldingsActions.CREATE_BUILDING_START:
             return {
                 ...state,
@@ -61,12 +60,9 @@ function base (state = {
     buildings: []
 }, action) {
     switch (action.type) {
-        case BuldingsActions.UPGRADE_BUILDING_START:
-            return consumeRequirements(state, action.payload.building.requirements);
         case BuldingsActions.CREATE_BUILDING_START:
             const buildingPositions = state.buildingPositions;
-            const base = consumeRequirements(state, action.payload.building.requirements);
-            return Object.assign({}, base, {
+            return Object.assign({}, state, {
                 buildingPositions: {
                     ...buildingPositions,
                     [action.meta.position]: action.payload.building.id
@@ -94,16 +90,6 @@ function base (state = {
         default:
             return state;
     }
-}
-
-function consumeRequirements(base, requirements) {
-    const newBase = clone(base);
-    forEach(requirements.resources, (count, item) => {
-        console.log(count, item);
-        newBase.inventory.RESOURCE[item].count -= count;
-    });
-
-    return newBase;
 }
 
 export default base;
