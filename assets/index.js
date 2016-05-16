@@ -7,10 +7,6 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
-import { fetchAuthentication } from './modules/auth/actions/loginActions'
-import { fetchPlayer } from './modules/player/actions/playerActions'
-import { fetchMyBases } from './modules/base/actions/baseActions'
-import { fetchBuildings, fetchItems } from './modules/static/actions/staticActions'
 import isEmpty from 'lodash/isEmpty'
 
 function configureStore(initialState = {}) {
@@ -46,24 +42,35 @@ function configureStore(initialState = {}) {
 
   return store
 }
+import { fetchAuthentication } from './modules/auth/actions/loginActions'
+import { fetchPlayer } from './modules/player/actions/playerActions'
+import { fetchMyBases } from './modules/base/actions/baseActions'
+import { fetchBuildings, fetchItems } from './modules/static/actions/staticActions'
+import { refresh } from './modules/core/actions/appActions'
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
-const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchItems, fetchBuildings }, store.dispatch);
+const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchItems, fetchBuildings, refresh }, store.dispatch);
 
 actions.fetchAuthentication()
     .then(() => {
       actions.fetchPlayer().then(() => {
         actions.fetchMyBases().then(() => {
-          renderApp();
+          window.timer = setTimeout(refreshApp, 3000);
         })
       });
+      renderApp();
+
     })
     .catch(() => {
       renderApp();
     });
 
+function refreshApp() {
+  actions.refresh();
+  window.timer = setTimeout(refreshApp, 3000);
+}
 
 function requireAuth(nextState, replace, next) {
   console.log('requireAuth');

@@ -1,5 +1,8 @@
 import * as BaseActions from '../actions/BaseActionTypes';
 import * as BuldingsActions from '../actions/BuildingActionTypes';
+import * as AppActions from '../../core/actions/AppActionTypes';
+import clone from 'lodash/clone';
+
 import forEach from 'lodash/forEach'
 
 export function currentBase (state = {
@@ -34,11 +37,21 @@ export function bases(state = {}, action) {
             });
 
             return Object.assign({}, state, bases);
+        case BuldingsActions.UPGRADE_BUILDING_START:
         case BuldingsActions.CREATE_BUILDING_START:
             return {
                 ...state,
                 [action.payload.base.id]: base(state[action.payload.base.id], action)
             };
+        case AppActions.REFRESH:
+
+            const newState = {};
+
+            forEach(state, (b, id) => {
+                newState[id] = base(b, action);
+            });
+
+            return newState;
         default:
             return state;
     }
@@ -48,9 +61,12 @@ function base (state = {
     buildings: []
 }, action) {
     switch (action.type) {
+        case BuldingsActions.UPGRADE_BUILDING_START:
+            return consumeRequirements(state, action.payload.building.requirements);
         case BuldingsActions.CREATE_BUILDING_START:
             const buildingPositions = state.buildingPositions;
-            return Object.assign({}, state, {
+            const base = consumeRequirements(state, action.payload.building.requirements);
+            return Object.assign({}, base, {
                 buildingPositions: {
                     ...buildingPositions,
                     [action.meta.position]: action.payload.building.id
@@ -60,9 +76,34 @@ function base (state = {
                     action.payload.building.id
                 ]
             });
+        case AppActions.REFRESH:
+
+            const now = Date.now();
+
+            const newState = clone(state);
+
+            forEach(newState.production, (prod, id) => {
+                const toProduce =  (prod / 3600) * ((now - newState.lastRefresh) / 1000);
+                if (newState.maxVolumes.max_volume_resources >= newState.inventory.RESOURCE[id].count + toProduce) {
+                    newState.inventory.RESOURCE[id].count += toProduce;
+                }
+            });
+            newState.lastRefresh = now;
+
+            return newState;
         default:
             return state;
     }
+}
+
+function consumeRequirements(base, requirements) {
+    const newBase = clone(base);
+    forEach(requirements.resources, (count, item) => {
+        console.log(count, item);
+        newBase.inventory.RESOURCE[item].count -= count;
+    });
+
+    return newBase;
 }
 
 export default base;

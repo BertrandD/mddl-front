@@ -9,12 +9,15 @@ import map from 'lodash/map'
 
 class TopMenu extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { base, player, items } = this.props;
+
+        //FIXME : don't do that, this is a hack
+        if (!base) {
+            return (
+                <div className="top-menu">&nbsp;</div>
+            )
+        }
         let resourcesCount = 0;
 
         map(base.inventory.RESOURCE, (resource) => {
@@ -32,11 +35,11 @@ class TopMenu extends Component {
                 <div className={resourcesCount >= base.maxVolumes.max_volume_resources && "color-error"}>
                     {base && map(base.inventory.RESOURCE, (resource, index) => (
                        <span key={index}>
-                           {items[resource.templateId].name}: {resource.count}
+                           {items[resource.templateId].name}: {Math.round(resource.count)}
                        </span>
                     ))}
                     <span>&nbsp;
-                        Storage: {resourcesCount} / {base.maxVolumes.max_volume_resources} ({(resourcesCount/(base.maxVolumes.max_volume_resources+0.1)).toFixed(2)}%)
+                        Storage: {Math.round(resourcesCount)} / {base.maxVolumes.max_volume_resources} ({(100*resourcesCount/(base.maxVolumes.max_volume_resources+0.1)).toFixed(0)}%)
                     </span>
                 </div>
                 <div>
