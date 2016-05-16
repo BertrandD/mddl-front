@@ -3,6 +3,8 @@ import map from 'lodash/map'
 import forEach from 'lodash/forEach'
 import * as BuildingTypes from '../../buildings/BuildingTypes'
 import './BaseBuildingsList.scss'
+import ProgressBar from '../../core/components/ProgressBar'
+import Timer from '../../core/components/Timer'
 
 class BaseBuildingsList extends Component {
 
@@ -56,6 +58,12 @@ class BaseBuildingsList extends Component {
                                                     <i className="fa fa-arrow-right"> </i> {baseBuildings[sBuilding.id].currentLevel + 1}
                                                     </span>
                                                 )}
+                                                { baseBuildings[sBuilding.id].endsAt > 0 && (
+                                                    <ProgressBar id={baseBuildings[sBuilding.id].id} start={baseBuildings[sBuilding.id].startedAt} end={baseBuildings[sBuilding.id].endsAt} text={(
+                                                            <Timer end={baseBuildings[sBuilding.id].endsAt}/>
+                                                    )}/>
+                                                )}
+
                                             </span>
                                         )}
                                         </span>
