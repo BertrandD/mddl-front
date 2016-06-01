@@ -34,7 +34,11 @@ app.use('/img', express.static(__dirname + '/../static/img'));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  res.sendFile(__dirname + '/root/index.html');
+	if (config.app.env === 'prod') {
+		res.sendFile(__dirname + '/root/index.prod.html');
+	} else {
+		res.sendFile(__dirname + '/root/index.dev.html');
+	}
 });
 
 // error handlers

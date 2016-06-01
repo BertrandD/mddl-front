@@ -18,6 +18,7 @@
     "babel-register": "^6.4.3",
     "css-loader": "^0.23.1",
     "express": "4.13.4",
+    "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "^0.8.5",
     "font-awesome": "^4.6.1",
     "font-awesome-sass-loader": "^1.0.1",
