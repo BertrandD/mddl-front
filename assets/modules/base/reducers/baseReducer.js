@@ -2,8 +2,29 @@ import * as BaseActions from '../actions/BaseActionTypes';
 import * as BuldingsActions from '../actions/BuildingActionTypes';
 import * as AppActions from '../../core/actions/AppActionTypes';
 import clone from 'lodash/clone';
+import map from 'lodash/map';
 
 import forEach from 'lodash/forEach'
+
+export function getCurrentBase (state) {
+    return state.entities.bases[state.currentBase.id];
+}
+
+export function getPopulatedCurrentBase (state) {
+    return populateBase(state, state.entities.bases[state.currentBase.id]);
+}
+
+export function populateBase(state, base) {
+    if (!base) {
+        return base;
+    }
+    const buildings = [];
+    map(base.buildings, (id) => {
+        buildings.push(state.entities.buildings[id])
+    });
+
+    return {...base, buildings};
+}
 
 export function currentBase (state = {
     id:""

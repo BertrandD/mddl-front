@@ -13,7 +13,7 @@ class PlayerCreationContainer extends Component {
     }
 
     render() {
-        const currentPlayer = this.props.entities.players[this.props.currentPlayer.id];
+        const { currentPlayer } = this.props;
         if (currentPlayer) {
             return (
                 <div>
@@ -32,8 +32,10 @@ class PlayerCreationContainer extends Component {
     }
 }
 
-function mapStateToProps({ entities, currentPlayer }) {
-    return { entities, currentPlayer };
+import { getcurrentPlayer } from './reducers/playerReducer'
+
+function mapStateToProps(state) {
+    return { player: getcurrentPlayer(state)  };
 }
 
 function mapDispatchToProps(dispatch) {

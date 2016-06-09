@@ -5,16 +5,15 @@ import './BaseRight.scss'
 import BaseBuildingsList from './BaseBuildingsList'
 import { openPopup } from '../../core/actions/popupActions'
 import * as PopupTypes from '../../core/components/Popup/PopupTypes'
-import populateBase from '../utils/populateBase'
 
 class BaseRight extends Component {
 
     render() {
 
-        const { base, staticBuildings } = this.props;
+        const { base, sBuildings } = this.props;
         const { openPopup } = this.props.actions;
 
-        if (!this.props.base) {
+        if (!base) {
             return (
                 <div>
                     Loading base...
@@ -27,7 +26,7 @@ class BaseRight extends Component {
                 <div className="BaseRightHeader">
                     <div>
                         <span className="active">
-                            Buildings
+                            Buildingsqsd
                         </span>
                     </div>
                     <div>
@@ -38,7 +37,7 @@ class BaseRight extends Component {
                 </div>
                 <div className="BaseRightBody">
                     <BaseBuildingsList base={base}
-                                       staticBuildings={staticBuildings}
+                                       staticBuildings={sBuildings}
                                        onSelectBuilding={openPopup.bind(null, PopupTypes.BUILDING)}
                                        onSelectStaticBuilding={openPopup.bind(null, PopupTypes.STATIC_BUILDING)}/>
                 </div>
@@ -47,8 +46,13 @@ class BaseRight extends Component {
     }
 }
 
-function mapStateToProps({ currentBase, currentPlayer, entities }) {
-    return { currentPlayer, staticBuildings: entities.staticBuildings, base: populateBase(currentBase.id, entities) };
+import { getPopulatedCurrentBase } from '../reducers/baseReducer'
+import { getBuildingsForBase } from '../reducers/buildingReducer'
+import { getStaticBuildings } from '../../static/reducers/staticReducer'
+import { getcurrentPlayer } from '../../player/reducers/playerReducer'
+
+function mapStateToProps(state) {
+    return { sBuildings: getStaticBuildings(state), base: getPopulatedCurrentBase(state) };
 }
 
 function mapDispatchToProps(dispatch) {

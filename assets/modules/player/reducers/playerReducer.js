@@ -1,5 +1,9 @@
 import { FETCH_PLAYER_SUCCESS, CREATE_PLAYER_SUCCESS, CREATE_PLAYER_FAILURE, SELECT_PLAYER } from '../actions/PlayerActionTypes';
 
+export function getcurrentPlayer(state) {
+    return state.entities.players[state.currentPlayer.id]
+}
+
 export function currentPlayer (state = {
     id:""
 }, action) {

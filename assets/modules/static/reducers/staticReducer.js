@@ -1,5 +1,14 @@
 import * as Actions from '../actions/StaticActionTypes';
 
+
+export function getStaticBuildings(state) {
+    return state.entities.staticBuildings
+}
+
+export function getStaticItems(state) {
+    return state.entities.staticItems
+}
+
 export function staticBuildings (state = {}, action) {
     switch (action.type) {
         case Actions.FETCH_BUILDINGS_SUCCESS:
@@ -8,6 +17,7 @@ export function staticBuildings (state = {}, action) {
             return state;
     }
 }
+
 export function staticItems (state = {}, action) {
     switch (action.type) {
         case Actions.FETCH_ITEMS_SUCCESS:

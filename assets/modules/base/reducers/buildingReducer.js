@@ -1,5 +1,16 @@
 import * as BaseActions from '../actions/BaseActionTypes';
 import * as BuldingsActions from '../actions/BuildingActionTypes';
+import reduce from 'lodash/reduce'
+
+export function getBuildingsForBase(state, base) {
+    if (!base || !base.buildingPositions) {
+        return []
+    }
+
+    return reduce(base.buildingPositions, (result, buildingId) => {
+        result.push(state.buildings[buildingId])
+    }, []);
+}
 
 export function buildings(state = {}, action) {
     switch(action.type) {

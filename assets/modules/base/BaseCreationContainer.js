@@ -13,8 +13,7 @@ class BaseCreationContainer extends Component {
     }
 
     render() {
-        const currentBase = this.props.entities.bases[this.props.currentBase.id];
-        const currentPlayer = this.props.entities.players[this.props.currentPlayer.id];
+        const { currentBase, currentPlayer } = this.props;
         if (currentBase) {
             return (
                 <div>
@@ -33,8 +32,11 @@ class BaseCreationContainer extends Component {
     }
 }
 
-function mapStateToProps({ currentBase, currentPlayer, entities }) {
-    return { currentBase, currentPlayer, entities };
+import { getCurrentBase } from './reducers/baseReducer'
+import { getcurrentPlayer } from '../player/reducers/playerReducer'
+
+function mapStateToProps(state) {
+    return { currentBase: getCurrentBase(state), currentPlayer: getcurrentPlayer(state) };
 }
 
 function mapDispatchToProps(dispatch) {

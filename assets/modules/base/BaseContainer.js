@@ -15,7 +15,7 @@ class BaseContainer extends Component {
     }
 
     render() {
-        const currentBase = this.props.entities.bases[this.props.currentBase.id];
+        const { currentBase, sBuildings, buildings } = this.props;
         if (!currentBase) {
             return (
                 <div>
@@ -26,8 +26,6 @@ class BaseContainer extends Component {
         return (
             <div>
                 <Base onSelectCell={this.props.actions.openPopup}
-                      staticBuildings={this.props.entities.staticBuildings}
-                      buildings={this.props.entities.buildings}
                       base={currentBase} />
             </div>
         );
@@ -35,8 +33,10 @@ class BaseContainer extends Component {
     }
 }
 
-function mapStateToProps({ currentBase, currentPlayer, entities }) {
-    return { currentBase, currentPlayer, entities };
+import { getCurrentBase } from './reducers/baseReducer'
+
+function mapStateToProps(state) {
+    return { currentBase: getCurrentBase(state) };
 }
 
 function mapDispatchToProps(dispatch) {
