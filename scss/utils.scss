@@ -1,3 +1,5 @@
+@import './variables/variables';
+
 .text-center {
   text-align: center;
 }
@@ -12,4 +14,20 @@
 
 .color-error {
   color: red;
+}
+
+.font-size-small {
+  font-size: $font-size-small;
+}
+
+.margin-bottom-inner {
+  margin-bottom: $spacing-inner;
+}
+
+.margin-bottom-gutter {
+  margin-bottom: $spacing-gutter;
+}
+
+.text-italic {
+  font-style: italic;
 }

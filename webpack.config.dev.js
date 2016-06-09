@@ -1,8 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var extractCSS = new ExtractTextPlugin('app.css');
 
 module.exports = {
   entry: [
@@ -12,10 +10,15 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    publicPath: "/dist/",
+    publicPath: "http://localhost:3000/dist/",
     filename: 'bundle.js'
   },
-  devtool: 'inline-source-map',
+  resolve: {
+    root: [
+      path.resolve('./assets')
+    ]
+  },
+  devtool: 'source-map',
   module: {
     loaders: [
       {
@@ -29,7 +32,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: extractCSS.extract(["css?sourceMap", "postcss", "sass?sourceMap"])
+        loaders: ["style", "css?sourceMap", "postcss", "sass?sourceMap"]
       },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
@@ -44,7 +47,6 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    extractCSS  
+    new webpack.HotModuleReplacementPlugin()
   ]
 };

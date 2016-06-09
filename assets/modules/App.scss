@@ -1,0 +1,90 @@
+@import '../../scss/variables/variables';
+
+$center-width: 700px;
+$right-width: 350px;
+$max-height: 450px;
+
+$planet-size: 330px;
+$planet-z-index: 10;
+
+.App {
+    position: relative;
+    margin: 0;
+}
+
+.AppCenter {
+    width: 80%;
+    min-width: 1000px;
+    height: 75%;
+    margin: auto;
+    border:1px solid white;
+    position: relative;
+}
+
+.AppPlanet,
+.AppPlanetCircles {
+    border-radius: 100%;
+    transform: translate(-50%, -50%);
+    transform-origin: 0 0;
+    top:50%;
+    left:50%;
+    position: absolute;
+}
+
+.AppPlanet {
+    background-color: #3A3645;
+    width:$planet-size;
+    height:$planet-size;
+    z-index: $planet-z-index;
+}
+
+
+.AppPlanetCircles {
+    background-color: $color-blue;
+    width: $planet-size + 70;
+    height: $planet-size + 70;
+    z-index: $planet-z-index - 2;
+}
+
+.AppBlockRight {
+    width: 370px;
+    margin-left: $spacing-gutter;
+
+
+    transform: translate($planet-size / 2 + 80px, calc(-100% + 150px));
+    transform-origin: bottom left;
+    top:50%;
+    left:50%;
+    position: absolute;
+    z-index: $planet-z-index + 10;
+}
+
+.AppBlockContent {
+    color: $color-blue;
+    font-weight: $font-weight-medium;
+    border-left: 1px solid $color-blue;
+    margin-left: $spacing-gutter;
+    padding: $spacing-inner 0 $spacing-inner $spacing-gutter;
+}
+
+.AppBlockTitle {
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacing-inner;
+    color: $color-yelow;
+}
+
+.CircleProgress {
+    $circleSize: 40px;
+
+    font-weight:$font-weight-normal;
+    color: $color-yelow;
+    text-align: center;
+    line-height: $circleSize;
+
+    display: inline-block;
+    width: $circleSize;
+    height: $circleSize;
+    border-radius: 50%;
+    border: 1px solid $color-blue;
+    margin-right: $spacing-inner;
+}

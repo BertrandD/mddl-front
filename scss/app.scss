@@ -6,7 +6,8 @@
 *  Components
 ***********/
 
-@import 'components/progress';
+@import 'components/progress',
+  'components/aside-layout';
 
 /**********
 *  Modules
@@ -15,8 +16,6 @@
 @import "modules/app/app-center";
 @import "modules/auth/auth";
 @import "modules/button/button";
-@import "modules/menu/bottom-menu";
-@import "modules/menu/top-menu";
 @import "modules/notification/notification-block";
 @import "modules/table/table";
 @import "modules/list/list";
@@ -32,6 +31,11 @@ html {
   font-size: 13px;
   font-family:serif;
   line-height:16px;
+}
+
+body {
+  background: url("../static/img/space.jpg") center;
+  background-size: cover;
 }
 
 #app {

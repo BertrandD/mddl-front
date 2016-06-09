@@ -1,15 +1,15 @@
-@import '../../variables/variables';
-@import '../../mixins/mixins';
+@import '../../scss/variables/variables';
+@import '../../scss/mixins/mixins';
 
-.top-menu {
+.TopMenu {
   @include list-unstyled();
 
-  position: absolute;
   left:0;
   right:0;
-  background-image: linear-gradient(to bottom, rgba(90,90,90,0.7), #000);;
+  background-color: #000;
   padding: $spacing-inner $spacing-gutter*3;
   color: #fff;
+  margin-bottom: 80px;
 
   display: flex;
   justify-content: space-between;

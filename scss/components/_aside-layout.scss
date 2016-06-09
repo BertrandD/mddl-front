@@ -1,0 +1,42 @@
+@mixin aside-layout ($master, $slave, $vertical-align: top) {
+  display: table;
+  width: 100%;
+
+  #{$master},
+  #{$slave} {
+    display: table-cell;
+    vertical-align: $vertical-align;
+  }
+
+  #{$master} {
+    width: 100%;
+  }
+}
+
+.aside-layout {
+  @include aside-layout('.aside-layout__master', '.aside-layout__slave');
+}
+
+.aside-layout__master {
+  &:first-child {
+    padding-right: $spacing-inner;
+  }
+
+  &:last-child {
+    padding-left: $spacing-inner;
+  }
+}
+
+.aside-layout--middle {
+  .aside-layout__master,
+  .aside-layout__slave {
+    vertical-align: middle;
+  }
+}
+
+.aside-layout--bottom {
+  .aside-layout__master,
+  .aside-layout__slave {
+    vertical-align: bottom;
+  }
+}

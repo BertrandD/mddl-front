@@ -6,6 +6,7 @@ import { fetchMyBases } from './base/actions/baseActions';
 import { fetchPlayer } from './player/actions/playerActions';
 import { Link } from 'react-router';
 import map from 'lodash/map'
+import './TopMenu.scss'
 
 class TopMenu extends Component {
 
@@ -15,7 +16,7 @@ class TopMenu extends Component {
         //FIXME : don't do that, this is a hack
         if (!base) {
             return (
-                <div className="top-menu">&nbsp;</div>
+                <div className="TopMenu">&nbsp;</div>
             )
         }
         let resourcesCount = 0;
@@ -25,7 +26,7 @@ class TopMenu extends Component {
         });
 
         return (
-            <div className="top-menu">
+            <div className="TopMenu">
                 <div>
                     <Link to="/home">
                         <i className="fa fa-home"/>
