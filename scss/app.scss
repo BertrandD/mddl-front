@@ -36,6 +36,7 @@ html {
 body {
   background: url("../static/img/space.jpg") center;
   background-size: cover;
+  min-width: 1000px;
 }
 
 #app {

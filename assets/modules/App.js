@@ -12,6 +12,18 @@ class App extends Component {
             <div className="App">
                 <TopMenu />
 
+                <div className="AppTopLeft">
+                    <div className="AppTopLeftContent">
+                        Hey !
+                    </div>
+                </div>
+
+                <div className="AppTopRight">
+                    <div className="AppTopRightContent">
+                        Hey !
+                    </div>
+                </div>
+
                 <div className="AppCenter">
                     <div className="AppPlanetCircles AppPlanetCircle1"></div>
                     <div className="AppPlanetCircles AppPlanetCircle2"></div>
