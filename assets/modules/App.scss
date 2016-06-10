@@ -4,12 +4,14 @@ $center-width: 700px;
 $right-width: 350px;
 $max-height: 450px;
 
-$planet-size: 330px;
+$planet-size: 240px;
 $planet-z-index: 10;
 
 .App {
     position: relative;
     margin: 0;
+    background-image: url("../../static/img/layout/interface-complete.png");
+    background-size: 100% 100%;
 }
 
 .AppCenter {
@@ -17,17 +19,15 @@ $planet-z-index: 10;
     min-width: 1000px;
     height: 75%;
     margin: auto;
-    border:1px solid white;
+    //border:1px solid white;
     position: relative;
 }
 
 .AppPlanet,
 .AppPlanetCircles {
     border-radius: 100%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, calc(-50% + 40px));
     transform-origin: 0 0;
-    top:50%;
-    left:50%;
     position: absolute;
 }
 
@@ -36,14 +36,54 @@ $planet-z-index: 10;
     width:$planet-size;
     height:$planet-size;
     z-index: $planet-z-index;
+
+    top:50%;
+    left:50%;
+}
+
+.AppPlanetCircles {
+    width: 500px;
+    height: 500px;
+
+    top:50%;
+    left:50%;
 }
 
 
-.AppPlanetCircles {
-    background-color: $color-blue;
-    width: $planet-size + 70;
-    height: $planet-size + 70;
-    z-index: $planet-z-index - 2;
+@keyframes rotating {
+    from {
+        transform: translate(-50%, calc(-50% + 40px)) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, calc(-50% + 40px)) rotate(360deg);
+    }
+}
+
+.AppPlanetCircle1 {
+    background-image: url("../../static/img/layout/centre01.png");
+}
+.AppPlanetCircle2 {
+    background-image: url("../../static/img/layout/centre02.png");
+}
+.AppPlanetCircle3 {
+    background-image: url("../../static/img/layout/centre03.png");
+}
+.AppPlanetCircle4 {
+    background-image: url("../../static/img/layout/centre04.png");
+    animation: rotating 60s infinite;
+    transform-origin: 50% 50%;
+}
+.AppPlanetCircle5 {
+    background-image: url("../../static/img/layout/centre05.png");
+    animation: rotating 120s infinite;
+    animation-direction: reverse;
+    transform-origin: 50% 50%;
+}
+.AppPlanetCircle6 {
+    background-image: url("../../static/img/layout/centre06.png");
+}
+.AppPlanetCircle7 {
+    background-image: url("../../static/img/layout/centre07.png");
 }
 
 .AppBlockRight {

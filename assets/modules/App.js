@@ -13,7 +13,13 @@ class App extends Component {
                 <TopMenu />
 
                 <div className="AppCenter">
-                    <div className="AppPlanetCircles">&nbsp;</div>
+                    <div className="AppPlanetCircles AppPlanetCircle1"></div>
+                    <div className="AppPlanetCircles AppPlanetCircle2"></div>
+                    <div className="AppPlanetCircles AppPlanetCircle3"></div>
+                    <div className="AppPlanetCircles AppPlanetCircle4"></div>
+                    <div className="AppPlanetCircles AppPlanetCircle5"></div>
+                    <div className="AppPlanetCircles AppPlanetCircle6"></div>
+                    <div className="AppPlanetCircles AppPlanetCircle7"></div>
                     <div className="AppPlanet">&nbsp;</div>
                     <div className="AppBlockRight">
                         <div className="AppBlockTitle">En cours sur la base 01:</div>
