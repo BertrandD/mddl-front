@@ -14,7 +14,8 @@ $planet-z-index: 10;
 }
 
 .Planet {
-  background: url("../../../../../static/img/layout/planete-02.png") center;
+  background: url("../../../../../static/img/layout/planete-04.png") center;
+  background-size: cover;
   width:$planet-size;
   height:$planet-size;
   z-index: $planet-z-index;

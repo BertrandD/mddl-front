@@ -1,0 +1,8 @@
+@import '../variables/variables';
+
+@mixin block($color: $color-blue) {
+  box-shadow: 0px 0px 8px 0px $color, inset 0px 0px 8px 0px $color;
+  border: 2px solid #38CAFF;
+  color: $color-blue;
+  padding: $spacing-gutter;
+}

@@ -13,10 +13,8 @@
 *  Modules
 ***********/
 
-@import "modules/app/app-center";
 @import "modules/auth/auth";
 @import "modules/button/button";
-@import "modules/notification/notification-block";
 @import "modules/table/table";
 @import "modules/list/list";
 
@@ -24,12 +22,13 @@
 
 @import "reset";
 
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300);
 
 html {
   background: $gray-light;
   height:100%;
   font-size: 13px;
-  font-family:serif;
+  font-family: 'Open Sans', sans-serif;
   line-height:16px;
 }
 

@@ -26,6 +26,7 @@ class BaseContainer extends Component {
         return (
             <div>
                 <Base onSelectCell={this.props.actions.openPopup}
+                      sBuildings={this.props.sBuildings}
                       base={currentBase} />
             </div>
         );
@@ -33,10 +34,11 @@ class BaseContainer extends Component {
     }
 }
 
-import { getCurrentBase } from './reducers/baseReducer'
+import { getPopulatedCurrentBase } from './reducers/baseReducer'
+import { getStaticBuildings } from '../static/reducers/staticReducer'
 
 function mapStateToProps(state) {
-    return { currentBase: getCurrentBase(state) };
+    return { currentBase: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state)  };
 }
 
 function mapDispatchToProps(dispatch) {

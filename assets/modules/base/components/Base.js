@@ -6,6 +6,7 @@ import map from 'lodash/map'
 import filter from 'lodash/filter'
 import reduce from 'lodash/reduce'
 import * as PopupTypes from '../../core/components/Popup/PopupTypes'
+import BuildingsList from './../../buildings/components/BuildingsList'
 
 require('./Base.scss');
 
@@ -16,12 +17,13 @@ class Base extends Component {
     }
 
     render() {
+
         return (
             <div className="Base">
-                <h2>{ this.props.base.name }</h2>
+                <h2>Base : { this.props.base.name }</h2>
 
                 <div id="buildings">
-                    Coming soon !
+                    <BuildingsList buildings={this.props.base.buildings}/>
                 </div>
             </div>
         )
@@ -30,6 +32,7 @@ class Base extends Component {
 
 Base.propTypes = {
     base: PropTypes.object.isRequired,
+    sBuildings: PropTypes.object.isRequired,
     onSelectCell: PropTypes.func.isRequired
 };
 
