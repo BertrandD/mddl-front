@@ -4,3 +4,7 @@
 .Base {
   @include block();
 }
+
+.BaseName {
+  color: $color-yelow;
+}

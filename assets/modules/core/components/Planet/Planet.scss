@@ -47,13 +47,16 @@ $planet-z-index: 10;
 }
 .PlanetCircle2 {
   background-image: url("../../../../../static/img/layout/centre02.png");
+  animation: rotating 300s linear infinite;
+  transform-origin: 50% 50%;
 }
 .PlanetCircle3 {
   background-image: url("../../../../../static/img/layout/centre03.png");
 }
 .PlanetCircle4 {
   background-image: url("../../../../../static/img/layout/centre04.png");
-  animation: rotating 60s linear infinite;
+  animation: rotating 120s linear infinite;
+  animation-direction: reverse;
   transform-origin: 50% 50%;
 }
 .PlanetCircle5 {
@@ -64,9 +67,14 @@ $planet-z-index: 10;
 }
 .PlanetCircle6 {
   background-image: url("../../../../../static/img/layout/centre06.png");
+  animation: rotating 120s linear infinite;
+  transform-origin: 50% 50%;
 }
 .PlanetCircle7 {
   background-image: url("../../../../../static/img/layout/centre07.png");
+  animation: rotating 240s linear infinite;
+  animation-direction: reverse;
+  transform-origin: 50% 50%;
 }
 
 .PlanetBlockRight {

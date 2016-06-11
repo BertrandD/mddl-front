@@ -20,7 +20,7 @@ class Base extends Component {
 
         return (
             <div className="Base">
-                <h2>Base : { this.props.base.name }</h2>
+                <h1 className="BaseName">Base : { this.props.base.name }</h1>
 
                 <div id="buildings">
                     <BuildingsList buildings={this.props.base.buildings}/>
