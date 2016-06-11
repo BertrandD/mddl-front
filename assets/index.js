@@ -57,7 +57,7 @@ actions.fetchAuthentication()
     .then(() => {
       actions.fetchPlayer().then(() => {
         actions.fetchMyBases().then(() => {
-          window.timer = setTimeout(refreshApp, 3000);
+          //window.timer = setTimeout(refreshApp, 3000);
         })
       });
       renderApp();

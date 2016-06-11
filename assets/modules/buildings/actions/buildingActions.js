@@ -92,7 +92,6 @@ export function createBuilding (currentBase, { id }, position = -1) {
                 }, res.payload.endsAt - Date.now());
                 dispatch(createBuildingStart(currentBase, res.payload, {position}));
                 try {
-                    console.log('yolo');
                     dispatch(fetchBaseSuccess(normalize(res.meta.base, base).entities));
                 }catch (e) {
                     console.error(e);

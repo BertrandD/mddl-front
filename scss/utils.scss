@@ -16,8 +16,16 @@
   color: red;
 }
 
+.color-yellow {
+  color: $color-yelow;
+}
+
 .font-size-small {
   font-size: $font-size-small;
+}
+
+.font-weight-bold {
+  font-weight: $font-weight-bold;
 }
 
 .margin-bottom-inner {
@@ -30,4 +38,11 @@
 
 .text-italic {
   font-style: italic;
+}
+
+ul.list-inline {
+  display: inline-block;
+  li {
+    display: inline-block;
+  }
 }
