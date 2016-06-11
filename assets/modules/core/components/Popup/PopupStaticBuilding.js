@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createBuilding } from '../../../base/actions/buildingActions'
+import { createBuilding } from '../../../buildings/actions/buildingActions'
 import { closePopup } from '../../actions/popupActions'
 import Timer from '../../../core/components/Timer'
 import ProgressBar from '../../../core/components/ProgressBar'

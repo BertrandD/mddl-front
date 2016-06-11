@@ -1,5 +1,5 @@
 import * as BaseActions from '../actions/BaseActionTypes';
-import * as BuldingsActions from '../actions/BuildingActionTypes';
+import * as BuldingsActions from '../../buildings/actions/BuildingActionTypes';
 import * as AppActions from '../../core/actions/AppActionTypes';
 import clone from 'lodash/clone';
 import map from 'lodash/map';

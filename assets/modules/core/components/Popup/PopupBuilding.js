@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { upgradeBuilding } from '../../../base/actions/buildingActions'
+import { upgradeBuilding } from '../../../buildings/actions/buildingActions'
 import Timer from '../../../core/components/Timer'
 import ProgressBar from '../../../core/components/ProgressBar'
 import renderStaticBuildingsRequirements from '../../../static/utils/renderStaticBuildingsRequirements'
