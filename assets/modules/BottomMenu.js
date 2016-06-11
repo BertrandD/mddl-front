@@ -13,7 +13,9 @@ class BottomMenu extends Component {
     render() {
         return (
             <div className="BottomMenu">
-                Bottom menu !!
+                <div className="BottomMenuBlockRight">
+                    Hey !
+                </div>
             </div>
         );
     }
