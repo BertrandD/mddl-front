@@ -52,10 +52,31 @@ class Base extends Component {
                                         &nbsp;<i className="fa fa-arrow-right"> </i> {building.currentLevel + 1}
                                         <ProgressBar start={building.startedAt} end={building.endsAt} />
                                     </span>
+                                ) ||(
+                                    <span>
+                                        &nbsp;(max: {building.maxLevel})
+                                    </span>
                                 )}
                             </td>
                             <td>
                                 {building.description}
+                                <div>
+                                    Prérequis :&nbsp;
+                                    <ul className="list-inline">
+                                        {building.requirements[1] && map(building.requirements[1].resources, (resource, index) => (
+                                            <li key={index}>
+                                                {sItems[index].name} : {resource}
+                                            </li>
+                                        ))}
+                                    </ul>&nbsp;
+                                    <ul className="list-inline">
+                                        {building.requirements[1] && map(building.requirements[1].buildings, (req, index) => (
+                                            <li key={index}>
+                                                {this.props.sBuildings[req.id].name} niveau {req.level}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </td>
                             <td>
                                 <button onClick={this.props.onUpgradeBuilding.bind(null, building)}>
