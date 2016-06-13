@@ -1,8 +1,9 @@
 import * as BaseActions from '../actions/BaseActionTypes';
-import * as BuldingsActions from '../actions/BuildingActionTypes';
+import * as BuldingsActions from '../../buildings/actions/BuildingActionTypes';
 import * as AppActions from '../../core/actions/AppActionTypes';
 import clone from 'lodash/clone';
 import map from 'lodash/map';
+import omit from 'lodash/omit';
 
 import forEach from 'lodash/forEach'
 
@@ -20,10 +21,17 @@ export function populateBase(state, base) {
     }
     const buildings = [];
     map(base.buildings, (id) => {
-        buildings.push(state.entities.buildings[id])
+        buildings.push(populateBuilding(state, state.entities.buildings[id]))
     });
 
     return {...base, buildings};
+}
+
+export function populateBuilding (state, building) {
+    return {
+        ...building,
+        ...omit(state.entities.staticBuildings[building.buildingId], ['id'])
+    }
 }
 
 export function currentBase (state = {
@@ -101,7 +109,7 @@ function base (state = {
 
             forEach(newState.production, (prod, id) => {
                 const toProduce =  (prod / 3600) * ((now - newState.lastRefresh) / 1000);
-                if (newState.maxVolumes.max_volume_resources >= newState.inventory.RESOURCE[id].count + toProduce) {
+                if (newState.inventory.RESOURCE[id] && newState.maxVolumes.max_volume_resources >= newState.inventory.RESOURCE[id].count + toProduce) {
                     newState.inventory.RESOURCE[id].count += toProduce;
                 }
             });

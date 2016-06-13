@@ -2,7 +2,7 @@ import { UPGRADE_BUILDING_WAIT, CREATE_BUILDING_START, CREATE_BUILDING_END, CREA
 import { postAsForm, fetch } from '../../../utils/post-as-form'
 import config from '../../../config'
 import addEvent from '../../../utils/addEvent'
-import { fetchBaseSuccess, updateBase } from './baseActions'
+import { fetchBaseSuccess, updateBase } from './../../base/actions/baseActions'
 import { normalize, arrayOf } from 'normalizr'
 import { base } from '../../../schema/schemas'
 
@@ -92,7 +92,6 @@ export function createBuilding (currentBase, { id }, position = -1) {
                 }, res.payload.endsAt - Date.now());
                 dispatch(createBuildingStart(currentBase, res.payload, {position}));
                 try {
-                    console.log('yolo');
                     dispatch(fetchBaseSuccess(normalize(res.meta.base, base).entities));
                 }catch (e) {
                     console.error(e);

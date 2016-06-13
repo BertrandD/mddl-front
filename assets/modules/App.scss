@@ -1,0 +1,84 @@
+@import '../../scss/mixins/mixins';
+@import '../../scss/variables/variables';
+
+$center-width: 700px;
+$right-width: 350px;
+$max-height: 450px;
+
+.App {
+    position: relative;
+    margin: 0;
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+
+.AppCenter {
+    width: calc(100% - 2 * 369px);
+    height: 75%;
+    margin: $spacing-gutter auto auto;
+
+    position: relative;
+}
+
+.AppTopRight,
+.AppTopLeft {
+    width: 369px;
+    height: 313px;
+    position: absolute;
+    top: 0;
+}
+
+
+.AppTopLeft {
+    background: url("../../static/img/layout/block-top-left.png") no-repeat;
+    left: -20px;
+}
+
+.AppTopLeftContent {
+    width: 245px;
+    height: 125px;
+
+    color: $color-blue;
+    margin-top: 40px;
+    margin-left: 50px;
+}
+
+.AppTopRightContent {
+    width: 245px;
+    height: 125px;
+    color: $color-blue;
+    margin-top: 40px;
+    margin-left: 74px;
+}
+
+
+.AppTopRight {
+    background: url("../../static/img/layout/block-top-right.png") no-repeat;
+
+    right: -20px;
+}
+
+.AppTopCenter {
+
+    @include block();
+
+    background: rgba($color-blue, 0.3);
+
+    padding: $spacing-inner;
+
+    margin-top: 20px;
+    margin-left: 325px;
+    margin-right: 325px;
+    height: 22px;
+    text-align: center;
+
+    .AppTopCenterContent {
+        vertical-align: middle;
+        display: inline-block;
+
+        color: $color-blue;
+        font-weight: $font-weight-medium;
+        font-size: $font-size-large;
+    }
+
+}

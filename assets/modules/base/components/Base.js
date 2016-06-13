@@ -1,12 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Timer from '../../core/components/Timer'
-import ProgressBar from '../../core/components/ProgressBar'
-import Popup from '../../core/components/Popup/Popup.js';
-import map from 'lodash/map'
-import filter from 'lodash/filter'
-import reduce from 'lodash/reduce'
-import * as PopupTypes from '../../core/components/Popup/PopupTypes'
-
+import BaseBuildings from './BaseBuildings'
 require('./Base.scss');
 
 class Base extends Component {
@@ -16,13 +9,18 @@ class Base extends Component {
     }
 
     render() {
+
+        const { base, sBuildings, sItems } = this.props;
+
         return (
             <div className="Base">
-                <h2>{ this.props.base.name }</h2>
+                <h1 className="BaseName">Base : { base.name }</h1>
 
-                <div id="buildings">
-                    Coming soon !
-                </div>
+                <BaseBuildings buildings={base.buildings}
+                               onUpgradeBuilding={this.props.onUpgradeBuilding}
+                               onCreateBuilding={this.props.onCreateBuilding}
+                               sBuildings={sBuildings}
+                               sItems={sItems}/>
             </div>
         )
     }
@@ -30,7 +28,10 @@ class Base extends Component {
 
 Base.propTypes = {
     base: PropTypes.object.isRequired,
-    onSelectCell: PropTypes.func.isRequired
+    sBuildings: PropTypes.object.isRequired,
+    sItems: PropTypes.object.isRequired,
+    onUpgradeBuilding: PropTypes.func.isRequired,
+    onCreateBuilding: PropTypes.func.isRequired
 };
 
 export default Base;

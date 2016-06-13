@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import user from './modules/auth/reducers/userReducer';
 import {currentBase, bases} from './modules/base/reducers/baseReducer';
-import {buildings} from './modules/base/reducers/buildingReducer';
+import {buildings} from './modules/buildings/reducers/buildingReducer';
 import player, {currentPlayer, players} from './modules/player/reducers/playerReducer';
 import { staticBuildings, staticItems } from './modules/static/reducers/staticReducer';
 import { routerReducer } from 'react-router-redux'

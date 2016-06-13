@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createBase } from './actions/baseActions';
-import { fetchBase } from './actions/baseActions';
-import { openPopup } from '../core/actions/popupActions'
-import { fetchBuildings } from '../static/actions/staticActions'
+import { upgradeBuilding, createBuilding } from '../buildings/actions/buildingActions'
 import { Link } from 'react-router';
 import Base from './components/Base'
 
@@ -15,7 +12,7 @@ class BaseContainer extends Component {
     }
 
     render() {
-        const { currentBase, sBuildings, buildings } = this.props;
+        const { currentBase, sBuildings, sItems, actions } = this.props;
         if (!currentBase) {
             return (
                 <div>
@@ -25,7 +22,10 @@ class BaseContainer extends Component {
         }
         return (
             <div>
-                <Base onSelectCell={this.props.actions.openPopup}
+                <Base sBuildings={sBuildings}
+                      sItems={sItems}
+                      onUpgradeBuilding={actions.upgradeBuilding.bind(null, currentBase)}
+                      onCreateBuilding={actions.createBuilding.bind(null, currentBase)}
                       base={currentBase} />
             </div>
         );
@@ -33,14 +33,15 @@ class BaseContainer extends Component {
     }
 }
 
-import { getCurrentBase } from './reducers/baseReducer'
+import { getPopulatedCurrentBase } from './reducers/baseReducer'
+import { getStaticBuildings, getStaticItems } from '../static/reducers/staticReducer'
 
 function mapStateToProps(state) {
-    return { currentBase: getCurrentBase(state) };
+    return { currentBase: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state)  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ createBase, fetchBuildings, openPopup, fetchBase }, dispatch)}
+    return {actions: bindActionCreators({ upgradeBuilding, createBuilding }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BaseContainer);

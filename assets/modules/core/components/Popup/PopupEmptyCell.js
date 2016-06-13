@@ -5,7 +5,7 @@ import { closePopup } from '../../actions/popupActions'
 import map from 'lodash/map'
 import filter from 'lodash/filter'
 import reduce from 'lodash/reduce'
-import { createBuilding } from '../../../base/actions/buildingActions'
+import { createBuilding } from '../../../buildings/actions/buildingActions'
 
 class PopupEmptyCell extends Component {
 

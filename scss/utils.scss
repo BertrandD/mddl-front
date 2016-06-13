@@ -1,3 +1,5 @@
+@import './variables/variables';
+
 .text-center {
   text-align: center;
 }
@@ -12,4 +14,39 @@
 
 .color-error {
   color: red;
+}
+
+.color-yellow {
+  color: $color-yelow;
+}
+
+.color-blue {
+  color: $color-blue;
+}
+
+.font-size-small {
+  font-size: $font-size-small;
+}
+
+.font-weight-bold {
+  font-weight: $font-weight-bold;
+}
+
+.margin-bottom-inner {
+  margin-bottom: $spacing-inner;
+}
+
+.margin-bottom-gutter {
+  margin-bottom: $spacing-gutter;
+}
+
+.text-italic {
+  font-style: italic;
+}
+
+ul.list-inline {
+  display: inline-block;
+  li {
+    display: inline-block;
+  }
 }

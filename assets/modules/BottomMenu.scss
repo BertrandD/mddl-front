@@ -1,0 +1,25 @@
+@import '../../scss/mixins/mixins';
+@import '../../scss/variables/variables';
+
+$item-size: 100px;
+
+.BottomMenu {
+  position: absolute;
+  width:100%;
+  bottom:0;
+  background-image: url("../../static/img/layout/barre-basse.png");
+  background-size: 100% 100%;
+  height: 67px;
+  color: #fff;
+  z-index: $z-index-bottom-menu;
+}
+
+.BottomMenuBlockRight {
+  color: $color-blue;
+  padding:5px;
+  height: 8px;
+  width: 42%;
+  float: right;
+  margin-top: 15px;
+  font-size: $font-size-small;
+}
