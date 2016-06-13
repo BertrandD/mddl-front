@@ -109,7 +109,7 @@ function base (state = {
 
             forEach(newState.production, (prod, id) => {
                 const toProduce =  (prod / 3600) * ((now - newState.lastRefresh) / 1000);
-                if (newState.maxVolumes.max_volume_resources >= newState.inventory.RESOURCE[id].count + toProduce) {
+                if (newState.inventory.RESOURCE[id] && newState.maxVolumes.max_volume_resources >= newState.inventory.RESOURCE[id].count + toProduce) {
                     newState.inventory.RESOURCE[id].count += toProduce;
                 }
             });
