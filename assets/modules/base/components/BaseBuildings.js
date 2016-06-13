@@ -90,14 +90,14 @@ class Base extends Component {
                                     <div>
                                         Prérequis :&nbsp;
                                         <ul className="list-inline">
-                                            {map(sBuilding.requirements[1].resources, (resource, index) => (
+                                            {sBuilding.requirements[1] && map(sBuilding.requirements[1].resources, (resource, index) => (
                                                 <li key={index}>
                                                     {sItems[index].name} : {resource}
                                                 </li>
                                             ))}
                                         </ul>&nbsp;
                                         <ul className="list-inline">
-                                            {map(sBuilding.requirements[1].buildings, (req, index) => (
+                                            {sBuilding.requirements[1] && map(sBuilding.requirements[1].buildings, (req, index) => (
                                                 <li key={index}>
                                                     {this.props.sBuildings[req.id].name} niveau {req.level}
                                                 </li>
