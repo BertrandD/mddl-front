@@ -37,7 +37,7 @@ class TopMenu extends Component {
                     <div className={resourcesCount >= base.maxVolumes.max_volume_resources && "color-error"}>
                         {base && map(base.inventory.RESOURCE, (resource, index) => (
                             <span key={index}>
-                            <span className="color-yellow">{items[resource.templateId].name}:</span> {Math.round(resource.count)} &nbsp; - &nbsp;
+                            <span className="color-yellow">{items[resource.templateId].name}:</span> {Math.round(resource.count)} ({base.production[resource.templateId]}/h) - &nbsp;
                            </span>
                         ))}
                     <span>&nbsp;
