@@ -5,9 +5,6 @@ import './Popup.scss'
 import Draggable from 'react-draggable';
 import { closePopup } from '../../actions/popupActions'
 import * as PopupTypes from './PopupTypes'
-import PopupEmptyCell from './PopupEmptyCell'
-import PopupBuilding, { PopupBuildingTitle } from './PopupBuilding'
-import PopupStaticBuilding, { PopupStaticBuildingTitle } from './PopupStaticBuilding'
 
 class Popup extends Component {
 
@@ -35,49 +32,6 @@ class Popup extends Component {
         }
     }
 
-    getClassName() {
-        let className = "Popup";
-        const data = this.props.popup;
-
-        if (this.state.display) {
-            className += " PopupDisplay"
-        }
-
-        if (!data.type || data.type.length < 1) {
-            className += " PopupHidden"
-        } else {
-            className += " PopupVisible"
-        }
-
-        return className;
-    }
-
-    getTitle() {
-        switch (this.props.popup.type) {
-            case PopupTypes.EMPTY_CELL:
-                return "Empty cell";
-            case PopupTypes.BUILDING:
-                return (<PopupBuildingTitle building={this.props.popup.data} sBuilding={this.props.staticBuildings[this.props.popup.data.buildingId]}/>);
-            case PopupTypes.STATIC_BUILDING:
-                return (<PopupStaticBuildingTitle sBuilding={this.props.popup.data}/>);
-            default:
-                return "Popup title";
-        }
-    }
-
-    getBody() {
-        switch (this.props.popup.type) {
-            case PopupTypes.EMPTY_CELL:
-                return <PopupEmptyCell />;
-            case PopupTypes.BUILDING:
-                return <PopupBuilding />;
-            case PopupTypes.STATIC_BUILDING:
-                return <PopupStaticBuilding />;
-            default:
-                return "Popup title";
-        }
-    }
-
     render() {
 
         this.state.display = this.state.display || Boolean(this.props.popup.type && this.props.popup.type.length > 0);
@@ -86,15 +40,13 @@ class Popup extends Component {
             <Draggable handle=".PopupHead"
                        defaultPosition={{x: 50, y: 0}}>
                 <div className="PopupContainer">
-                    <div className={this.getClassName()}>
+                    <div>
                         <div className="PopupHead">
                             <div className="PopupTitle">
-                                {this.getTitle(this.props.popup)}
                             </div>
                             <div className="PopupClose" onClick={this.props.actions.closePopup}>X</div>
                         </div>
                         <div className="PopupBody">
-                            {this.getBody()}
                         </div>
                     </div>
                 </div>
