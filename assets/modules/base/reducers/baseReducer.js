@@ -4,8 +4,8 @@ import * as AppActions from '../../core/actions/AppActionTypes';
 import clone from 'lodash/clone';
 import map from 'lodash/map';
 import omit from 'lodash/omit';
-
 import forEach from 'lodash/forEach'
+import sum from 'lodash/sum'
 
 export function getCurrentBase (state) {
     return state.entities.bases[state.currentBase.id];
@@ -105,20 +105,28 @@ function base (state = {
 
             const now = Date.now();
 
-            const newState = clone(state);
+            const base = clone(state);
 
-            forEach(newState.production, (prod, id) => {
-                const toProduce =  (prod / 3600) * ((now - newState.lastRefresh) / 1000);
-                if (newState.inventory.RESOURCE[id] && newState.maxVolumes.max_volume_resources >= newState.inventory.RESOURCE[id].count + toProduce) {
-                    newState.inventory.RESOURCE[id].count += toProduce;
+            forEach(base.production, (prod, id) => {
+                const resource = base.inventory.RESOURCE[id];
+                const toProduce =  (prod / 3600) * ((now - resource.lastRefresh) / 1000);
+                const currentStorage = countResources(base);
+                if (!resource) {
+                    console.warn('Trying to produce a resources not present in inventory !!');
+                    return;
                 }
+                resource.count += Math.min(toProduce, base.maxVolumes.max_volume_resources - currentStorage);
+                resource.lastRefresh = now;
             });
-            newState.lastRefresh = now;
 
-            return newState;
+            return base;
         default:
             return state;
     }
+}
+
+function countResources (base) {
+    return sum(map(base.inventory.RESOURCE, 'count'));
 }
 
 export default base;
