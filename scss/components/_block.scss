@@ -1,0 +1,6 @@
+@import '../variables/variables';
+@import '../mixins/mixins';
+
+.Block {
+  @include block();
+}

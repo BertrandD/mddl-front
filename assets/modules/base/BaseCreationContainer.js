@@ -16,14 +16,14 @@ class BaseCreationContainer extends Component {
         const { currentBase, currentPlayer } = this.props;
         if (currentBase) {
             return (
-                <div>
+                <div className="Block">
                     Congratulations ! You just created the base <strong>{ currentBase.name }</strong> !
                     <Link to="/"> Go to home </Link>
                 </div>
             )
         }
         return (
-            <div>
+            <div className="Block">
                 Create a base ?
                 <BaseCreation player={currentPlayer} onSubmit={this.props.actions.createBase} />
             </div>
