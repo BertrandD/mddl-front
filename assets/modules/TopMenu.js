@@ -72,7 +72,9 @@ class TopMenu extends Component {
 
                 <div className="AppTopCenter">
                     <div className="AppTopCenterContent">
-                        Hey !
+                        <Link to="/base">
+                            { base ? base.name : 'No base selected' }
+                        </Link>
                     </div>
                 </div>
 
