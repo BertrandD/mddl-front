@@ -1,0 +1,14 @@
+@mixin icon() {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.IconUpgrade {
+  @include icon();
+  background-image: url("../static/img/icons/icon_upgrade_32.png");
+  &:hover {
+    background-position: bottom;
+  }
+}

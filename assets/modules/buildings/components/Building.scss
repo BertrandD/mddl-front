@@ -1,0 +1,135 @@
+@import '../../../../scss/mixins/mixins';
+@import '../../../../scss/variables/variables';
+
+.Building {
+  @include block-light();
+  display: flex;
+  flex-direction: column;
+  margin: $spacing-gutter;
+  width: 195px;
+  padding: 0;
+}
+
+.BuildingBody {
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  position: relative;
+
+  background-color: $color-dark;
+
+  &:hover {
+    .BuildingDescription {
+      display: flex;
+    }
+  }
+
+  p {
+    margin:0;
+  }
+}
+
+.BuildingDescription {
+  display: none;
+  position: absolute;
+  background-color: $color-dark;
+  width: 100%;
+  height: 100%;
+
+  justify-content: center;
+  flex-direction: column;
+
+
+  p {
+    text-align: center;
+  }
+}
+
+.BuildingImage {
+  padding: $spacing-gutter 0;
+  img {
+    width: 100%;
+  }
+}
+
+.BuildingStats {
+  width: 50%;
+  text-align: center;
+  padding: $spacing-inner;
+
+  p {
+    margin-bottom: $spacing-inner;
+  }
+
+  ul {
+    text-align: left;
+    margin-bottom: $spacing-gutter;
+  }
+}
+
+.BuildingFooterLeft,
+.BuildingHeader {
+  padding: $spacing-gutter;
+}
+
+.BuildingFooter,
+.BuildingHeader {
+  background-color: $color-darker;
+  font-weight: $font-weight-bold;
+  color: $color-yelow;
+}
+
+.BuildingFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1;
+  cursor: pointer;
+
+
+}
+
+.BuildingFooterHoverable:hover {
+  .BuildingUpgrade {
+      display: block;
+    }
+
+    .BuildingLevel {
+      display: none;
+    }
+
+    .IconUpgrade {
+      background-position: bottom;
+    }
+}
+
+.BuildingUpgrade {
+  display: none;
+  padding-top: $spacing-inner;
+
+  position: absolute;
+  top: -$spacing-gutter;
+  left: $spacing-inner;
+  width: 100%;
+  height: 100%;
+
+  span {
+    display: block;
+    font-size: $font-size-small;
+  }
+}
+
+.BuildingFooterLeft {
+  width: 100%;
+  position: relative;
+}
+
+.BuildingLevel {
+  text-align: center;
+}
+
+.BuildingAction {
+  padding: $spacing-inner;
+}

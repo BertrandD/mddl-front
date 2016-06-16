@@ -1,20 +1,22 @@
 @import "../variables/variables";
 .progress {
-  border: 1px solid $gray-dark;
+  background-color: #000;
   i { line-height: 3.5em; }
   position: relative;
   overflow: hidden;
+  height: 20px;
 }
 
 .progress-text {
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
-  color: darken($gray-light, 40);
+  color: $color-dark;
+  z-index:1;
 }
 
 .progress-bar {
-  background-color: $gray-dark;
-  height: 100%;
-  transition: width 1s linear;
+  background-image: linear-gradient(to top, #000, $color-yelow 70%, $color-yelow);
+  transition: all 1s linear;
+  height: 20px;
 }

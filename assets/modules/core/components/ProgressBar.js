@@ -18,7 +18,7 @@ class ProgressBar extends Component {
     }
 
     tick() {
-        const progress = (Date.now()+1000 - this.props.start) * 100 / (this.props.end - this.props.start);
+        const progress = Math.min((Date.now()+1000 - this.props.start) * 100 / (this.props.end - this.props.start), 100);
 
         this.setState(Object.assign({}, this.state, {
             progress
@@ -30,9 +30,9 @@ class ProgressBar extends Component {
         return (
             <div className="progress">
                 <div className="progress-text">
-                    {this.props.text}
+                    {Math.round(this.state.progress)}%
                 </div>
-                <div className="progress-bar" style={{width: this.state.progress+'%'}}>&nbsp;</div>
+                <div className="progress-bar" style={{transform: 'translateX(' + (-100 + this.state.progress) + '%)'}}>&nbsp;</div>
             </div>
         );
     }

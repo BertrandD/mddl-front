@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import forEach from 'lodash/forEach'
 import map from 'lodash/map'
 import ProgressBar from '../../core/components/ProgressBar'
+import BuildingList from '../../buildings/components/BuildingList'
 
 require('./Base.scss');
 
@@ -30,63 +31,7 @@ class Base extends Component {
         return (
             <div>
                 <h2>Vos bâtiments</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Niveau</th>
-                            <th>Description</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {buildings.map((building, index) => (
-                        <tr key={index}>
-                            <td className="color-yellow text-center font-weight-bold">
-                                {building.name}
-                            </td>
-                            <td className="color-yellow text-center">
-                                {building.currentLevel}
-                                {building.endsAt > 0 && (
-                                    <span>
-                                        &nbsp;<i className="fa fa-arrow-right"> </i> {building.currentLevel + 1}
-                                        <ProgressBar start={building.startedAt} end={building.endsAt} />
-                                    </span>
-                                ) ||(
-                                    <span>
-                                        &nbsp;(max: {building.maxLevel})
-                                    </span>
-                                )}
-                            </td>
-                            <td>
-                                {building.description}
-                                <div>
-                                    Prérequis :&nbsp;
-                                    <ul className="list-inline">
-                                        {building.requirements[building.currentLevel + 1] && map(building.requirements[building.currentLevel + 1].resources, (resource, index) => (
-                                            <li key={index}>
-                                                {sItems[index].name} : {resource}
-                                            </li>
-                                        ))}
-                                    </ul>&nbsp;
-                                    <ul className="list-inline">
-                                        {building.requirements[building.currentLevel + 1] && map(building.requirements[1].buildings, (req, index) => (
-                                            <li key={index}>
-                                                {this.props.sBuildings[req.id].name} niveau {req.level}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                                <button onClick={this.props.onUpgradeBuilding.bind(null, building)}>
-                                    Améliorer
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
+                <BuildingList sItems={sItems} buildings={buildings} onUpgradeBuilding={this.props.onUpgradeBuilding}/>
 
                 <h2>Bâtiments constructibles</h2>
                 {sBuildings.length > 0 && (
