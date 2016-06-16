@@ -18,6 +18,10 @@ $max-height: 450px;
     margin: $spacing-gutter auto auto;
 
     position: relative;
+
+    > div {
+        height: 100%;
+    }
 }
 
 .AppTopRight,

@@ -3,8 +3,17 @@
 
 .Base {
   @include block();
+  height:100%;
+  display: flex;
+  flex-direction: column;
+
 }
 
 .BaseName {
   color: $color-yelow;
+}
+
+.BaseBuildings {
+  overflow-x: hidden;
+  overflow-y: auto;
 }

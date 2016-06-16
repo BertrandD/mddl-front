@@ -20,7 +20,7 @@
 @import "modules/table/table";
 @import "modules/list/list";
 
-@include scrollbars(.5em, darken($gray-dark,10));
+@include scrollbars(.5em, $color-blue, $color-darker);
 
 @import "reset";
 

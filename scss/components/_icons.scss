@@ -3,12 +3,17 @@
   height: 32px;
   display: inline-block;
   cursor: pointer;
+  &:hover {
+    background-position: bottom;
+  }
 }
 
 .IconUpgrade {
   @include icon();
   background-image: url("../static/img/icons/icon_upgrade_32.png");
-  &:hover {
-    background-position: bottom;
-  }
+}
+
+.IconBuild {
+  @include icon();
+  background-image: url("../static/img/icons/icon_construire_32.png");
 }

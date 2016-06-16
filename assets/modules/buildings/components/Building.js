@@ -16,13 +16,21 @@ class Building extends Component {
     }
 
     upgradeBuilding () {
-        this.props.onUpgradeBuilding();
+        if (!this.props.building.currentLevel) {
+            this.props.onCreateBuilding();
+        } else {
+            this.props.onUpgradeBuilding();
+        }
     }
 
     render() {
 
         const { building, sItems } = this.props;
-        console.log(building);
+
+        if (!building.currentLevel) {
+            building.currentLevel = 0;
+        }
+
         return (
             <div className="Building">
                 <div className="BuildingHeader">
@@ -48,6 +56,19 @@ class Building extends Component {
                                     {map(building.requirements[building.currentLevel + 1].resources, (req, index) => (
                                         <li key={index}>
                                             <span className="color-yellow">{sItems[index].name}:</span> <span className="color-white">{req}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
+                        {building.requirements[building.currentLevel + 1] && keys(building.requirements[building.currentLevel + 1].items).length > 0 && (
+                            <div>
+                                <p>Prérequis:</p>
+                                <ul>
+                                    {map(building.requirements[building.currentLevel + 1].items, (req, index) => (
+                                        <li key={index}>
+                                            <span className="color-yellow">{sItems[req.id].name}:</span> <span className="color-white">{req.count}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -83,7 +104,11 @@ class Building extends Component {
                             )}
                         </div>
                     </div>
-                    {building.endsAt <= 0 && (
+                    {building.currentLevel === 0 && (
+                        <div className="BuildingAction">
+                            <div className="IconBuild"></div>
+                        </div>
+                    ) || building.endsAt <= 0 && (
                         <div className="BuildingAction">
                             {building.currentLevel < building.maxLevel && (
                                 <div className="IconUpgrade"></div>
@@ -103,52 +128,8 @@ class Building extends Component {
 Building.propTypes = {
     sItems: PropTypes.object.isRequired,
     building: PropTypes.object.isRequired,
-    onUpgradeBuilding: PropTypes.func.isRequired
+    onUpgradeBuilding: PropTypes.func.isRequired,
+    onCreateBuilding: PropTypes.func.isRequired
 };
 
 export default Building;
-/*
- <tr key={index}>
- <td className="color-yellow text-center font-weight-bold">
- {building.name}
- </td>
- <td className="color-yellow text-center">
- {building.currentLevel}
- {building.endsAt > 0 && (
- <span>
- &nbsp;<i className="fa fa-arrow-right"> </i> {building.currentLevel + 1}
- <ProgressBar start={building.startedAt} end={building.endsAt} />
- </span>
- ) ||(
- <span>
- &nbsp;(max: {building.maxLevel})
- </span>
- )}
- </td>
- <td>
- {building.description}
- <div>
- Prérequis :&nbsp;
- <ul className="list-inline">
- {building.requirements[building.currentLevel + 1] && map(building.requirements[building.currentLevel + 1].resources, (resource, index) => (
- <li key={index}>
- {sItems[index].name} : {resource}
- </li>
- ))}
- </ul>&nbsp;
- <ul className="list-inline">
- {building.requirements[building.currentLevel + 1] && map(building.requirements[1].buildings, (req, index) => (
- <li key={index}>
- {this.props.sBuildings[req.id].name} niveau {req.level}
- </li>
- ))}
- </ul>
- </div>
- </td>
- <td>
- <button onClick={this.props.onUpgradeBuilding.bind(null, building)}>
- Améliorer
- </button>
- </td>
- </tr>
- */
