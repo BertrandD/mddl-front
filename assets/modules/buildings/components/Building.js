@@ -50,7 +50,7 @@ class Building extends Component {
                         </p>
                         <ul>
                             <li>
-                                <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.reqEnergy[building.currentLevel] || 0}</span>
+                                <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.reqEnergy[building.currentLevel-1] || 0}</span>
                             </li>
                         </ul>
                     </div>
@@ -74,7 +74,6 @@ class Building extends Component {
 
                         {this.hasRequirement(building, building.currentLevel, 'items') && (
                             <div>
-                                <p>Items:</p>
                                 <ul>
                                     {building.requirements[building.currentLevel].items.map((req, index) => (
                                         <li key={index}>
@@ -85,9 +84,11 @@ class Building extends Component {
                             </div>
                         ) || (<div>Aucun item requis</div>)}
 
-                        <span className="color-yellow">Temps de construction : </span>
-                        <span className="color-white">
-                            <Duration milliseconds={building.buildTime} />
+                        <span>
+                            <span className="color-yellow">Temps de construction : </span>
+                            <span className="color-white">
+                                <Duration milliseconds={building.buildTimeByLevel[building.currentLevel]*1000} />
+                            </span>
                         </span>
 
                     </div>
