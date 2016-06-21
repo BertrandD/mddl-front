@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TopMenu from './TopMenu'
+import TopLeftBlock from './TopLeftBlock'
 import BottomMenu from './BottomMenu'
 import Popup from './core/components/Popup/Popup'
 import './App.scss'
@@ -14,7 +15,7 @@ class App extends Component {
 
                 <div className="AppTopLeft">
                     <div className="AppTopLeftContent">
-                        Hey !
+                        <TopLeftBlock />
                     </div>
                 </div>
 

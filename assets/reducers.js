@@ -6,9 +6,10 @@ import player, {currentPlayer, players} from './modules/player/reducers/playerRe
 import { staticBuildings, staticItems } from './modules/static/reducers/staticReducer';
 import { routerReducer } from 'react-router-redux'
 import { popup } from './modules/core/reducers/popupReducer'
+import { notifications } from './modules/core/reducers/notificationReducer'
 
 const entities = combineReducers({staticBuildings, staticItems, bases, players, buildings});
 
-const u = combineReducers({ routing: routerReducer, entities, user, currentBase, currentPlayer, popup });
+const u = combineReducers({ routing: routerReducer, entities, user, currentBase, currentPlayer, popup, notifications });
 
 export default u;
