@@ -87,7 +87,7 @@ class Building extends Component {
                         <span>
                             <span className="color-yellow">Temps de construction : </span>
                             <span className="color-white">
-                                <Duration milliseconds={building.buildTimeByLevel[building.currentLevel]*1000} />
+                                <Duration milliseconds={building.buildTimeByLevel[building.currentLevel]} />
                             </span>
                         </span>
 
@@ -113,7 +113,7 @@ class Building extends Component {
                     ) || building.endsAt <= 0 && (
                         <div className="BuildingAction">
                             {building.currentLevel < building.maxLevel && (
-                                <div className="IconUpgrade"></div>
+                                <div className="IconUpgrade" onClick={this.upgradeBuilding.bind(this)}></div>
                             ) || (
                                 <div>
                                     Max level reached !
