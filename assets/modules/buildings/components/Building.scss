@@ -5,10 +5,15 @@
   @include block-light();
   display: flex;
   flex-direction: column;
-  margin: $spacing-gutter;
+  margin: $spacing-inner;
   width: 250px;
   padding: 0;
 }
+
+.BuildingHeader {
+  padding: $spacing-inner;
+}
+
 
 .BuildingBody {
   min-height: 180px;
@@ -16,38 +21,22 @@
   align-items: center;
   flex-wrap: nowrap;
   position: relative;
+  flex-grow: 1;
 
   background-color: $color-dark;
-
-  &:hover {
-    .BuildingDescription {
-      display: flex;
-    }
-  }
 
   p {
     margin:0;
   }
 }
 
-.BuildingDescription {
-  display: none;
-  position: absolute;
+.BuildingRequirements {
   background-color: $color-dark;
-  width: 100%;
-  height: 100%;
-
-  justify-content: center;
-  flex-direction: column;
-
-
-  p {
-    text-align: center;
-  }
+  padding: $spacing-inner;
 }
 
 .BuildingImage {
-  padding: $spacing-gutter 0;
+  padding: $spacing-inner 0;
   img {
     width: 100%;
   }
@@ -63,13 +52,8 @@
 
   ul {
     text-align: left;
-    margin-bottom: $spacing-gutter;
+    margin-bottom: $spacing-inner;
   }
-}
-
-.BuildingFooterLeft,
-.BuildingHeader {
-  padding: $spacing-gutter;
 }
 
 .BuildingFooter,
@@ -84,50 +68,11 @@
   justify-content: flex-end;
   align-items: center;
   text-align: center;
-  flex-grow: 1;
-  cursor: pointer;
-
-
-}
-
-.BuildingFooterHoverable:hover {
-  .BuildingUpgrade {
-      display: block;
-    }
-
-    .BuildingLevel {
-      display: none;
-    }
-
-    .IconBuild,
-    .IconUpgrade {
-      background-position: bottom;
-    }
-}
-
-.BuildingUpgrade {
-  display: none;
-  padding-top: $spacing-inner;
-
-  position: absolute;
-  top: -$spacing-gutter;
-  left: $spacing-inner;
-  width: 100%;
-  height: 100%;
-
-  span {
-    display: block;
-    font-size: $font-size-small;
-  }
-}
-
-.BuildingFooterLeft {
-  width: 100%;
-  position: relative;
 }
 
 .BuildingLevel {
   text-align: center;
+  width: 100%;
 }
 
 .BuildingAction {
