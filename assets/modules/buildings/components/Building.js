@@ -29,7 +29,7 @@ class Building extends Component {
 
     render() {
 
-        const { building, sItems } = this.props;
+        const { building, sItems, sBuildings } = this.props;
 
         if (!building.currentLevel) {
             building.currentLevel = 0;
@@ -45,54 +45,68 @@ class Building extends Component {
                         <img src="/img/buildings/batiment_01.png" alt=""/>
                     </div>
                     <div className="BuildingStats">
-                        <p>
-                            Consomation:
+                        <p className="margin-bottom-inner">
+                            Consomation : <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.reqEnergy[building.currentLevel-1] || 0}</span>
                         </p>
-                        <ul>
-                            <li>
-                                <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.reqEnergy[building.currentLevel-1] || 0}</span>
-                            </li>
-                        </ul>
+                        {building.currentLevel < building.maxLevel && (
+                            <div className="BuildingRequirements">
+                                <p className="color-yellow">Prérequis pour le niveau {building.currentLevel + 1}:</p>
+
+                                {this.hasRequirement(building, building.currentLevel, 'resources') && (
+                                    <div>
+                                        <p>Ressources:</p>
+                                        <ul>
+                                            {building.requirements[building.currentLevel].resources.map((req, index) => (
+                                                <li key={index}>
+                                                    <span className="color-yellow">{sItems[index].name}:</span> <span className="color-white">{req}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                {this.hasRequirement(building, building.currentLevel, 'buildings') && (
+                                    <div>
+                                        <p>Bâtiment:</p>
+                                        <ul>
+                                            {building.requirements[building.currentLevel].buildings.map((req, index) => (
+                                                <li key={index}>
+                                                    <span className="color-yellow">{sBuildings[req.id].name}:</span> <span className="color-white">{req.level}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                {this.hasRequirement(building, building.currentLevel, 'items') && (
+                                    <div>
+                                        <p>Items:</p>
+                                        <ul>
+                                            {building.requirements[building.currentLevel].items.map((req, index) => (
+                                                <li key={index}>
+                                                    <span className="color-yellow">{sItems[req.id].name}:</span> <span className="color-white">{req.count}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                <div className="margin-bottom-inner">
+                                    <span className="color-yellow">Temps de construction : </span>
+                                    <span className="color-white">
+                                        <Duration milliseconds={building.buildTimeByLevel[building.currentLevel]} />
+                                    </span>
+                                </div>
+
+                                <span className="color-yellow">Consomation au niveau {building.currentLevel + 1} : </span>
+                                <div className="color-white">
+                                    <span className="fa fa-bolt color-yellow">&nbsp;</span>{building.reqEnergy[building.currentLevel]}
+                                </div>
+
+                            </div>
+                        )}
                     </div>
                 </div>
-                {building.currentLevel < building.maxLevel && (
-                    <div className="BuildingRequirements">
-                        <p className="color-yellow">Prérequis pour le niveau {building.currentLevel + 1}:</p>
-
-                        {this.hasRequirement(building, building.currentLevel, 'resources') && (
-                            <div>
-                                <p>Ressources:</p>
-                                <ul>
-                                    {building.requirements[building.currentLevel].resources.map((req, index) => (
-                                        <li key={index}>
-                                            <span className="color-yellow">{sItems[index].name}:</span> <span className="color-white">{req}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ) || (<div>Aucune ressources requises</div>)}
-
-                        {this.hasRequirement(building, building.currentLevel, 'items') && (
-                            <div>
-                                <ul>
-                                    {building.requirements[building.currentLevel].items.map((req, index) => (
-                                        <li key={index}>
-                                            <span className="color-yellow">{sItems[req.id].name}:</span> <span className="color-white">{req.count}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ) || (<div>Aucun item requis</div>)}
-
-                        <span>
-                            <span className="color-yellow">Temps de construction : </span>
-                            <span className="color-white">
-                                <Duration milliseconds={building.buildTimeByLevel[building.currentLevel]} />
-                            </span>
-                        </span>
-
-                    </div>
-                )}
                 <div className="BuildingFooter">
                     <div className="BuildingLevel">
                         {building.endsAt > 0 && (
@@ -129,6 +143,7 @@ class Building extends Component {
 
 Building.propTypes = {
     sItems: PropTypes.object.isRequired,
+    sBuildings: PropTypes.object.isRequired,
     building: PropTypes.object.isRequired,
     onUpgradeBuilding: PropTypes.func.isRequired,
     onCreateBuilding: PropTypes.func.isRequired

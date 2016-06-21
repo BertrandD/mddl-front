@@ -18,23 +18,23 @@ class BaseBuilings extends Component {
 
     render() {
 
-        const { buildings, sItems } = this.props;
+        const { buildings, sItems, sBuildings } = this.props;
 
-        const sBuildings = [];
+        const buildingsAvailable = [];
 
         forEach(this.props.sBuildings, (sBuilding) => {
             if (!buildings.some(b => b.buildingId === sBuilding.id)) {
-                sBuildings.push(sBuilding);
+                buildingsAvailable.push(sBuilding);
             }
         });
 
         return (
             <div className="BaseBuildings">
                 <h2>Vos bâtiments</h2>
-                <BuildingList sItems={sItems} buildings={buildings} onUpgradeBuilding={this.props.onUpgradeBuilding} onCreateBuilding={this.props.onCreateBuilding}/>
+                <BuildingList sItems={sItems} buildings={buildings} sBuildings={sBuildings} onUpgradeBuilding={this.props.onUpgradeBuilding} onCreateBuilding={this.props.onCreateBuilding}/>
 
                 <h2>Bâtiments constructibles</h2>
-                <BuildingList sItems={sItems} buildings={sBuildings} onUpgradeBuilding={this.props.onUpgradeBuilding} onCreateBuilding={this.props.onCreateBuilding}/>
+                <BuildingList sItems={sItems} buildings={buildingsAvailable} sBuildings={sBuildings} onUpgradeBuilding={this.props.onUpgradeBuilding} onCreateBuilding={this.props.onCreateBuilding}/>
             </div>
         )
     }
