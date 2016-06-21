@@ -23,6 +23,10 @@ class Building extends Component {
         }
     }
 
+    hasRequirement (building, level, requirement) {
+        return building.requirements[level] && building.requirements[level][requirement] && building.requirements[level][requirement].length > 0
+    }
+
     render() {
 
         const { building, sItems } = this.props;
@@ -49,11 +53,11 @@ class Building extends Component {
                     <div className="BuildingStats">
                         <p className="color-yellow">Niveau {building.currentLevel + 1}:</p>
 
-                        {building.requirements[building.currentLevel + 1] && keys(building.requirements[building.currentLevel + 1].resources).length > 0 && (
+                        {this.hasRequirement(building, building.currentLevel, 'resources') && (
                             <div>
                                 <p>Prérequis:</p>
                                 <ul>
-                                    {map(building.requirements[building.currentLevel + 1].resources, (req, index) => (
+                                    {building.requirements[building.currentLevel].resources.map((req, index) => (
                                         <li key={index}>
                                             <span className="color-yellow">{sItems[index].name}:</span> <span className="color-white">{req}</span>
                                         </li>
@@ -62,11 +66,11 @@ class Building extends Component {
                             </div>
                         )}
 
-                        {building.requirements[building.currentLevel + 1] && keys(building.requirements[building.currentLevel + 1].items).length > 0 && (
+                        {this.hasRequirement(building, building.currentLevel, 'items') && (
                             <div>
                                 <p>Prérequis:</p>
                                 <ul>
-                                    {map(building.requirements[building.currentLevel + 1].items, (req, index) => (
+                                    {building.requirements[building.currentLevel].items.map((req, index) => (
                                         <li key={index}>
                                             <span className="color-yellow">{sItems[req.id].name}:</span> <span className="color-white">{req.count}</span>
                                         </li>
@@ -80,7 +84,7 @@ class Building extends Component {
                         </p>
                         <ul>
                             <li>
-                                <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.requiredEnergy[building.currentLevel + 1]}</span>
+                                <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.reqEnergy[building.currentLevel] || 0}</span>
                             </li>
                         </ul>
                     </div>
