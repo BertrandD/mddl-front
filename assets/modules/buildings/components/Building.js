@@ -38,13 +38,29 @@ class Building extends Component {
         return (
             <div className="Building">
                 <div className="BuildingHeader">
-                    {building.name}
+                    <div className="BuildingName">
+                        {building.name} - Lvl {building.currentLevel} {building.endsAt > 0 && (<span><span className="fa fa-arrow-right">&nbsp;</span> {building.currentLevel + 1}</span>)}
+                        {building.currentLevel === building.maxLevel && (<span>(max)</span>)}
+
+                    </div>
+
+                    {building.currentLevel === 0 && (
+                        <div className="BuildingAction">
+                            <div className="IconBuild" onClick={this.upgradeBuilding.bind(this)}></div>
+                        </div>
+                    ) || building.endsAt <= 0 && (
+                        <div className="BuildingAction">
+                            {building.currentLevel < building.maxLevel && (
+                                <div className="IconUpgrade" onClick={this.upgradeBuilding.bind(this)}></div>
+                            )}
+                        </div>
+                    )}
                 </div>
                 <div className="BuildingBody">
                     <div className="BuildingImage">
                         <img src="/img/buildings/batiment_01.png" alt=""/>
                     </div>
-                    <div className="BuildingStats">
+                    {/*<div className="BuildingStats">
                         <p className="margin-bottom-inner">
                             Consomation : <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.reqEnergy[building.currentLevel-1] || 0}</span>
                         </p>
@@ -105,34 +121,12 @@ class Building extends Component {
 
                             </div>
                         )}
-                    </div>
+                    </div>*/}
                 </div>
                 <div className="BuildingFooter">
-                    <div className="BuildingLevel">
-                        {building.endsAt > 0 && (
-                            <div>
-                                <div className="margin-bottom-inner">Niveau {building.currentLevel} <span className="fa fa-arrow-right">&nbsp;</span> {building.currentLevel + 1}</div>
-                                <ProgressBar start={building.startedAt} end={building.endsAt} />
-                            </div>
-                        ) || (
-                            <div>
-                                Niveau {building.currentLevel}
-                            </div>
-                        )}
-                    </div>
-                    {building.currentLevel === 0 && (
-                        <div className="BuildingAction">
-                            <div className="IconBuild" onClick={this.upgradeBuilding.bind(this)}></div>
-                        </div>
-                    ) || building.endsAt <= 0 && (
-                        <div className="BuildingAction">
-                            {building.currentLevel < building.maxLevel && (
-                                <div className="IconUpgrade" onClick={this.upgradeBuilding.bind(this)}></div>
-                            ) || (
-                                <div>
-                                    Max level reached !
-                                </div>
-                            )}
+                    {building.endsAt > 0 && (
+                        <div>
+                            <ProgressBar start={building.startedAt} end={building.endsAt} />
                         </div>
                     )}
                 </div>

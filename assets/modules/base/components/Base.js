@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import BaseBuildings from './BaseBuildings'
+import Planet from '../../core/components/Planet/Planet'
+
 require('./Base.scss');
 
 class Base extends Component {
@@ -14,13 +16,16 @@ class Base extends Component {
 
         return (
             <div className="Base">
-                <h1 className="BaseName">Base : { base.name }</h1>
-
-                <BaseBuildings buildings={base.buildings}
-                               onUpgradeBuilding={this.props.onUpgradeBuilding}
-                               onCreateBuilding={this.props.onCreateBuilding}
-                               sBuildings={sBuildings}
-                               sItems={sItems}/>
+                <div className="BasePlanet">
+                    <Planet />
+                </div>
+                <div className="BaseContent">
+                    <BaseBuildings buildings={base.buildings}
+                                   onUpgradeBuilding={this.props.onUpgradeBuilding}
+                                   onCreateBuilding={this.props.onCreateBuilding}
+                                   sBuildings={sBuildings}
+                                   sItems={sItems}/>
+                </div>
             </div>
         )
     }

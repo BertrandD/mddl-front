@@ -1,83 +1,66 @@
 @import '../../../../scss/mixins/mixins';
 @import '../../../../scss/variables/variables';
 
+$header-height: 45px;
+$building-hieght: 150px;
+$building-width: 180px;
+
 .Building {
   @include block-light();
   display: flex;
   flex-direction: column;
   margin: $spacing-inner;
-  flex-grow: 1;
-  width: 300px;
+  width: $building-width;
   padding: 0;
+  position: relative;
+  &:hover {
+    .BuildingHeader {
+      display: flex;
+    }
+  }
 }
 
 .BuildingHeader {
-  padding: $spacing-inner;
+  position: absolute;
+  width: 100%;
+  height:$header-height;
+  display: none;
+  justify-content: flex-end;
 }
 
+.BuildingName {
+  padding: $spacing-inner;
+  width: 100%;
+  text-align: left;
+}
+
+.BuildingAction {
+  padding: $spacing-inner-small;
+}
 
 .BuildingBody {
-  min-height: 180px;
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  position: relative;
-  flex-grow: 1;
-
+  height: $building-hieght;
   background-color: $color-dark;
-
-  p {
-    margin:0;
-  }
-}
-
-.BuildingRequirements {
-  background-color: $color-dark;
-  ul {
-    padding-left: $spacing-inner;
-  }
 }
 
 .BuildingImage {
-  width: 40%;
-  padding: $spacing-inner 0;
+  max-width: 100%;
+  height: 100%;
+  text-align: center;
+
   img {
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
   }
 }
 
-.BuildingStats {
-  padding: $spacing-inner;
-
-  p {
-    margin-bottom: $spacing-inner;
-  }
-
-  ul {
-    text-align: left;
-    margin-bottom: $spacing-inner;
-  }
-}
-
-.BuildingFooter,
 .BuildingHeader {
   background-color: $color-darker;
   font-weight: $font-weight-bold;
   color: $color-yelow;
 }
 
-.BuildingFooter {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  text-align: center;
-}
-
 .BuildingLevel {
   text-align: center;
   width: 100%;
-}
-
-.BuildingAction {
-  padding: $spacing-inner;
 }

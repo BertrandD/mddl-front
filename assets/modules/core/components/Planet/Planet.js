@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import './Planet.scss'
 
-class Popup extends Component {
+class Planet extends Component {
 
     render() {
         return (
@@ -81,12 +79,7 @@ class Popup extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return { };
-}
+Planet.propTypes = {
+};
 
-function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ }, dispatch)}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Popup);
+export default Planet;

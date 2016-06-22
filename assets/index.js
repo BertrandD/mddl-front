@@ -57,7 +57,7 @@ actions.fetchAuthentication()
     .then(() => {
       actions.fetchPlayer().then(() => {
         actions.fetchMyBases().then(() => {
-          window.timer = setTimeout(refreshApp, 3000);
+          //window.timer = setTimeout(refreshApp, 3000);
         })
       });
       renderApp();
@@ -94,7 +94,6 @@ function requireAuth(nextState, replace, next) {
 
 import App from './modules/App';
 import rootReducer from './reducers';
-import HomePage from './containers/HomePage';
 import LoginContainer from './modules/auth/LoginContainer';
 import BaseContainer from './modules/base/BaseContainer';
 import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
@@ -106,13 +105,10 @@ function renderApp() {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={App} onEnter={requireAuth}>
-            <IndexRoute components={{center: Planet }} />
-            <Route path="home" components={{center: HomePage, right: HomePage}} />
-            <Route path="planet" components={{center: Planet}} />
-            <Route path="base" components={{center: BaseContainer}} />
+            <IndexRoute components={{center: BaseContainer }} />
 
-            <Route path="create/player" components={{center: PlayerCreationContainer, right: HomePage}} />
-            <Route path="create/base" components={{center: BaseCreationContainer, right: HomePage}} />
+            <Route path="create/player" components={{center: PlayerCreationContainer}} />
+            <Route path="create/base" components={{center: BaseCreationContainer}} />
 
           </Route>
           <Route path="/login" component={LoginContainer} />

@@ -2,18 +2,17 @@
 @import '../../../../scss/variables/variables';
 
 .Base {
+  height: 100%;
+  overflow-y: overlay;
+}
+
+.BasePlanet {
+  position: relative;
+  height: 350px;
+  padding: $spacing-gutter;
+  margin-bottom: $spacing-gutter;
+}
+
+.BaseContent {
   @include block();
-  height:100%;
-  display: flex;
-  flex-direction: column;
-
-}
-
-.BaseName {
-  color: $color-yelow;
-}
-
-.BaseBuildings {
-  overflow-x: hidden;
-  overflow-y: auto;
 }
