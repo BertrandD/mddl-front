@@ -29,8 +29,8 @@ export function populateBase(state, base) {
 
 export function populateBuilding (state, building) {
     return {
-        ...building,
-        ...omit(state.entities.staticBuildings[building.buildingId], ['id'])
+        ...omit(state.entities.staticBuildings[building.buildingId], ['id']),
+        ...building
     }
 }
 
