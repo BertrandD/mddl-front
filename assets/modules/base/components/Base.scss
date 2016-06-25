@@ -6,3 +6,14 @@
   overflow-y: auto;
   @include block();
 }
+
+.BaseName {
+  color: $color-yelow;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-large;
+  text-transform: uppercase;
+}
+
+.BaseBuildings {
+  @include block();
+}

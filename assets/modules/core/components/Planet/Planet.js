@@ -63,7 +63,7 @@ class Planet extends Component {
                     </div>
                 </div>*/}
 
-                <div className="PlanetBlockLeft">
+                {/*<div className="PlanetBlockLeft">
                     <div className="PlanetBlockTitle">Ressources base 01</div>
                     <div className="PlanetBlockContent">
                         <ul>
@@ -74,7 +74,7 @@ class Planet extends Component {
                             ))}
                         </ul>
                     </div>
-                </div>
+                </div>*/}
             </div>
         );
     }

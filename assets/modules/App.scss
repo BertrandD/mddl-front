@@ -35,9 +35,9 @@ $left-width: 400px;
 }
 
 .AppCenter {
-    @include block();
     flex-shrink: 1;
     @media #{$md-up} {
+        padding-top: $spacing-gutter*2;
         width: 100%;
         max-width: 1000px;
     }

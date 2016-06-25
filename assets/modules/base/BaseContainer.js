@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { upgradeBuilding, createBuilding } from '../buildings/actions/buildingActions'
 import { Link } from 'react-router';
 import Base from './components/Base'
 
@@ -12,8 +11,8 @@ class BaseContainer extends Component {
     }
 
     render() {
-        const { currentBase, sBuildings, sItems, actions } = this.props;
-        if (!currentBase) {
+        const { base } = this.props;
+        if (!base) {
             return (
                 <div>
                     Loading base...
@@ -22,11 +21,7 @@ class BaseContainer extends Component {
         }
         return (
             <div>
-                <Base sBuildings={sBuildings}
-                      sItems={sItems}
-                      onUpgradeBuilding={actions.upgradeBuilding.bind(null, currentBase)}
-                      onCreateBuilding={actions.createBuilding.bind(null, currentBase)}
-                      base={currentBase} />
+                <Base base={base} />
             </div>
         );
 
@@ -34,14 +29,13 @@ class BaseContainer extends Component {
 }
 
 import { getPopulatedCurrentBase } from './reducers/baseReducer'
-import { getStaticBuildings, getStaticItems } from '../static/reducers/staticReducer'
 
 function mapStateToProps(state) {
-    return { currentBase: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state)  };
+    return { base: getPopulatedCurrentBase(state) };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ upgradeBuilding, createBuilding }, dispatch)}
+    return {actions: bindActionCreators({  }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BaseContainer);

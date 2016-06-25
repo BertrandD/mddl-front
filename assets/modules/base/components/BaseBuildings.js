@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import forEach from 'lodash/forEach'
 import map from 'lodash/map'
+import { Link } from 'react-router';
 import ProgressBar from '../../core/components/ProgressBar'
 import BuildingList from '../../buildings/components/BuildingList'
 
@@ -30,6 +31,10 @@ class BaseBuilings extends Component {
 
         return (
             <div className="BaseBuildings">
+                <Link to="/base">
+                    Retour à la base
+                </Link>
+
                 <h2>Vos bâtiments</h2>
                 <BuildingList sItems={sItems} buildings={buildings} sBuildings={sBuildings} onUpgradeBuilding={this.props.onUpgradeBuilding} onCreateBuilding={this.props.onCreateBuilding}/>
 

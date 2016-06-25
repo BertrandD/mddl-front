@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import BaseBuildings from './BaseBuildings'
 import Planet from '../../core/components/Planet/Planet'
+import map from 'lodash/map'
+import { Link } from 'react-router';
 
 require('./Base.scss');
 
@@ -12,26 +13,32 @@ class Base extends Component {
 
     render() {
 
-        const { base, sBuildings, sItems } = this.props;
+        const { base } = this.props;
 
         return (
             <div className="Base">
-                <BaseBuildings buildings={base.buildings}
-                               onUpgradeBuilding={this.props.onUpgradeBuilding}
-                               onCreateBuilding={this.props.onCreateBuilding}
-                               sBuildings={sBuildings}
-                               sItems={sItems}/>
+                <div className="BaseName">
+                    {base.name}
+                </div>
+
+                <h2>Statisitiques de la base :</h2>
+                <p>
+                    <span className="color-yellow fa fa-shield"> </span> {base.baseStat.currentShield} / {base.baseStat.maxShield}
+                </p>
+                <p>
+                    <span className="color-yellow fa fa-heart"> </span> {base.baseStat.currentHealth} / {base.baseStat.maxHealth}
+                </p>
+                <Link to="/base/buildings">
+                    <h3>Voir les bâtiments</h3>
+                </Link>
+
             </div>
         )
     }
 }
 
 Base.propTypes = {
-    base: PropTypes.object.isRequired,
-    sBuildings: PropTypes.object.isRequired,
-    sItems: PropTypes.object.isRequired,
-    onUpgradeBuilding: PropTypes.func.isRequired,
-    onCreateBuilding: PropTypes.func.isRequired
+    base: PropTypes.object.isRequired
 };
 
 export default Base;
