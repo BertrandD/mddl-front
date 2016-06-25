@@ -1,89 +1,44 @@
 @import '../../scss/mixins/mixins';
 @import '../../scss/variables/variables';
 
-$center-width: 700px;
-$right-width: 350px;
-$max-height: 450px;
+$left-width: 400px;
+
+.AppContainer {
+    display: flex;
+    flex-direction: column;
+    height:100%;
+}
 
 .App {
+    display: flex;
+    align-items: stretch;
+    height:100%;
     position: relative;
-    margin: 0;
-    background-size: 100% 100%;
-    overflow: hidden;
+    flex-shrink: 1;
+    justify-content: center;
+    width: 100%;
+    padding: 0 $spacing-gutter;
+    overflow: auto;
+
+    flex-wrap: wrap;
+    @media #{$md-up} {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+}
+
+.AppLeftColumn {
+    padding: $spacing-gutter;
+    width: $left-width;
+    margin-right: $spacing-gutter;
+    flex-shrink: 0;
 }
 
 .AppCenter {
-    width: calc(100% - 2 * 369px);
-    height: 75%;
-    margin: $spacing-gutter auto auto;
-
-    position: relative;
-
-    > div {
-        height: 100%;
-    }
-}
-
-.AppTopRight,
-.AppTopLeft {
-    width: 369px;
-    height: 313px;
-    position: absolute;
-    top: 0;
-}
-
-
-.AppTopLeft {
-    background: url("../../static/img/layout/block-top-left.png") no-repeat;
-    left: -20px;
-}
-
-.AppTopLeftContent {
-    width: 245px;
-    height: 125px;
-
-    color: $color-blue;
-    margin-top: 40px;
-    margin-left: 50px;
-    overflow: auto;
-}
-
-.AppTopRightContent {
-    width: 245px;
-    height: 125px;
-    color: $color-blue;
-    margin-top: 40px;
-    margin-left: 74px;
-}
-
-
-.AppTopRight {
-    background: url("../../static/img/layout/block-top-right.png") no-repeat;
-
-    right: -20px;
-}
-
-.AppTopCenter {
-
     @include block();
-
-    background: rgba($color-blue, 0.3);
-
-    padding: $spacing-inner;
-
-    margin-top: 20px;
-    margin-left: 325px;
-    margin-right: 325px;
-    height: 22px;
-    text-align: center;
-
-    .AppTopCenterContent {
-        vertical-align: middle;
-        display: inline-block;
-
-        color: $color-blue;
-        font-weight: $font-weight-medium;
-        font-size: $font-size-large;
+    flex-shrink: 1;
+    @media #{$md-up} {
+        width: 100%;
+        max-width: 1000px;
     }
-
 }

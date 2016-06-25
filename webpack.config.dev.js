@@ -10,7 +10,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    publicPath: "http://localhost:3000/dist/",
+    publicPath: "http://192.168.0.7:3000/dist/",
     filename: 'bundle.js'
   },
   resolve: {

@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import map from 'lodash/map'
 import './Planet.scss'
 
@@ -8,7 +10,7 @@ class Planet extends Component {
         const { items, sItems } = this.props;
 
         return (
-            <div>
+            <div className="PlanetContainer">
                 <div className="PlanetCircles PlanetCircle1"></div>
                 <div className="PlanetCircles PlanetCircle2"></div>
                 <div className="PlanetCircles PlanetCircle3"></div>
@@ -78,9 +80,12 @@ class Planet extends Component {
     }
 }
 
-Planet.propTypes = {
-    items: PropTypes.object.isRequired,
-    sItems: PropTypes.object.isRequired
-};
+function mapStateToProps(state) {
+    return { };
+}
 
-export default Planet;
+function mapDispatchToProps(dispatch) {
+    return {actions: bindActionCreators({ }, dispatch)}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Planet);

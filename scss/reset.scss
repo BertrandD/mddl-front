@@ -39,3 +39,7 @@ img {
 ul {
   @include list-unstyled;
 }
+
+* {
+  box-sizing: border-box;
+}

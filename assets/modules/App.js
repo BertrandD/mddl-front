@@ -8,27 +8,19 @@ import './App.scss'
 class App extends Component {
 
     render() {
-        const { center, right } = this.props;
+        const { center, left } = this.props;
         return (
-            <div className="App">
+            <div className="AppContainer">
                 <TopMenu />
+                <div className="App">
+                    <div className="AppLeftColumn">
+                        {left}
+                    </div>
 
-                <div className="AppTopLeft">
-                    <div className="AppTopLeftContent">
-                        <TopLeftBlock />
+                    <div className="AppCenter">
+                        {center}
                     </div>
                 </div>
-
-                <div className="AppTopRight">
-                    <div className="AppTopRightContent">
-                        Hey !
-                    </div>
-                </div>
-
-                <div className="AppCenter">
-                    {center}
-                </div>
-
                 <BottomMenu />
             </div>
         );

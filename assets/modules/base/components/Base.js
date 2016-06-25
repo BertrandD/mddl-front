@@ -16,16 +16,11 @@ class Base extends Component {
 
         return (
             <div className="Base">
-                <div className="BasePlanet">
-                    <Planet items={base.inventory.RESOURCE} sItems={sItems}/>
-                </div>
-                <div className="BaseContent">
-                    <BaseBuildings buildings={base.buildings}
-                                   onUpgradeBuilding={this.props.onUpgradeBuilding}
-                                   onCreateBuilding={this.props.onCreateBuilding}
-                                   sBuildings={sBuildings}
-                                   sItems={sItems}/>
-                </div>
+                <BaseBuildings buildings={base.buildings}
+                               onUpgradeBuilding={this.props.onUpgradeBuilding}
+                               onCreateBuilding={this.props.onCreateBuilding}
+                               sBuildings={sBuildings}
+                               sItems={sItems}/>
             </div>
         )
     }

@@ -105,7 +105,7 @@ function renderApp() {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={App} onEnter={requireAuth}>
-            <IndexRoute components={{center: BaseContainer }} />
+            <IndexRoute components={{left: Planet, center: BaseContainer }} />
 
             <Route path="create/player" components={{center: PlayerCreationContainer}} />
             <Route path="create/base" components={{center: BaseCreationContainer}} />

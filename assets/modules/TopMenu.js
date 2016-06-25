@@ -26,58 +26,47 @@ class TopMenu extends Component {
         });
 
         return (
-            <div>
-                <div className="TopMenu">
-                    <div>
-                        <Link to="/home">
-                            <i className="fa fa-home"/>
-                            <span className="font-bold">Home</span>
-                        </Link>
-                    </div>
-                    <div className={resourcesCount >= base.maxVolumes.max_volume_resources && "color-error"}>
-                        {base && map(base.inventory.RESOURCE, (resource, index) => (
-                            <span key={index}>
-                            <span className="color-yellow">{items[resource.templateId].name}:</span> {Math.round(resource.count)} ({base.production[resource.templateId]}/h) - &nbsp;
-                           </span>
-                        ))}
-                    <span>&nbsp;
-                        Storage: {Math.round(resourcesCount)} / {base.maxVolumes.max_volume_resources} ({(100*resourcesCount/(base.maxVolumes.max_volume_resources+0.1)).toFixed(0)}%)
-                    </span>
-                    </div>
-                    <div>
-                        <Link to="/base">
-                            Active base : { base ? base.name : 'No base selected' }
-                        </Link>
-                        <a>
-                            <i className="fa fa-user"/>
-                            <span className="font-bold">{ player ? player.name : 'No player active' }</span>
-                        </a>
-                        <a>
-                            <i className="fa fa-lock"/>
-                            <span>Logout</span>
-                        </a>
-                        {/*{ version }*/}
-                        {/*<span ng-repeat="language in app.availableLanguages">
-                         <label class="cursor-pointer">
-                         <input type="radio"
-                         class="cursor-pointer"
-                         ng-click="app.changeLanguage()"
-                         ng-value="language"
-                         ng-model="app.language">
-                         {{:: language }}
-                         </label>
-                         </span>*/}
-                    </div>
+            <div className="TopMenu">
+                <div>
+                    <Link to="/home">
+                        <i className="fa fa-home"/>
+                        <span className="font-bold">Home</span>
+                    </Link>
                 </div>
-
-                <div className="AppTopCenter">
-                    <div className="AppTopCenterContent">
-                        <Link to="/base">
-                            { base ? base.name : 'No base selected' }
-                        </Link>
-                    </div>
+                <div className={resourcesCount >= base.maxVolumes.max_volume_resources && "color-error"}>
+                    {base && map(base.inventory.RESOURCE, (resource, index) => (
+                        <span key={index}>
+                        <span className="color-yellow">{items[resource.templateId].name}:</span> {Math.round(resource.count)} ({base.production[resource.templateId]}/h) - &nbsp;
+                       </span>
+                    ))}
+                <span>&nbsp;
+                    Storage: {Math.round(resourcesCount)} / {base.maxVolumes.max_volume_resources} ({(100*resourcesCount/(base.maxVolumes.max_volume_resources+0.1)).toFixed(0)}%)
+                </span>
                 </div>
-
+                <div>
+                    <Link to="/base">
+                        Active base : { base ? base.name : 'No base selected' }
+                    </Link>
+                    <a>
+                        <i className="fa fa-user"/>
+                        <span className="font-bold">{ player ? player.name : 'No player active' }</span>
+                    </a>
+                    <a>
+                        <i className="fa fa-lock"/>
+                        <span>Logout</span>
+                    </a>
+                    {/*{ version }*/}
+                    {/*<span ng-repeat="language in app.availableLanguages">
+                     <label class="cursor-pointer">
+                     <input type="radio"
+                     class="cursor-pointer"
+                     ng-click="app.changeLanguage()"
+                     ng-value="language"
+                     ng-model="app.language">
+                     {{:: language }}
+                     </label>
+                     </span>*/}
+                </div>
             </div>
         );
     }
