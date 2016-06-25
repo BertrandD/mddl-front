@@ -23,8 +23,8 @@ class BaseContainer extends Component {
         return (
             <div>
                 <BaseBuildings buildings={base.buildings}
-                               onUpgradeBuilding={this.props.actions.upgradeBuilding}
-                               onCreateBuilding={this.props.actions.createBuilding}
+                               onUpgradeBuilding={this.props.actions.upgradeBuilding.bind(null, base)}
+                               onCreateBuilding={this.props.actions.createBuilding.bind(null, base)}
                                sBuildings={sBuildings}
                                sItems={sItems}/>
             </div>
