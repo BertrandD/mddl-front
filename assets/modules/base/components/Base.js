@@ -17,7 +17,7 @@ class Base extends Component {
         return (
             <div className="Base">
                 <div className="BasePlanet">
-                    <Planet />
+                    <Planet items={base.inventory.RESOURCE} sItems={sItems}/>
                 </div>
                 <div className="BaseContent">
                     <BaseBuildings buildings={base.buildings}

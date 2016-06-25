@@ -2,8 +2,8 @@
 @import '../../../../scss/variables/variables';
 
 $header-height: 45px;
-$building-hieght: 150px;
-$building-width: 180px;
+$building-width: 100px;
+$building-hieght: 100px;
 
 .Building {
   @include block-light();
@@ -25,6 +25,7 @@ $building-width: 180px;
   width: 100%;
   height:$header-height;
   display: none;
+  font-size: $font-size-tiny;
   justify-content: flex-end;
 }
 

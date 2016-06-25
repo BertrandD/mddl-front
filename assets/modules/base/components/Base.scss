@@ -3,16 +3,20 @@
 
 .Base {
   height: 100%;
-  overflow-y: overlay;
+  display: flex;
 }
 
 .BasePlanet {
+  min-width: 300px;
   position: relative;
   height: 350px;
   padding: $spacing-gutter;
+  margin-right: $spacing-gutter;
   margin-bottom: $spacing-gutter;
 }
 
 .BaseContent {
+  height: 100%;
+  overflow-y: auto;
   @include block();
 }

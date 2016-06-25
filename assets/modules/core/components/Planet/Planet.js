@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import map from 'lodash/map'
 import './Planet.scss'
 
 class Planet extends Component {
 
     render() {
+        const { items, sItems } = this.props;
+
         return (
             <div>
                 <div className="PlanetCircles PlanetCircle1"></div>
@@ -14,7 +17,7 @@ class Planet extends Component {
                 <div className="PlanetCircles PlanetCircle6"></div>
                 <div className="PlanetCircles PlanetCircle7"></div>
                 <div className="Planet">&nbsp;</div>
-                <div className="PlanetBlockRight">
+                {/*<div className="PlanetBlockRight">
                     <div className="PlanetBlockTitle">En cours sur la base 01:</div>
                     <div className="PlanetBlockContent">
                         <ul>
@@ -56,21 +59,17 @@ class Planet extends Component {
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div>*/}
 
                 <div className="PlanetBlockLeft">
                     <div className="PlanetBlockTitle">Ressources base 01</div>
                     <div className="PlanetBlockContent">
                         <ul>
-                            <li className="margin-bottom-gutter">
-                                Fer: 10 000 / 15 000
-                            </li>
-                            <li className="margin-bottom-gutter">
-                                Fer: 10 000 / 15 000
-                            </li>
-                            <li className="margin-bottom-gutter">
-                                Fer: 10 000 / 15 000
-                            </li>
+                            {map(items, (item, key) => (
+                                <li key={key}>
+                                    <span className="color-yellow">{sItems[key].name} :</span> {item.count}
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>
@@ -80,6 +79,8 @@ class Planet extends Component {
 }
 
 Planet.propTypes = {
+    items: PropTypes.object.isRequired,
+    sItems: PropTypes.object.isRequired
 };
 
 export default Planet;
