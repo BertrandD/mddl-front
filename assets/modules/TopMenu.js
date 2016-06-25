@@ -33,14 +33,14 @@ class TopMenu extends Component {
                         <span className="font-bold">Home</span>
                     </Link>
                 </div>
-                <div className={resourcesCount >= base.maxVolumes.max_volume_resources && "color-error"}>
+                <div className={resourcesCount >= base.maxVolumes.max_volume_items && "color-error"}>
                     {base && map(base.inventory.RESOURCE, (resource, index) => (
                         <span key={index}>
                         <span className="color-yellow">{items[resource.templateId].name}:</span> {Math.round(resource.count)} ({base.production[resource.templateId]}/h) - &nbsp;
                        </span>
                     ))}
                 <span>&nbsp;
-                    Storage: {Math.round(resourcesCount)} / {base.maxVolumes.max_volume_resources} ({(100*resourcesCount/(base.maxVolumes.max_volume_resources+0.1)).toFixed(0)}%)
+                    Storage: {Math.round(resourcesCount)} / {base.maxVolumes.max_volume_items} ({(100*resourcesCount/(base.maxVolumes.max_volume_items+0.1)).toFixed(0)}%)
                 </span>
                 </div>
                 <div>
