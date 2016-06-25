@@ -14,6 +14,10 @@ class PlanetContainer extends Component {
 
         let resourcesCount = 0;
 
+        if (!base) {
+            return (<div></div>)
+        }
+
         map(base.inventory.RESOURCE, (resource) => {
             resourcesCount += resource.count;
         });
