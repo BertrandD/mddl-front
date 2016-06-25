@@ -99,17 +99,17 @@ import BaseContainer from './modules/base/BaseContainer';
 import BaseBuildingsContainer from './modules/base/BaseBuildingsContainer';
 import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
 import BaseCreationContainer from './modules/base/BaseCreationContainer';
-import Planet from './modules/core/components/Planet/Planet'
+import PlanetContainer from './modules/core/components/Planet/PlanetContainer'
 
 function renderApp() {
   render(
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={App} onEnter={requireAuth}>
-            <IndexRoute components={{left: Planet, center: BaseContainer }} />
+            <IndexRoute components={{left: PlanetContainer, center: BaseContainer }} />
 
-            <Route path="base" components={{left: Planet, center: BaseContainer }} />
-            <Route path="base/buildings" components={{left: Planet, center: BaseBuildingsContainer }} />
+            <Route path="base" components={{left: PlanetContainer, center: BaseContainer }} />
+            <Route path="base/buildings" components={{left: PlanetContainer, center: BaseBuildingsContainer }} />
 
             <Route path="create/player" components={{center: PlayerCreationContainer}} />
             <Route path="create/base" components={{center: BaseCreationContainer}} />

@@ -10,7 +10,7 @@ class Planet extends Component {
         const { items, sItems } = this.props;
 
         return (
-            <div className="PlanetContainer">
+            <div className="PlanetBlock">
                 <div className="PlanetCircles PlanetCircle1"></div>
                 <div className="PlanetCircles PlanetCircle2"></div>
                 <div className="PlanetCircles PlanetCircle3"></div>

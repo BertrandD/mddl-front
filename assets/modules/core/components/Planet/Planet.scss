@@ -4,9 +4,10 @@
 $planet-size: 240px;
 $planet-z-index: 10;
 
-.PlanetContainer {
+.PlanetBlock {
   position: relative;
-  min-height: 350px;
+  width: 350px;
+  height: 400px;
 }
 
 .Planet,

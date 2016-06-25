@@ -1,6 +1,6 @@
 @import '../../variables/variables';
 
-table {
+.table {
   border-collapse: collapse;
   width: 100%;
   th {
@@ -13,7 +13,7 @@ table {
 
   th,
   td {
-    padding:$spacing-inner $spacing-gutter;
+    padding: 0;
   }
 
   thead {
