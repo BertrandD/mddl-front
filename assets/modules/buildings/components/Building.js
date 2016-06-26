@@ -56,7 +56,7 @@ class Building extends Component {
                         </div>
                     )}
                 </div>
-                <div className="BuildingBody">
+                <div className="BuildingBody" onClick={this.props.onSelectBuilding}>
                     <div className="BuildingImage">
                         <img src="/img/buildings/batiment_01.png" alt=""/>
                     </div>
@@ -140,7 +140,8 @@ Building.propTypes = {
     sBuildings: PropTypes.object.isRequired,
     building: PropTypes.object.isRequired,
     onUpgradeBuilding: PropTypes.func.isRequired,
-    onCreateBuilding: PropTypes.func.isRequired
+    onCreateBuilding: PropTypes.func.isRequired,
+    onSelectBuilding: PropTypes.func.isRequired
 };
 
 export default Building;

@@ -17,3 +17,16 @@
 .BaseBuildings {
   @include block();
 }
+
+.BuildingDetails {
+  .BuildingName {
+    color: $color-yelow;
+    font-size: $font-size-medium;
+  }
+
+  .BuildingRequirements {
+    ul {
+      padding-left: $spacing-gutter;
+    }
+  }
+}

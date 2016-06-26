@@ -16,7 +16,13 @@ class BuildingList extends Component {
         return (
             <div className="BuildingList">
                 {buildings.map((building, index) => (
-                    <Building key={index} building={building} sItems={sItems} sBuildings={sBuildings} onUpgradeBuilding={this.props.onUpgradeBuilding.bind(null, building)} onCreateBuilding={this.props.onCreateBuilding.bind(null, building)}/>
+                    <Building key={index}
+                              building={building}
+                              sItems={sItems}
+                              sBuildings={sBuildings}
+                              onUpgradeBuilding={this.props.onUpgradeBuilding.bind(null, building)}
+                              onCreateBuilding={this.props.onCreateBuilding.bind(null, building)}
+                              onSelectBuilding={this.props.onSelectBuilding.bind(null, building)}/>
                 ))}
             </div>
         )
@@ -28,7 +34,8 @@ BuildingList.propTypes = {
     sBuildings: PropTypes.object.isRequired,
     buildings: PropTypes.array.isRequired,
     onUpgradeBuilding: PropTypes.func.isRequired,
-    onCreateBuilding: PropTypes.func.isRequired
+    onCreateBuilding: PropTypes.func.isRequired,
+    onSelectBuilding: PropTypes.func.isRequired
 };
 
 export default BuildingList;

@@ -115,7 +115,7 @@ function base (state = {
                 }
                 const toProduce =  (prod / 3600) * ((now - resource.lastRefresh) / 1000);
                 const currentStorage = countResources(base);
-                resource.count += Math.min(toProduce, base.maxVolumes.max_volume_resources - currentStorage);
+                resource.count += Math.min(toProduce, base.maxVolumes.max_volume_items - currentStorage);
                 resource.lastRefresh = now;
             });
 

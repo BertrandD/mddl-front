@@ -40,6 +40,7 @@ $building-hieght: 100px;
 }
 
 .BuildingBody {
+  cursor: pointer;
   height: $building-hieght;
   background-color: $color-dark;
 }
