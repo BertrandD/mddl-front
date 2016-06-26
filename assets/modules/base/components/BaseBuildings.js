@@ -52,7 +52,7 @@ class BaseBuilings extends Component {
 
                         <div className="BuildingStats">
                             <p className="margin-bottom-inner">
-                                Consomation : <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.reqEnergy[building.currentLevel-1] || 0}</span>
+                                Consomation : <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.useEnergy[building.currentLevel-1] || 0}</span>
                             </p>
                             {building.currentLevel < building.maxLevel && (
                                 <div className="BuildingRequirements">
@@ -106,7 +106,7 @@ class BaseBuilings extends Component {
 
                                     <span className="color-yellow">Consomation au niveau {building.currentLevel + 1} : </span>
                                     <div className="color-white">
-                                        <span className="fa fa-bolt color-yellow">&nbsp;</span>{building.reqEnergy[building.currentLevel]}
+                                        <span className="fa fa-bolt color-yellow">&nbsp;</span>{building.useEnergy[building.currentLevel]}
                                     </div>
 
                                 </div>
