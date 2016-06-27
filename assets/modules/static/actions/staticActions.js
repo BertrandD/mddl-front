@@ -54,7 +54,6 @@ export function fetchItems () {
         return fetch(config.api.url + '/item_static/')
             .then(res => {
                 try {
-                    console.log(normalize(res.payload.RESOURCE, arrayOf(staticItem)));
                     dispatch(fetchItemsSuccess(normalize(res.payload, arrayOf(arrayOf(staticItem))).entities.staticItems));
                 } catch (e) {
                     console.error(e);

@@ -110,7 +110,7 @@ class Building extends Component {
                                 <div className="margin-bottom-inner">
                                     <span className="color-yellow">Temps de construction : </span>
                                     <span className="color-white">
-                                        <Duration milliseconds={building.buildTimeByLevel[building.currentLevel]} />
+                                        <Duration milliseconds={building.buildTimes[building.currentLevel]} />
                                     </span>
                                 </div>
 

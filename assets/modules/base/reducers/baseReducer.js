@@ -52,20 +52,20 @@ export function bases(state = {}, action) {
         case BaseActions.CREATE_BASE_SUCCESS:
         case BaseActions.FETCH_BASE_SUCCESS:
 
-            const bases = {};
-            forEach(action.payload.bases, (base, id) => {
-                const inventory = {};
-                forEach(base.inventory, (items, name) => {
-                    const newItems = {};
-                    items.forEach((item) => {
-                        newItems[item.templateId] = item;
-                    });
-                    inventory[name] = newItems;
-                });
-                bases[id] = {...base, inventory};
-            });
+            // const bases = {};
+            // forEach(action.payload.bases, (base, id) => {
+            //     const inventory = {};
+            //     forEach(base.inventory, (items, name) => {
+            //         const newItems = {};
+            //         items.forEach((item) => {
+            //             newItems[item.templateId] = item;
+            //         });
+            //         inventory[name] = newItems;
+            //     });
+            //     bases[id] = {...base, inventory};
+            // });
 
-            return Object.assign({}, state, bases);
+            return Object.assign({}, state, action.payload.bases);
         case BuldingsActions.CREATE_BUILDING_START:
             return {
                 ...state,
@@ -108,15 +108,15 @@ function base (state = {
             const base = clone(state);
 
             forEach(base.production, (prod, id) => {
-                const resource = base.inventory.RESOURCE[id];
+                const resource = base.inventory.resource[id];
                 if (!resource) {
                     console.warn('Trying to produce a resources not present in inventory !!');
                     return;
                 }
-                const toProduce =  (prod / 3600) * ((now - resource.lastRefresh) / 1000);
+                const toProduce =  (prod / 3600) * ((now - base.inventory.lastRefresh) / 1000);
                 const currentStorage = countResources(base);
                 resource.count += Math.min(toProduce, base.maxVolumes.max_volume_items - currentStorage);
-                resource.lastRefresh = now;
+                base.inventory.lastRefresh = now;
             });
 
             return base;
@@ -126,7 +126,7 @@ function base (state = {
 }
 
 function countResources (base) {
-    return sum(map(base.inventory.RESOURCE, 'count'));
+    return sum(map(base.inventory.resource, 'count'));
 }
 
 export default base;

@@ -18,7 +18,7 @@ class PlanetContainer extends Component {
             return (<div></div>)
         }
 
-        map(base.inventory.RESOURCE, (resource) => {
+        map(base.inventory.resource, (resource) => {
             resourcesCount += resource.count;
         });
 
@@ -28,9 +28,9 @@ class PlanetContainer extends Component {
 
                 <div className="PlanetInfo">
                     <h2>Inventaire :</h2>
-                    <table className={resourcesCount >= base.maxVolumes.max_volume_items && "color-error" || "color-white"}>
+                    <table className={resourcesCount >= base.inventory.maxVolume && "color-error" || "color-white"}>
                         <tbody>
-                        {map(base.inventory.RESOURCE, (item, key) => (
+                        {map(base.inventory.resource, (item, key) => (
                             <tr key={key}>
                                 <td className="color-yellow">{sItems[key].name}</td>
                                 <td>{format(Math.round(item.count))}</td>
@@ -40,7 +40,7 @@ class PlanetContainer extends Component {
                         </tbody>
                     </table>
                     <h3>Espace de stockage :</h3>
-                    {format(Math.round(resourcesCount))} / {format(base.maxVolumes.max_volume_items)} ({(100*resourcesCount/(base.maxVolumes.max_volume_items+0.1)).toFixed(0)}%)
+                    {format(Math.round(resourcesCount))} / {format(base.inventory.maxVolume)} ({(100*resourcesCount/(base.inventory.maxVolume+0.1)).toFixed(0)}%)
                 </div>
             </div>
         );
