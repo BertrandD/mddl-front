@@ -108,7 +108,7 @@ function base (state = {
             const base = clone(state);
 
             forEach(base.production, (prod, id) => {
-                const resource = base.inventory.resource[id];
+                const resource = base.inventory.items[id];
                 if (!resource) {
                     console.warn('Trying to produce a resources not present in inventory !!');
                     return;
@@ -126,7 +126,7 @@ function base (state = {
 }
 
 function countResources (base) {
-    return sum(map(base.inventory.resource, 'count'));
+    return sum(map(base.inventory.items, 'count'));
 }
 
 export default base;

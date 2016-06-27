@@ -47,9 +47,9 @@ export function building (state = {}, action) {
             });
         case BuldingsActions.CREATE_BUILDING_END:
             return Object.assign({}, state, action.payload.building, {
-                endsAt: 0,
+                endsAt: -1,
                 currentLevel: 1,
-                startedAt: 0
+                startedAt: -1
             });
         case BuldingsActions.UPGRADE_BUILDING_WAIT:
             return Object.assign({}, state, {
@@ -68,8 +68,8 @@ export function building (state = {}, action) {
                 queue: [
                     ...state.queue ? state.queue.slice(1) : []
                 ],
-                endsAt: 0,
-                startedAt: 0,
+                endsAt: -1,
+                startedAt: -1,
                 currentLevel: state.currentLevel + 1
             });
         default:

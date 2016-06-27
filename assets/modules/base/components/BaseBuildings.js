@@ -58,25 +58,12 @@ class BaseBuilings extends Component {
                                 <div className="BuildingRequirements">
                                     <p className="color-yellow">Prérequis pour le niveau {building.currentLevel + 1}:</p>
 
-                                    {this.hasRequirement(building, building.currentLevel, 'resources') && (
-                                        <div>
-                                            <p>Ressources:</p>
-                                            <ul>
-                                                {building.requirements[building.currentLevel].resources.map((req, index) => (
-                                                    <li key={index}>
-                                                        <span className="color-yellow">{sItems[index].name}:</span> <span className="color-white">{req}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-
-                                    {this.hasRequirement(building, building.currentLevel, 'buildings') && (
+                                    {this.hasRequirement(building, building.currentLevel + 1, 'buildings') && (
                                         <div>
                                             <p>Bâtiment:</p>
                                             <ul>
-                                                {building.requirements[building.currentLevel].buildings.map((req, index) => (
-                                                    <li key={index}>
+                                                {building.requirements[building.currentLevel + 1].buildings.map((req) => (
+                                                    <li key={req.id}>
                                                         <span className="color-yellow">{sBuildings[req.id].name}:</span> <span className="color-white">{req.level}</span>
                                                     </li>
                                                 ))}
@@ -84,12 +71,12 @@ class BaseBuilings extends Component {
                                         </div>
                                     )}
 
-                                    {this.hasRequirement(building, building.currentLevel, 'items') && (
+                                    {this.hasRequirement(building, building.currentLevel + 1, 'items') && (
                                         <div>
                                             <p>Items:</p>
                                             <ul>
-                                                {building.requirements[building.currentLevel].items.map((req, index) => (
-                                                    <li key={index}>
+                                                {building.requirements[building.currentLevel + 1].items.map((req) => (
+                                                    <li key={req.id}>
                                                         <span className="color-yellow">{sItems[req.id].name}:</span> <span className="color-white">{format(req.count)}</span>
                                                     </li>
                                                 ))}

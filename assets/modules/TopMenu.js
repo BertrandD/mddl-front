@@ -21,7 +21,7 @@ class TopMenu extends Component {
         }
         let resourcesCount = 0;
 
-        map(base.inventory.resource, (resource) => {
+        map(base.inventory.items, (resource) => {
             resourcesCount += resource.count;
         });
 
@@ -34,9 +34,9 @@ class TopMenu extends Component {
                     </Link>
                 </div>
                 <div className={resourcesCount >= base.inventory.maxVolume && "color-error"}>
-                    {base && map(base.inventory.resource, (resource, index) => (
-                        <span key={index}>
-                        <span className="color-yellow">{items[resource.templateId].name}:</span> {Math.round(resource.count)} ({base.production[resource.templateId]}/h) - &nbsp;
+                    {base && map(base.inventory.items, (item) => (
+                        <span key={item.id}>
+                        <span className="color-yellow">{items[item.templateId].name}:</span> {Math.round(item.count)} ({base.production[item.templateId]}/h) - &nbsp;
                        </span>
                     ))}
                 <span>&nbsp;

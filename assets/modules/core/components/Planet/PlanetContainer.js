@@ -18,7 +18,7 @@ class PlanetContainer extends Component {
             return (<div></div>)
         }
 
-        map(base.inventory.resource, (resource) => {
+        map(base.inventory.items, (resource) => {
             resourcesCount += resource.count;
         });
 
@@ -30,9 +30,9 @@ class PlanetContainer extends Component {
                     <h2>Inventaire :</h2>
                     <table className={resourcesCount >= base.inventory.maxVolume && "color-error" || "color-white"}>
                         <tbody>
-                        {map(base.inventory.resource, (item, key) => (
-                            <tr key={key}>
-                                <td className="color-yellow">{sItems[key].name}</td>
+                        {map(base.inventory.items, (item) => (
+                            <tr key={item.id}>
+                                <td className="color-yellow">{sItems[item.templateId].name}</td>
                                 <td>{format(Math.round(item.count))}</td>
                                 <td>({format(base.production[item.templateId])}/h)</td>
                             </tr>
