@@ -50,7 +50,7 @@ class TopMenu extends Component {
                     </a>
                     <a>
                         <i className="fa fa-lock"/>
-                        <span onClick={this.props.actions.logout.bind(null)}>Logout</span>
+                        <span className="cursor-pointer" onClick={this.props.actions.logout.bind(null)}>Logout</span>
                     </a>
                     {/*{ version }*/}
                     {/*<span ng-repeat="language in app.availableLanguages">
