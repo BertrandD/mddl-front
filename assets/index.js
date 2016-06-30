@@ -53,25 +53,6 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchItems, fetchBuildings, refresh }, store.dispatch);
 
-actions.fetchAuthentication()
-    .then(() => {
-      actions.fetchPlayer().then(() => {
-        actions.fetchMyBases().then(() => {
-          //window.timer = setTimeout(refreshApp, 3000);
-        })
-      });
-      renderApp();
-
-    })
-    .catch(() => {
-      renderApp();
-    });
-
-function refreshApp() {
-  actions.refresh();
-  window.timer = setTimeout(refreshApp, 3000);
-}
-
 function requireAuth(nextState, replace, next) {
   console.log('requireAuth');
   const state = store.getState();
@@ -79,18 +60,42 @@ function requireAuth(nextState, replace, next) {
     replace({
       pathname: '/login',
       state: { nextPathname: nextState.location.pathname }
-    })
+    });
+    next();
+    return;
   }
+
+  const promises = [];
 
   if (!state.entities || !state.entities.staticBuildings || isEmpty(state.entities.staticBuildings)) {
     const p1 = actions.fetchBuildings();
     const p2 = actions.fetchItems();
 
-    Promise.all([p1, p2]).then(() => {
-      next();
-    });
+    promises.push(p1);
+    promises.push(p2);
   }
+
+  if (!state.currentBase || !state.currentBase.id || isEmpty(state.currentBase.id)) {
+    const p3 = actions.fetchPlayer().then(() => {
+        actions.fetchMyBases().then(() => {
+          window.timer = setTimeout(refreshApp, 3000);
+        })
+      });
+    promises.push(p3);
+  }
+
+
+  Promise.all(promises).then(() => {
+    next();
+  });
 }
+
+function refreshApp() {
+  actions.refresh();
+  window.timer = setTimeout(refreshApp, 3000);
+}
+
+
 
 import App from './modules/App';
 import rootReducer from './reducers';
@@ -101,23 +106,21 @@ import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
 import BaseCreationContainer from './modules/base/BaseCreationContainer';
 import PlanetContainer from './modules/core/components/Planet/PlanetContainer'
 
-function renderApp() {
-  render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Route path="/" component={App} onEnter={requireAuth}>
-            <IndexRoute components={{left: PlanetContainer, center: BaseContainer }} />
+render(
+    <Provider store={store}>
+      <Router history={history}>
+        <Route path="/" component={App} onEnter={requireAuth}>
+          <IndexRoute components={{left: PlanetContainer, center: BaseContainer }} />
 
-            <Route path="base" components={{left: PlanetContainer, center: BaseContainer }} />
-            <Route path="base/buildings" components={{left: PlanetContainer, center: BaseBuildingsContainer }} />
+          <Route path="base" components={{left: PlanetContainer, center: BaseContainer }} />
+          <Route path="base/buildings" components={{left: PlanetContainer, center: BaseBuildingsContainer }} />
 
-            <Route path="create/player" components={{center: PlayerCreationContainer}} />
-            <Route path="create/base" components={{center: BaseCreationContainer}} />
+          <Route path="create/player" components={{center: PlayerCreationContainer}} />
+          <Route path="create/base" components={{center: BaseCreationContainer}} />
 
-          </Route>
-          <Route path="/login" component={LoginContainer} />
-        </Router>
-      </Provider>,
-      document.getElementById('app')
-  );
-}
+        </Route>
+        <Route path="/login" component={LoginContainer} />
+      </Router>
+    </Provider>,
+    document.getElementById('app')
+);

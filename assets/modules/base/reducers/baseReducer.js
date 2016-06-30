@@ -1,6 +1,7 @@
 import * as BaseActions from '../actions/BaseActionTypes';
 import * as BuldingsActions from '../../buildings/actions/BuildingActionTypes';
 import * as AppActions from '../../core/actions/AppActionTypes';
+import * as LoginActions from '../../auth/actions/LoginActionTypes';
 import clone from 'lodash/clone';
 import map from 'lodash/map';
 import omit from 'lodash/omit';
@@ -38,6 +39,8 @@ export function currentBase (state = {
     id:""
 }, action) {
     switch(action.type) {
+        case LoginActions.LOGOUT:
+            return { id: ""};
         case BaseActions.SELECT_BASE:
             return Object.assign({}, state, {
                 id: action.payload.id
@@ -49,6 +52,8 @@ export function currentBase (state = {
 
 export function bases(state = {}, action) {
     switch(action.type) {
+        case LoginActions.LOGOUT:
+            return {};
         case BaseActions.CREATE_BASE_SUCCESS:
         case BaseActions.FETCH_BASE_SUCCESS:
 

@@ -1,6 +1,7 @@
 import * as BaseActions from '../../base/actions/BaseActionTypes';
 import * as BuldingsActions from '../actions/BuildingActionTypes';
 import reduce from '../../../../node_modules/lodash/reduce'
+import * as LoginActions from '../../auth/actions/LoginActionTypes';
 
 export function getBuildingsForBase(state, base) {
     if (!base || !base.buildingPositions) {
@@ -14,6 +15,8 @@ export function getBuildingsForBase(state, base) {
 
 export function buildings(state = {}, action) {
     switch(action.type) {
+        case LoginActions.LOGOUT:
+            return {};
         case BaseActions.FETCH_BASE_SUCCESS:
             return Object.assign({}, state, action.payload.buildings);
         case BuldingsActions.CREATE_BUILDING_START:

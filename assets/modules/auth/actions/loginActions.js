@@ -1,4 +1,4 @@
-import { FETCH_LOGIN_SUCCESS, FETCH_LOGIN_ERROR } from './LoginActionTypes';
+import { FETCH_LOGIN_SUCCESS, FETCH_LOGIN_ERROR, LOGOUT } from './LoginActionTypes';
 import { push } from 'react-router-redux'
 import { postAsForm, fetch } from '../../../utils/post-as-form'
 import { normalize, arrayOf } from 'normalizr'
@@ -16,6 +16,20 @@ function loginError (message) {
   return {
     type: FETCH_LOGIN_ERROR,
     payload: { message }
+  }
+}
+
+function logoutSuccess() {
+  return {
+    type: LOGOUT,
+    payload: {}
+  }
+}
+
+export function logout () {
+  return dispatch => {
+    dispatch(logoutSuccess());
+    dispatch(push('/login'))
   }
 }
 

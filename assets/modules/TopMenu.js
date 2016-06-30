@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchAuthentication } from './auth/actions/loginActions';
-import { fetchMyBases } from './base/actions/baseActions';
-import { fetchPlayer } from './player/actions/playerActions';
 import { Link } from 'react-router';
 import map from 'lodash/map'
 import './TopMenu.scss'
@@ -53,7 +50,7 @@ class TopMenu extends Component {
                     </a>
                     <a>
                         <i className="fa fa-lock"/>
-                        <span>Logout</span>
+                        <span onClick={this.props.actions.logout.bind(null)}>Logout</span>
                     </a>
                     {/*{ version }*/}
                     {/*<span ng-repeat="language in app.availableLanguages">
@@ -76,13 +73,14 @@ import { getcurrentPlayer } from './player/reducers/playerReducer'
 import { getCurrentBase } from './base/reducers/baseReducer'
 import { getStaticItems } from './static/reducers/staticReducer'
 import { getUser } from './auth/reducers/userReducer'
+import { logout } from './auth/actions/loginActions'
 
 function mapStateToProps(state) {
     return {user: getUser(state), items: getStaticItems(state), player: getcurrentPlayer(state), base: getCurrentBase(state)};
 }
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ }, dispatch)}
+    return {actions: bindActionCreators({ logout }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopMenu);

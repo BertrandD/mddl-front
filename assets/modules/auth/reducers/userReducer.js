@@ -1,4 +1,4 @@
-import { FETCH_LOGIN_SUCCESS, FETCH_LOGIN_ERROR } from '../actions/LoginActionTypes';
+import * as LoginActions from '../actions/LoginActionTypes';
 
 export function getUser (state) {
   return state.user;
@@ -6,11 +6,14 @@ export function getUser (state) {
 
 function user (state = {}, action) {
   switch (action.type) {
-    case FETCH_LOGIN_SUCCESS:
+    case LoginActions.LOGOUT:
+        localStorage.token = '';
+      return {};
+    case LoginActions.FETCH_LOGIN_SUCCESS:
       console.info('Logged in :', action.payload);
         localStorage.token = action.payload.token;
       return Object.assign({}, state, action.payload);
-    case FETCH_LOGIN_ERROR:
+    case LoginActions.FETCH_LOGIN_ERROR:
       return Object.assign({}, state, action.payload);
     default:
       return state;
