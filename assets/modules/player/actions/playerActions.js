@@ -1,4 +1,4 @@
-import { SELECT_PLAYER, FETCH_PLAYER_FAILURE, FETCH_PLAYER_REQUEST, FETCH_PLAYER_SUCCESS, CREATE_PLAYER_SUCCESS, CREATE_PLAYER_FAILURE } from './PlayerActionTypes';
+import { SELECT_PLAYER, FETCH_PLAYER_FAILURE, FETCH_PLAYER_REQUEST, FETCH_PLAYER_SUCCESS, CREATE_PLAYER_SUCCESS, CREATE_PLAYER_FAILURE, ACCEPT_PLAYER_SUCCESS } from './PlayerActionTypes';
 import { postAsForm, fetch } from '../../../utils/post-as-form'
 import { push } from 'react-router-redux'
 import { normalize, arrayOf } from 'normalizr'
@@ -34,6 +34,13 @@ function fetchPlayerFailure (message) {
     }
 }
 
+function acceptFriendSuccess (player) {
+    return {
+        type: ACCEPT_PLAYER_SUCCESS,
+        payload: { player }
+    }
+}
+
 export function selectPlayer (player) {
     return {
         type: SELECT_PLAYER,
@@ -41,6 +48,14 @@ export function selectPlayer (player) {
     }
 }
 
+export function acceptFriend ({ id, requester }) {
+    return dispatch => {
+        return fetch(config.api.url + '/friend/accept/' + id)
+            .then(res => {
+                dispatch(acceptFriendSuccess(requester));
+            })
+    }
+}
 
 export function createPlayer ({ playerName }) {
     return dispatch => {
@@ -72,6 +87,19 @@ export function fetchPlayer () {
                     dispatch(fetchPlayerSuccess(normalize(res.payload, arrayOf(player)).entities.players));
                     dispatch(selectPlayer(res.payload[0])); // FIXME : selecect currentPlayer
                 }
+            })
+    };
+}
+
+export function fetchAllPlayers () {
+    return dispatch => {
+        return fetch(config.api.url + '/players/')
+            .catch(res => {
+                dispatch(fetchPlayerFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                return Promise.reject();
+            })
+            .then(res => {
+                dispatch(fetchPlayerSuccess(normalize(res.payload, arrayOf(player)).entities.players));
             })
     };
 }

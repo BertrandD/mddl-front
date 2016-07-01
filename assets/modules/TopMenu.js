@@ -25,9 +25,13 @@ class TopMenu extends Component {
         return (
             <div className="TopMenu">
                 <div>
-                    <Link to="/home">
+                    <Link to="/">
                         <i className="fa fa-home"/>
                         <span className="font-bold">Home</span>
+                    </Link>
+                    <Link to="/friends">
+                        <i className="fa fa-people"/>
+                        <span className="font-bold">Amis</span>
                     </Link>
                 </div>
                 <div className={resourcesCount >= base.inventory.maxVolume && "color-error"}>

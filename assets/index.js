@@ -43,7 +43,7 @@ function configureStore(initialState = {}) {
   return store
 }
 import { fetchAuthentication } from './modules/auth/actions/loginActions'
-import { fetchPlayer } from './modules/player/actions/playerActions'
+import { fetchPlayer, fetchAllPlayers } from './modules/player/actions/playerActions'
 import { fetchMyBases } from './modules/base/actions/baseActions'
 import { fetchBuildings, fetchItems } from './modules/static/actions/staticActions'
 import { refresh } from './modules/core/actions/appActions'
@@ -51,7 +51,7 @@ import { refresh } from './modules/core/actions/appActions'
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
-const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchItems, fetchBuildings, refresh }, store.dispatch);
+const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchAllPlayers, fetchItems, fetchBuildings, refresh }, store.dispatch);
 
 function requireAuth(nextState, replace, next) {
   console.log('requireAuth');
@@ -96,13 +96,13 @@ function refreshApp() {
 }
 
 
-
 import App from './modules/App';
 import rootReducer from './reducers';
 import LoginContainer from './modules/auth/LoginContainer';
 import BaseContainer from './modules/base/BaseContainer';
 import BaseBuildingsContainer from './modules/base/BaseBuildingsContainer';
 import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
+import PlayerProfileContainer from './modules/player/PlayerProfileContainer';
 import BaseCreationContainer from './modules/base/BaseCreationContainer';
 import PlanetContainer from './modules/core/components/Planet/PlanetContainer'
 
@@ -115,6 +115,8 @@ render(
           <Route path="base" components={{left: PlanetContainer, center: BaseContainer }} />
           <Route path="base/buildings" components={{left: PlanetContainer, center: BaseBuildingsContainer }} />
 
+          <Route path="friends" components={{center: PlayerProfileContainer }} onEnter={actions.fetchAllPlayers}/>
+          
           <Route path="create/player" components={{center: PlayerCreationContainer}} />
           <Route path="create/base" components={{center: BaseCreationContainer}} />
 
