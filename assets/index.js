@@ -53,8 +53,18 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchAllPlayers, fetchItems, fetchBuildings, refresh }, store.dispatch);
 
-function requireAuth(nextState, replace, next) {
-  console.log('requireAuth');
+function requireSimpleAuth (nextState, replace, next) {
+  const state = store.getState();
+  if (!state.user.token) {
+    replace({
+      pathname: '/login',
+      state: { nextPathname: nextState.location.pathname }
+    });
+  }
+  next();
+}
+
+function requireFullAuth(nextState, replace, next) {
   const state = store.getState();
   if (!state.user.token) {
     replace({
@@ -109,16 +119,18 @@ import PlanetContainer from './modules/core/components/Planet/PlanetContainer'
 render(
     <Provider store={store}>
       <Router history={history}>
-        <Route path="/" component={App} onEnter={requireAuth}>
+        <Route path="/" component={App} onEnter={requireFullAuth}>
           <IndexRoute components={{left: PlanetContainer, center: BaseContainer }} />
 
           <Route path="base" components={{left: PlanetContainer, center: BaseContainer }} />
           <Route path="base/buildings" components={{left: PlanetContainer, center: BaseBuildingsContainer }} />
 
           <Route path="friends" components={{center: PlayerProfileContainer }} onEnter={actions.fetchAllPlayers}/>
-          
-          <Route path="create/player" components={{center: PlayerCreationContainer}} />
-          <Route path="create/base" components={{center: BaseCreationContainer}} />
+        </Route>
+        <Route path="/create" component={App} onEnter={requireSimpleAuth}>
+
+          <Route path="player" components={{center: PlayerCreationContainer}} />
+          <Route path="base" components={{center: BaseCreationContainer}} />
 
         </Route>
         <Route path="/login" component={LoginContainer} />

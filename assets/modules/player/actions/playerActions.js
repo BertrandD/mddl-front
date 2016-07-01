@@ -1,4 +1,4 @@
-import { SELECT_PLAYER, FETCH_PLAYER_FAILURE, FETCH_PLAYER_REQUEST, FETCH_PLAYER_SUCCESS, CREATE_PLAYER_SUCCESS, CREATE_PLAYER_FAILURE, ACCEPT_PLAYER_SUCCESS } from './PlayerActionTypes';
+import { SELECT_PLAYER, FETCH_PLAYER_FAILURE, FETCH_PLAYER_REQUEST, FETCH_PLAYER_SUCCESS, CREATE_PLAYER_SUCCESS, CREATE_PLAYER_FAILURE, ACCEPT_FRIEND_SUCCESS, REQUEST_FRIEND_SUCCESS } from './PlayerActionTypes';
 import { postAsForm, fetch } from '../../../utils/post-as-form'
 import { push } from 'react-router-redux'
 import { normalize, arrayOf } from 'normalizr'
@@ -36,8 +36,15 @@ function fetchPlayerFailure (message) {
 
 function acceptFriendSuccess (player) {
     return {
-        type: ACCEPT_PLAYER_SUCCESS,
-        payload: { player }
+        type: ACCEPT_FRIEND_SUCCESS,
+        payload: player
+    }
+}
+
+function requestFriendSuccess (player) {
+    return {
+        type: REQUEST_FRIEND_SUCCESS,
+        payload: player
     }
 }
 
@@ -48,11 +55,20 @@ export function selectPlayer (player) {
     }
 }
 
-export function acceptFriend ({ id, requester }) {
+export function acceptFriend ({ id }) {
     return dispatch => {
         return fetch(config.api.url + '/friend/accept/' + id)
             .then(res => {
-                dispatch(acceptFriendSuccess(requester));
+                dispatch(acceptFriendSuccess(res.payload));
+            })
+    }
+}
+
+export function requestFriend ({ id }, message) {
+    return dispatch => {
+        return postAsForm(config.api.url + '/friend/request/', { playerId: id, message })
+            .then(res => {
+                dispatch(requestFriendSuccess(res.payload));
             })
     }
 }

@@ -1,4 +1,4 @@
-import { FETCH_PLAYER_SUCCESS, CREATE_PLAYER_SUCCESS, CREATE_PLAYER_FAILURE, SELECT_PLAYER, ACCEPT_PLAYER_SUCCESS } from '../actions/PlayerActionTypes';
+import { FETCH_PLAYER_SUCCESS, CREATE_PLAYER_SUCCESS, CREATE_PLAYER_FAILURE, SELECT_PLAYER, ACCEPT_FRIEND_SUCCESS, REQUEST_FRIEND_SUCCESS } from '../actions/PlayerActionTypes';
 import * as LoginActions from '../../auth/actions/LoginActionTypes';
 
 export function getcurrentPlayer(state) {
@@ -19,17 +19,6 @@ export function currentPlayer (state = {
             return Object.assign({}, state, {
                 id: action.payload.id
             });
-        case ACCEPT_PLAYER_SUCCESS:
-            return {
-                ...state,
-                friends: [
-                    ...state.friends,
-                    action.payload.player
-                ],
-                friendRequests: [
-                    ...state.friendRequests.filter(request => request.requester.id !== action.payload.player.id)
-                ]
-            }
         default:
             return state;
     }
@@ -42,6 +31,12 @@ export function players (state = {}, action) {
         case CREATE_PLAYER_SUCCESS:
         case FETCH_PLAYER_SUCCESS:
             return Object.assign({}, state, action.payload);
+        case REQUEST_FRIEND_SUCCESS:
+        case ACCEPT_FRIEND_SUCCESS:
+            return {
+                ...state,
+                [action.payload.id]: player(state, action)
+            };
         default:
             return state;
     }
@@ -49,6 +44,12 @@ export function players (state = {}, action) {
 
 function player (state = {}, action) {
     switch (action.type) {
+        case REQUEST_FRIEND_SUCCESS:
+        case ACCEPT_FRIEND_SUCCESS:
+            return {
+                ...state,
+                ...action.payload
+            };
         default:
             return state;
     }
