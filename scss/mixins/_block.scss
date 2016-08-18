@@ -15,3 +15,11 @@
   padding: $spacing-gutter;
   background-color: $bg-color;
 }
+
+@mixin block-small($color: $color-blue, $bg-color: $color-dark) {
+  box-shadow: 0px 0px 8px 0px $color, inset 0px 0px 8px 0px $color;
+  border: 1px solid #38CAFF;
+  color: $color-blue;
+  padding: $spacing-inner;
+  background-color: $bg-color;
+}

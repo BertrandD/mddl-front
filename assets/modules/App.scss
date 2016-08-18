@@ -49,3 +49,10 @@ $left-width: 400px;
         max-width: 1000px;
     }
 }
+
+.AppNotifications {
+    position: absolute;
+    right:$spacing-gutter;
+    bottom: 70px;
+    width: 300px;
+}

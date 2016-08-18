@@ -1,0 +1,8 @@
+@import '../../../../../scss/mixins/mixins';
+@import '../../../../../scss/variables/variables';
+
+.Notification {
+  @include block-small();
+  margin-top: $spacing-inner;
+  cursor: pointer;
+}

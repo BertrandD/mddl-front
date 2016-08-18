@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import TopMenu from './TopMenu'
-import TopLeftBlock from './TopLeftBlock'
 import BottomMenu from './BottomMenu'
 import Popup from './core/components/Popup/Popup'
+import NotificationContainer from './core/components/Notification/NotificationsContainer'
 import './App.scss'
 
 class App extends Component {
@@ -24,6 +24,10 @@ class App extends Component {
                     <div className="AppRightColumn">
                         {right}
                     </div>
+                </div>
+                <div className="AppNotifications">
+                    <NotificationContainer>
+                    </NotificationContainer>
                 </div>
                 <BottomMenu />
             </div>

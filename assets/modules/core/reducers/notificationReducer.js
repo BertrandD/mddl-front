@@ -1,25 +1,30 @@
 import * as BuildingActions from '../../buildings/actions/BuildingActionTypes'
 import * as LoginActions from '../../auth/actions/LoginActionTypes';
+import * as AppActions from '../../core/actions/AppActionTypes';
 
 export function getNotifications(state) {
     return state.notifications;
 }
 
-export function notifications(state = [], action) {
+export function notifications(state = {}, action) {
     switch(action.type) {
-        case LoginActions.LOGOUT:
-            return {};
-        case BuildingActions.UPGRADE_BUILDING_FAILURE:
-        case BuildingActions.CREATE_BUILDING_FAILURE:
-            return [
-                {
-                    type: 'error',
-                    date: Date.now(),
-                    message: action.payload
-                },
+        case AppActions.CLOSE_NOTIF:
+            const newState = {
                 ...state
-            ];
-            return state;
+            };
+
+            delete newState[action.payload.id];
+
+            return newState;
+        case AppActions.NOTIFY:
+            return {
+                ...state,
+                [action.payload.id]: {
+                    type: action.type,
+                    date: Date.now(),
+                    message: action.payload.message
+                }
+            };
         default:
             return state;
     }
