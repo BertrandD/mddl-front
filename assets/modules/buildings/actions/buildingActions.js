@@ -1,4 +1,4 @@
-import { UPGRADE_BUILDING_WAIT, CREATE_BUILDING_START, CREATE_BUILDING_END, CREATE_BUILDING_FAILURE, UPGRADE_BUILDING_END, UPGRADE_BUILDING_FAILURE, UPGRADE_BUILDING_START } from './BuildingActionTypes';
+import { UPGRADE_BUILDING_WAIT, CREATE_BUILDING_START, CREATE_BUILDING_END, CREATE_BUILDING_FAILURE, UPGRADE_BUILDING_END, UPGRADE_BUILDING_FAILURE, UPGRADE_BUILDING_START, SELECT_BUILDING } from './BuildingActionTypes';
 import { postAsForm, fetch } from '../../../utils/post-as-form'
 import config from '../../../config'
 import addEvent from '../../../utils/addEvent'
@@ -74,6 +74,16 @@ export function upgradeBuildingEnd (base, building) {
         payload: {
             base,
             building
+        }
+    }
+}
+
+export function selectBuilding ({ id, baseId }) {
+    return {
+        type: SELECT_BUILDING,
+        payload: {
+            id: id,
+            type: baseId ? "ENTITY" : "STATIC"
         }
     }
 }

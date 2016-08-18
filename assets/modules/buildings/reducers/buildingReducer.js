@@ -13,6 +13,26 @@ export function getBuildingsForBase(state, base) {
     }, []);
 }
 
+export function getSelectedBuilding(state) {
+    if (state.selectedBuilding.type === "STATIC") {
+        return state.entities.staticBuildings[state.selectedBuilding.id]
+    } else {
+        return state.entities.buildings[state.selectedBuilding.id]
+    }
+}
+
+export function selectedBuilding(state = {}, action) {
+    switch(action.type) {
+        case BuldingsActions.SELECT_BUILDING:
+            return {
+                id: action.payload.id,
+                type: action.payload.type
+            };
+        default:
+            return state;
+    }
+}
+
 export function buildings(state = {}, action) {
     switch(action.type) {
         case LoginActions.LOGOUT:

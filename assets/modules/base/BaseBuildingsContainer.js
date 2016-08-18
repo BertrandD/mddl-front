@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import Base from './components/Base'
 import BaseBuildings from './components/BaseBuildings'
 
-class BaseContainer extends Component {
+class BaseBuildingsContainer extends Component {
 
     constructor(props, context) {
         super(props, context);
@@ -23,8 +23,9 @@ class BaseContainer extends Component {
         return (
             <div>
                 <BaseBuildings buildings={base.buildings}
-                               onUpgradeBuilding={this.props.actions.upgradeBuilding.bind(null, base)}
-                               onCreateBuilding={this.props.actions.createBuilding.bind(null, base)}
+                               onUpgradeBuilding={actions.upgradeBuilding.bind(null, base)}
+                               onCreateBuilding={actions.createBuilding.bind(null, base)}
+                               onSelectBuilding={actions.selectBuilding.bind(null)}
                                sBuildings={sBuildings}
                                sItems={sItems}/>
             </div>
@@ -40,11 +41,11 @@ function mapStateToProps(state) {
     return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state)  };
 }
 
-import { upgradeBuilding, createBuilding } from '../buildings/actions/buildingActions'
+import { upgradeBuilding, createBuilding, selectBuilding } from '../buildings/actions/buildingActions'
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ upgradeBuilding, createBuilding }, dispatch)}
+    return {actions: bindActionCreators({ upgradeBuilding, createBuilding, selectBuilding }, dispatch)}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BaseContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BaseBuildingsContainer);
 

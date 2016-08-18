@@ -7,6 +7,7 @@ $padding-horizontal-base: 15px;
 $button-default-color: #fff !default;
 $button-default-bg: $gray-dark !default;
 
+.button,
 button {
   @include btn-reset;
   @include btn-variant($color: $button-default-color, $background: $button-default-bg, $border-color: transparent);
@@ -31,4 +32,5 @@ button {
 
 }
 
+.button--primary { @include btn-variant($color: #38CAFF, $background: transparent, $border-color: #38CAFF, $color-hover: $button-default-color, $background-hover: darken(#38CAFF, $darken-factor), $border-color-hover: transparent); }
 .button--ghost-default { @include btn-variant($color: $button-default-bg, $background: transparent, $border-color: $button-default-bg, $color-hover: $button-default-color, $background-hover: darken($button-default-bg, $darken-factor), $border-color-hover: transparent); }

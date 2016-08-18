@@ -8,6 +8,7 @@
 }
 
 .BaseName {
+  text-align: center;
   color: $color-yelow;
   font-weight: $font-weight-bold;
   font-size: $font-size-large;
@@ -15,7 +16,7 @@
 }
 
 .BaseBuildings {
-  @include block();
+  //@include block();
 }
 
 .BuildingDetails {

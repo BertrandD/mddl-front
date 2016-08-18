@@ -3,9 +3,38 @@
 
 
 .PlanetContainer {
-
+  text-align: center;
 }
 
-.PlanetInfo {
+.NextContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.Next {
+  margin: $spacing-inner;
+}
+
+.NextTitle {
+  color: $color-blue;
+  margin-bottom: $spacing-inner;
+}
+
+.NextContent {
   @include block();
+  margin: auto;
+  width: 120px;
+  height: 120px;
+}
+
+.PlanetActions {
+  display: flex;
+  justify-content: center;
+  max-width: 500px;
+  margin: auto;
+
+  button {
+    margin: $spacing-inner;
+    flex-grow: 1;
+  }
 }

@@ -27,20 +27,16 @@ class Building extends Component {
 
         const { building, sItems, sBuildings } = this.props;
 
-        if (!building.currentLevel) {
-            building.currentLevel = 0;
-        }
-
         return (
             <div className="Building">
                 <div className="BuildingHeader">
                     <div className="BuildingName">
-                        {building.name} - Lvl {building.currentLevel} {building.endsAt > 0 && (<span><span className="fa fa-arrow-right">&nbsp;</span> {building.currentLevel + 1}</span>)}
+                        {building.name} {building.currentLevel && (<span>- Lvl {building.currentLevel}</span>)} {building.endsAt > 0 && (<span><span className="fa fa-arrow-right">&nbsp;</span> {building.currentLevel + 1}</span>)}
                         {building.currentLevel === building.maxLevel && (<span>(max)</span>)}
 
                     </div>
 
-                    {building.currentLevel === 0 && (
+                    {!building.currentLevel && (
                         <div className="BuildingAction">
                             <div className="IconBuild" onClick={this.upgradeBuilding.bind(this)}></div>
                         </div>

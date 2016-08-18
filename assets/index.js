@@ -110,6 +110,7 @@ import App from './modules/App';
 import rootReducer from './reducers';
 import LoginContainer from './modules/auth/LoginContainer';
 import BaseContainer from './modules/base/BaseContainer';
+import BaseStatContainer from './modules/base/BaseStatContainer';
 import BaseBuildingsContainer from './modules/base/BaseBuildingsContainer';
 import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
 import PlayerProfileContainer from './modules/player/PlayerProfileContainer';
@@ -120,10 +121,10 @@ render(
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={App} onEnter={requireFullAuth}>
-          <IndexRoute components={{left: PlanetContainer, center: BaseContainer }} />
+          <IndexRoute components={{left: BaseStatContainer, center: PlanetContainer }} />
 
-          <Route path="base" components={{left: PlanetContainer, center: BaseContainer }} />
-          <Route path="base/buildings" components={{left: PlanetContainer, center: BaseBuildingsContainer }} />
+          <Route path="base" components={{left: BaseStatContainer, center: BaseContainer }} />
+          <Route path="base/buildings" components={{left: BaseStatContainer, center: BaseBuildingsContainer }} />
 
           <Route path="friends" components={{center: PlayerProfileContainer }} onEnter={actions.fetchAllPlayers}/>
         </Route>

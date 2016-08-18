@@ -7,9 +7,7 @@ import BuildingList from '../../buildings/components/BuildingList'
 import Duration from '../../core/components/Duration'
 import format from '../../../utils/numberFormat'
 
-require('./Base.scss');
-
-class BaseBuilings extends Component {
+class BuildingDetails extends Component {
 
     constructor(props, context) {
         super(props, context);
@@ -22,15 +20,7 @@ class BaseBuilings extends Component {
 
     render() {
 
-        const { buildings, sItems, sBuildings } = this.props;
-        const { building } = this.state;
-        const buildingsAvailable = [];
-
-        forEach(this.props.sBuildings, (sBuilding) => {
-            if (!buildings.some(b => b.buildingId === sBuilding.id)) {
-                buildingsAvailable.push(sBuilding);
-            }
-        });
+        const { building, sItems, sBuildings } = this.props;
 
         return (
             <div className="BaseBuildings">
@@ -90,35 +80,16 @@ class BaseBuilings extends Component {
                         </div>
                     </div>
                 )}
-
-                <h2>Vos bâtiments</h2>
-                <BuildingList sItems={sItems}
-                              buildings={buildings}
-                              sBuildings={sBuildings}
-                              onUpgradeBuilding={this.props.onUpgradeBuilding}
-                              onCreateBuilding={this.props.onCreateBuilding}
-                              onSelectBuilding={this.props.onSelectBuilding.bind(this)}/>
-
-                <h2>Bâtiments constructibles</h2>
-                <BuildingList sItems={sItems}
-                              buildings={buildingsAvailable}
-                              sBuildings={sBuildings}
-                              onUpgradeBuilding={this.props.onUpgradeBuilding}
-                              onCreateBuilding={this.props.onCreateBuilding}
-                              onSelectBuilding={this.props.onSelectBuilding.bind(this)}/>
-
             </div>
         )
     }
 }
 
-BaseBuilings.propTypes = {
-    buildings: PropTypes.array.isRequired,
+BuildingDetails.propTypes = {
     sItems: PropTypes.object.isRequired,
     sBuildings: PropTypes.object.isRequired,
     onUpgradeBuilding: PropTypes.func.isRequired,
-    onCreateBuilding: PropTypes.func.isRequired,
-    onSelectBuilding: PropTypes.func.isRequired
+    onCreateBuilding: PropTypes.func.isRequired
 };
 
-export default BaseBuilings;
+export default BuildingDetails;

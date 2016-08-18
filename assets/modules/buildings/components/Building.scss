@@ -1,9 +1,9 @@
 @import '../../../../scss/mixins/mixins';
 @import '../../../../scss/variables/variables';
 
-$header-height: 45px;
-$building-width: 100px;
-$building-hieght: 100px;
+$header-height: 40px;
+$building-width: 150px;
+$building-height: 150px;
 
 .Building {
   @include block-light();
@@ -13,27 +13,23 @@ $building-hieght: 100px;
   width: $building-width;
   padding: 0;
   position: relative;
-  &:hover {
-    .BuildingHeader {
-      display: flex;
-    }
-  }
 }
 
 .BuildingHeader {
-  position: absolute;
   width: 100%;
   height:$header-height;
-  display: none;
   font-size: $font-size-tiny;
   justify-content: flex-end;
+  display: flex;
 }
 
 .BuildingName {
   padding: $spacing-inner;
   width: 100%;
   text-align: left;
-}
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;}
 
 .BuildingAction {
   padding: $spacing-inner-small;
@@ -41,7 +37,7 @@ $building-hieght: 100px;
 
 .BuildingBody {
   cursor: pointer;
-  height: $building-hieght;
+  height: $building-height;
   background-color: $color-dark;
 }
 
