@@ -116,6 +116,7 @@ import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
 import PlayerProfileContainer from './modules/player/PlayerProfileContainer';
 import BaseCreationContainer from './modules/base/BaseCreationContainer';
 import PlanetContainer from './modules/core/components/Planet/PlanetContainer'
+import BuildingDetailsContainer from './modules/buildings/BuildingDetailsContainer'
 
 render(
     <Provider store={store}>
@@ -123,7 +124,7 @@ render(
         <Route path="/" component={App} onEnter={requireFullAuth}>
           <IndexRoute components={{left: BaseStatContainer, center: PlanetContainer }} />
 
-          <Route path="base" components={{left: BaseStatContainer, center: BaseContainer }} />
+          <Route path="base" components={{left: BaseStatContainer, center: BaseContainer, right: BuildingDetailsContainer }} />
           <Route path="base/buildings" components={{left: BaseStatContainer, center: BaseBuildingsContainer }} />
 
           <Route path="friends" components={{center: PlayerProfileContainer }} onEnter={actions.fetchAllPlayers}/>

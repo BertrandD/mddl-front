@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import Base from './components/Base'
 import BuildingDetails from './components/BuildingDetails'
 
 class BuildingDetailsContainer extends Component {
@@ -13,15 +12,15 @@ class BuildingDetailsContainer extends Component {
 
     render() {
         const { base, building, sBuildings, sItems, actions } = this.props;
-        if (!base) {
+        if (!building) {
             return (
-                <div>
-                    Loading base...
+                <div className="Block">
+                    Sélectionnez un bâtiment pour voir les informations détaillées
                 </div>
             )
         }
         return (
-            <div>
+            <div className="Block">
                 <BuildingDetails onUpgradeBuilding={actions.upgradeBuilding.bind(null, base)}
                                  onCreateBuilding={actions.createBuilding.bind(null, base)}
                                  building={building}

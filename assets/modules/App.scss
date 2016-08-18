@@ -34,6 +34,13 @@ $left-width: 400px;
     flex-shrink: 0;
 }
 
+.AppRightColumn {
+    padding: $spacing-gutter;
+    width: $left-width;
+    margin-left: $spacing-gutter;
+    flex-shrink: 0;
+}
+
 .AppCenter {
     flex-shrink: 1;
     @media #{$md-up} {

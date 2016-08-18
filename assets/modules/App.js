@@ -8,7 +8,7 @@ import './App.scss'
 class App extends Component {
 
     render() {
-        const { center, left } = this.props;
+        const { center, left, right } = this.props;
         return (
             <div className="AppContainer">
                 <TopMenu />
@@ -19,6 +19,10 @@ class App extends Component {
 
                     <div className="AppCenter">
                         {center}
+                    </div>
+
+                    <div className="AppRightColumn">
+                        {right}
                     </div>
                 </div>
                 <BottomMenu />
