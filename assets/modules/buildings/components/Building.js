@@ -50,7 +50,7 @@ class Building extends Component {
                 </div>
                 <div className="BuildingBody" onClick={this.props.onSelectBuilding}>
                     <div className="BuildingImage">
-                        <img src="/img/buildings/batiment_01.png" alt=""/>
+                        <img src={"http://dummyimage.com/512x512/0a222c/2898c1.jpg&text="+(building.buildingId || building.id)} alt=""/>
                     </div>
                 </div>
                 <div className="BuildingFooter">
