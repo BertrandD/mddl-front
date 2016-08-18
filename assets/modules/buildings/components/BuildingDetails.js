@@ -26,22 +26,22 @@ class BuildingDetails extends Component {
             <div className="BaseBuildings">
                 {building && (
                     <div className="BuildingDetails">
-                        <div className="BuildingName">{building.name}</div>
+                        <div className="BuildingName">{building.name} {building.currentLevel && (<span> - Lvl {building.currentLevel}</span>)}</div>
                         <div className="BuildingDescription">{building.description}</div>
 
                         <div className="BuildingStats">
                             <p className="margin-bottom-inner">
                                 Consomation : <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.useEnergy[building.currentLevel-1] || 0}</span>
                             </p>
-                            {building.currentLevel < building.maxLevel && (
+                            {building.requirements[building.currentLevel+1 || 1] && (
                                 <div className="BuildingRequirements">
-                                    <p className="color-yellow">Prérequis pour le niveau {building.currentLevel + 1}:</p>
+                                    <p className="color-yellow">Prérequis pour le niveau {building.currentLevel + 1 || 1}:</p>
 
-                                    {this.hasRequirement(building, building.currentLevel + 1, 'buildings') && (
+                                    {this.hasRequirement(building, building.currentLevel + 1 || 1, 'buildings') && (
                                         <div>
                                             <p>Bâtiment:</p>
                                             <ul>
-                                                {building.requirements[building.currentLevel + 1].buildings.map((req) => (
+                                                {building.requirements[building.currentLevel + 1 || 1].buildings.map((req) => (
                                                     <li key={req.id}>
                                                         <span className="color-yellow">{sBuildings[req.id].name}:</span> <span className="color-white">{req.level}</span>
                                                     </li>
@@ -50,11 +50,11 @@ class BuildingDetails extends Component {
                                         </div>
                                     )}
 
-                                    {this.hasRequirement(building, building.currentLevel + 1, 'items') && (
+                                    {this.hasRequirement(building, building.currentLevel + 1 || 1, 'items') && (
                                         <div>
                                             <p>Items:</p>
                                             <ul>
-                                                {building.requirements[building.currentLevel + 1].items.map((req) => (
+                                                {building.requirements[building.currentLevel + 1 || 1].items.map((req) => (
                                                     <li key={req.id}>
                                                         <span className="color-yellow">{sItems[req.id].name}:</span> <span className="color-white">{format(req.count)}</span>
                                                     </li>
@@ -66,14 +66,14 @@ class BuildingDetails extends Component {
                                     <div className="margin-bottom-inner">
                                         <span className="color-yellow">Temps de construction : </span>
                                     <span className="color-white">
-                                        <Duration milliseconds={building.buildTimes[building.currentLevel]} />
+                                        <Duration milliseconds={building.buildTimes[building.currentLevel || 0]} />
                                     </span>
                                     </div>
 
-                                    <span className="color-yellow">Consomation au niveau {building.currentLevel + 1} : </span>
-                                    <div className="color-white">
-                                        <span className="fa fa-bolt color-yellow">&nbsp;</span>{building.useEnergy[building.currentLevel]}
-                                    </div>
+                                    <span className="color-yellow">Consomation au niveau {building.currentLevel + 1 || 1} : </span>
+                                    <span className="color-white">
+                                        <span className="fa fa-bolt color-yellow">&nbsp;</span>{building.useEnergy[building.currentLevel || 0]}
+                                    </span>
 
                                 </div>
                             )}

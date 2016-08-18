@@ -21,7 +21,7 @@ export function getSelectedBuilding(state) {
         const sBuilding = state.entities.staticBuildings[building.buildingId];
         return {
             ...sBuilding,
-            building
+            ...building
         }
     }
 }
