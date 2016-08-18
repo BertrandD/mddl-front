@@ -1,10 +1,11 @@
-import { UPGRADE_BUILDING_WAIT, CREATE_BUILDING_START, CREATE_BUILDING_END, CREATE_BUILDING_FAILURE, UPGRADE_BUILDING_END, UPGRADE_BUILDING_FAILURE, UPGRADE_BUILDING_START, SELECT_BUILDING } from './BuildingActionTypes';
+import { UPGRADE_BUILDING_WAIT, CREATE_BUILDING_START, CREATE_BUILDING_END, UPGRADE_BUILDING_END, UPGRADE_BUILDING_START, SELECT_BUILDING } from './BuildingActionTypes';
 import { postAsForm, fetch } from '../../../utils/post-as-form'
 import config from '../../../config'
 import addEvent from '../../../utils/addEvent'
 import { fetchBaseSuccess, updateBase } from './../../base/actions/baseActions'
 import { normalize, arrayOf } from 'normalizr'
 import { base } from '../../../schema/schemas'
+import { notify } from '../../core/actions/appActions'
 
 function createBuildingStart (base, building, meta) {
     return {
@@ -14,13 +15,6 @@ function createBuildingStart (base, building, meta) {
             building
         },
         meta: meta
-    }
-}
-
-function createBuildingFailure (message) {
-    return {
-        type: CREATE_BUILDING_FAILURE,
-        payload: message
     }
 }
 
@@ -45,13 +39,6 @@ export function upgradeBuildingStart (base, building, startedAt, endsAt) {
             startedAt,
             endsAt
         }
-    }
-}
-
-function upgradeBuildingFailure (message) {
-    return {
-        type: UPGRADE_BUILDING_FAILURE,
-        payload: message
     }
 }
 
@@ -92,7 +79,7 @@ export function createBuilding (currentBase, { id }, position = -1) {
     return dispatch => {
         return postAsForm(config.api.url + '/building', { building: id, position })
             .catch(res => {
-                dispatch(createBuildingFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
                 return Promise.reject(res);
             })
             .then(res => {
@@ -114,7 +101,7 @@ export function upgradeBuilding (currentBase, { id }) {
     return dispatch => {
         return postAsForm(config.api.url + '/building/' + id + '/upgrade')
             .catch(res => {
-                dispatch(upgradeBuildingFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
                 return Promise.reject(res);
             })
             .then(res => {
