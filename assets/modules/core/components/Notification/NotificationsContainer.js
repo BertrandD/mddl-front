@@ -7,13 +7,12 @@ import Notification from './Notification'
 class NotificationContainer extends Component {
 
     render() {
-        const { notifications } = this.props;
+        const { notifications, actions } = this.props;
 
         return (
             <div>
-                hello !
                 {map(notifications, (notif, index) => (
-                    <Notification notif={notif} key={index}> </Notification>
+                    <Notification notif={notif} key={index} onClose={actions.closeNotif.bind(null, index)}> </Notification>
                 ))}
             </div>
         );
@@ -21,13 +20,14 @@ class NotificationContainer extends Component {
 }
 
 import { getNotifications } from '../../reducers/notificationReducer'
+import { closeNotif } from '../../actions/appActions'
 
 function mapStateToProps(state) {
     return {notifications: getNotifications(state)};
 }
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ }, dispatch)}
+    return {actions: bindActionCreators({ closeNotif }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationContainer);

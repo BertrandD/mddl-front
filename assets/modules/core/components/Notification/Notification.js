@@ -5,10 +5,10 @@ import './Notifications.scss'
 class Notification extends Component {
 
     render() {
-        const { notif } = this.props;
+        const { notif, onClose } = this.props;
 
         return (
-            <div className="Notification">
+            <div className="Notification" onClick={onClose.bind(null)}>
                 <Date className="color-yellow" timestamp={notif.date} />&nbsp;{notif.message}
             </div>
         );
@@ -16,7 +16,8 @@ class Notification extends Component {
 }
 
 Notification.propTypes = {
-    notif: PropTypes.object.isRequired
+    notif: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired
 };
 
 export default Notification;
