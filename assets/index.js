@@ -47,11 +47,12 @@ import { fetchPlayer, fetchAllPlayers } from './modules/player/actions/playerAct
 import { fetchMyBases } from './modules/base/actions/baseActions'
 import { fetchBuildings, fetchItems } from './modules/static/actions/staticActions'
 import { refresh } from './modules/core/actions/appActions'
+import { fetchMessages } from './modules/privateMessages/actions/privateMessagesActions'
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
-const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchAllPlayers, fetchItems, fetchBuildings, refresh }, store.dispatch);
+const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchAllPlayers, fetchItems, fetchBuildings, refresh, fetchMessages }, store.dispatch);
 
 function requireSimpleAuth (nextState, replace, next) {
   const state = store.getState();
@@ -117,6 +118,8 @@ import PlayerProfileContainer from './modules/player/PlayerProfileContainer';
 import BaseCreationContainer from './modules/base/BaseCreationContainer';
 import PlanetContainer from './modules/core/components/Planet/PlanetContainer'
 import BuildingDetailsContainer from './modules/buildings/BuildingDetailsContainer'
+import PrivateMessageContainer from './modules/privateMessages/PrivateMessageContainer'
+import SendPrivateMessageContainer from './modules/privateMessages/SendPrivateMessageContainer'
 
 render(
     <Provider store={store}>
@@ -128,6 +131,8 @@ render(
           <Route path="base/buildings" components={{left: BaseStatContainer, center: BaseBuildingsContainer }} />
 
           <Route path="friends" components={{center: PlayerProfileContainer }} onEnter={actions.fetchAllPlayers}/>
+          <Route path="messenger" components={{center: PrivateMessageContainer }} onEnter={actions.fetchMessages}/>
+          <Route path="messenger/send" components={{center: SendPrivateMessageContainer }} onEnter={actions.fetchAllPlayers}/>
         </Route>
         <Route path="/create" component={App} onEnter={requireSimpleAuth}>
 

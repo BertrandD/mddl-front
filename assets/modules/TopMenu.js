@@ -33,6 +33,10 @@ class TopMenu extends Component {
                         <i className="fa fa-people"/>
                         <span className="font-bold">Amis</span>
                     </Link>
+                    <Link to="/messenger">
+                        <i className="fa fa-people"/>
+                        <span className="font-bold">Messagerie</span>
+                    </Link>
                 </div>
                 <div className={resourcesCount >= base.inventory.maxVolume && "color-error"}>
                     {base && map(base.inventory.items, (item) => (

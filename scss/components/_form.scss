@@ -1,0 +1,28 @@
+@import '../variables/variables';
+@import '../mixins/mixins';
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-top: $spacing-gutter;
+    margin-bottom: $spacing-inner;
+  }
+
+  .form-buttons {
+    margin-top: $spacing-inner;
+    display: flex;
+
+    justify-content: flex-end;
+
+    button {
+      margin: $spacing-inner;
+    }
+  }
+
+  input, textarea {
+    border-radius: $border-radius-base;
+    padding: $spacing-inner;
+  }
+}
