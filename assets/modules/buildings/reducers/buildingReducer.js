@@ -13,6 +13,18 @@ export function getBuildingsForBase(state, base) {
     }, []);
 }
 
+export function getBuilding(state, id) {
+    const building = state.entities.buildings[id];
+    if (!building) {
+        return null;
+    }
+    const sBuilding = state.entities.staticBuildings[building.buildingId];
+    return {
+        ...sBuilding,
+        ...building
+    }
+}
+
 export function getSelectedBuilding(state) {
     if (state.selectedBuilding.type === "STATIC") {
         return state.entities.staticBuildings[state.selectedBuilding.id]

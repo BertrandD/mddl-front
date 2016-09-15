@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import ProgressBar from '../../core/components/ProgressBar'
 import Duration from '../../core/components/Duration'
 import keys from 'lodash/keys'
@@ -31,7 +32,15 @@ class Building extends Component {
             <div className="Building">
                 <div className="BuildingHeader">
                     <div className="BuildingName">
-                        {building.name} {building.currentLevel && (<span>- Lvl {building.currentLevel}</span>)} {building.endsAt > 0 && (<span><span className="fa fa-arrow-right">&nbsp;</span> {building.currentLevel + 1}</span>)}
+                        {!building.currentLevel && (
+                            <span>{building.name}</span>
+                        ) || (
+                            <Link to={"/base/buildings/" + building.id}>
+                                {building.name} <span>- Lvl {building.currentLevel}</span>
+                            </Link>
+                        )}
+
+                        {building.endsAt > 0 && (<span><span className="fa fa-arrow-right">&nbsp;</span> {building.currentLevel + 1}</span>)}
                         {building.currentLevel === building.maxLevel && (<span>(max)</span>)}
 
                     </div>

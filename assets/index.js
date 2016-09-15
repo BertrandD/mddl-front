@@ -118,6 +118,7 @@ import PlayerProfileContainer from './modules/player/PlayerProfileContainer';
 import BaseCreationContainer from './modules/base/BaseCreationContainer';
 import PlanetContainer from './modules/core/components/Planet/PlanetContainer'
 import BuildingDetailsContainer from './modules/buildings/BuildingDetailsContainer'
+import BuildingPageContainer from './modules/buildings/BuildingPageContainer'
 import PrivateMessageContainer from './modules/privateMessages/PrivateMessageContainer'
 import SendPrivateMessageContainer from './modules/privateMessages/SendPrivateMessageContainer'
 
@@ -128,7 +129,8 @@ render(
           <IndexRoute components={{left: BaseStatContainer, center: PlanetContainer }} />
 
           <Route path="base" components={{left: BaseStatContainer, center: BaseContainer, right: BuildingDetailsContainer }} />
-          <Route path="base/buildings" components={{left: BaseStatContainer, center: BaseBuildingsContainer }} />
+          /*<Route path="base/buildings" components={{left: BaseStatContainer, center: BaseBuildingsContainer }} />*/
+          <Route path="base/buildings/:buildingId" components={{left: BaseStatContainer, center: BuildingPageContainer }} />
 
           <Route path="friends" components={{center: PlayerProfileContainer }} onEnter={actions.fetchAllPlayers}/>
           <Route path="messenger" components={{center: PrivateMessageContainer }} onEnter={actions.fetchMessages}/>
