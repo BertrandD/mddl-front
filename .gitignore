@@ -3,5 +3,5 @@
 /npm-debug.log
 node_modules
 /src/config.js
-/assets/config.js
+/core/config.js
 /dist

@@ -1,7 +1,7 @@
-import * as BaseActions from '../../base/actions/BaseActionTypes';
-import * as BuldingsActions from '../actions/BuildingActionTypes';
-import reduce from '../../../../node_modules/lodash/reduce'
-import * as LoginActions from '../../auth/actions/LoginActionTypes';
+import * as BaseActions from '../actionTypes/BaseActionTypes';
+import * as BuldingsActions from '../actionTypes/BuildingActionTypes';
+import reduce from '../../node_modules/lodash/reduce'
+import * as LoginActions from '../actionTypes/LoginActionTypes';
 
 export function getBuildingsForBase(state, base) {
     if (!base || !base.buildingPositions) {

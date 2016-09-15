@@ -22,8 +22,8 @@ class PlayerProfileContainer extends Component {
     }
 }
 
-import { getcurrentPlayer, getAllPlayers } from './reducers/playerReducer'
-import { acceptFriend, requestFriend } from './actions/playerActions'
+import { getcurrentPlayer, getAllPlayers } from 'reducers/playerReducer'
+import { acceptFriend, requestFriend } from 'actions/playerActions'
 
 function mapStateToProps(state) {
     return { player: getcurrentPlayer(state), players: getAllPlayers(state)  };

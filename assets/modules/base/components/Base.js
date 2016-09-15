@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Planet from '../../core/components/Planet/Planet'
 import map from 'lodash/map'
 import { Link } from 'react-router';
-import format from '../../../utils/numberFormat'
+import format from 'utils/numberFormat'
 import BaseBuildingsContainer from '../BaseBuildingsContainer'
 require('./Base.scss');
 

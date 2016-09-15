@@ -1,5 +1,5 @@
-import * as Actions from './AppActionTypes'
-import { uid } from '../../../utils/utils'
+import * as Actions from './../actionTypes/AppActionTypes'
+import { uid } from '../utils/utils'
 
 export function refresh() {
     return {

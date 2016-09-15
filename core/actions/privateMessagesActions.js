@@ -1,8 +1,8 @@
-import { postAsForm, fetch } from '../../../utils/post-as-form'
-import config from '../../../config'
-import * as PMActions from './PrivateMessageActionTypes'
-import { pm } from '../../../schema/schemas.js'
-import { notify } from '../../core/actions/appActions'
+import { postAsForm, fetch } from '../utils/post-as-form'
+import config from '../config'
+import * as PMActions from './../actionTypes/PrivateMessageActionTypes'
+import { pm } from '../schema/schemas.js'
+import { notify } from './appActions'
 import { normalize, arrayOf } from 'normalizr'
 
 export function sendMessageSuccess(pm) {

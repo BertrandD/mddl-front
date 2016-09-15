@@ -34,14 +34,14 @@ class BaseBuildingsContainer extends Component {
     }
 }
 
-import { getPopulatedCurrentBase } from './reducers/baseReducer'
-import { getStaticBuildings, getStaticItems } from '../static/reducers/staticReducer'
+import { getPopulatedCurrentBase } from 'reducers/baseReducer'
+import { getStaticBuildings, getStaticItems } from 'reducers/staticReducer'
 
 function mapStateToProps(state) {
     return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state)  };
 }
 
-import { upgradeBuilding, createBuilding, selectBuilding } from '../buildings/actions/buildingActions'
+import { upgradeBuilding, createBuilding, selectBuilding } from 'actions/buildingActions'
 
 function mapDispatchToProps(dispatch) {
     return {actions: bindActionCreators({ upgradeBuilding, createBuilding, selectBuilding }, dispatch)}

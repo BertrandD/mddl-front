@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import './Popup.scss'
 import Draggable from 'react-draggable';
-import { closePopup } from '../../actions/popupActions'
+import { closePopup } from 'actions/popupActions'
 import * as PopupTypes from './PopupTypes'
 
 class Popup extends Component {

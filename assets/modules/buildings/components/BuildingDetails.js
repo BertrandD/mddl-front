@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import ProgressBar from '../../core/components/ProgressBar'
 import BuildingList from '../../buildings/components/BuildingList'
 import Duration from '../../core/components/Duration'
-import format from '../../../utils/numberFormat'
+import format from 'utils/numberFormat'
 
 class BuildingDetails extends Component {
 

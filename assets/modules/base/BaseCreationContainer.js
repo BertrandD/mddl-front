@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createBase } from './actions/baseActions';
+import { createBase } from 'actions/baseActions';
 import { Link } from 'react-router';
 
 import BaseCreation from './components/BaseCreation'
@@ -32,8 +32,8 @@ class BaseCreationContainer extends Component {
     }
 }
 
-import { getCurrentBase } from './reducers/baseReducer'
-import { getcurrentPlayer } from '../player/reducers/playerReducer'
+import { getCurrentBase } from 'reducers/baseReducer'
+import { getcurrentPlayer } from 'reducers/playerReducer'
 
 function mapStateToProps(state) {
     return { currentBase: getCurrentBase(state), currentPlayer: getcurrentPlayer(state) };

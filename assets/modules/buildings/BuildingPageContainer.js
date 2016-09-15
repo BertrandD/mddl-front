@@ -65,15 +65,15 @@ class BuildingPageContainer extends Component {
     }
 }
 
-import { getPopulatedCurrentBase } from '../base/reducers/baseReducer'
-import { getStaticBuildings, getStaticItems } from '../static/reducers/staticReducer'
-import { getBuilding } from './reducers/buildingReducer'
+import { getPopulatedCurrentBase } from 'reducers/baseReducer'
+import { getStaticBuildings, getStaticItems } from 'reducers/staticReducer'
+import { getBuilding } from 'reducers/buildingReducer'
 
 function mapStateToProps(state, ownProps) {
     return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state), building: getBuilding(state, ownProps.params.buildingId)  };
 }
 
-import { upgradeBuilding, createBuilding } from '../buildings/actions/buildingActions'
+import { upgradeBuilding, createBuilding } from 'actions/buildingActions'
 
 function mapDispatchToProps(dispatch) {
     return {actions: bindActionCreators({ upgradeBuilding, createBuilding }, dispatch)}

@@ -77,11 +77,11 @@ class TopMenu extends Component {
     }
 }
 
-import { getcurrentPlayer } from './player/reducers/playerReducer'
-import { getCurrentBase } from './base/reducers/baseReducer'
-import { getStaticItems } from './static/reducers/staticReducer'
-import { getUser } from './auth/reducers/userReducer'
-import { logout } from './auth/actions/loginActions'
+import { getcurrentPlayer } from 'reducers/playerReducer'
+import { getCurrentBase } from 'reducers/baseReducer'
+import { getStaticItems } from 'reducers/staticReducer'
+import { getUser } from 'reducers/userReducer'
+import { logout } from 'actions/loginActions'
 
 function mapStateToProps(state) {
     return {user: getUser(state), items: getStaticItems(state), player: getcurrentPlayer(state), base: getCurrentBase(state)};

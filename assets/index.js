@@ -42,12 +42,12 @@ function configureStore(initialState = {}) {
 
   return store
 }
-import { fetchAuthentication } from './modules/auth/actions/loginActions'
-import { fetchPlayer, fetchAllPlayers } from './modules/player/actions/playerActions'
-import { fetchMyBases } from './modules/base/actions/baseActions'
-import { fetchBuildings, fetchItems } from './modules/static/actions/staticActions'
-import { refresh } from './modules/core/actions/appActions'
-import { fetchMessages } from './modules/privateMessages/actions/privateMessagesActions'
+import { fetchAuthentication } from './../core/actions/loginActions'
+import { fetchPlayer, fetchAllPlayers } from './../core/actions/playerActions'
+import { fetchMyBases } from './../core/actions/baseActions'
+import { fetchBuildings, fetchItems } from '../core/actions/staticActions'
+import { refresh } from './../core/actions/appActions'
+import { fetchMessages } from './../core/actions/privateMessagesActions'
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);

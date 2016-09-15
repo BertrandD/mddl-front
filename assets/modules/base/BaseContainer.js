@@ -28,7 +28,7 @@ class BaseContainer extends Component {
     }
 }
 
-import { getPopulatedCurrentBase } from './reducers/baseReducer'
+import { getPopulatedCurrentBase } from 'reducers/baseReducer'
 
 function mapStateToProps(state) {
     return { base: getPopulatedCurrentBase(state) };

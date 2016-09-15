@@ -1,9 +1,9 @@
-import { FETCH_LOGIN_SUCCESS, FETCH_LOGIN_ERROR, LOGOUT } from './LoginActionTypes';
+import { FETCH_LOGIN_SUCCESS, FETCH_LOGIN_ERROR, LOGOUT } from './../actionTypes/LoginActionTypes';
 import { push } from 'react-router-redux'
-import { postAsForm, fetch } from '../../../utils/post-as-form'
+import { postAsForm, fetch } from '../utils/post-as-form'
 import { normalize, arrayOf } from 'normalizr'
-import { user } from '../../../schema/schemas.js'
-import config from '../../../config'
+import { user } from '../schema/schemas.js'
+import config from '../config'
 
 function loginSuccess (user) {
   return {

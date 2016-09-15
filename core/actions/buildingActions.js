@@ -1,11 +1,11 @@
-import { UPGRADE_BUILDING_WAIT, CREATE_BUILDING_START, CREATE_BUILDING_END, UPGRADE_BUILDING_END, UPGRADE_BUILDING_START, SELECT_BUILDING } from './BuildingActionTypes';
-import { postAsForm, fetch } from '../../../utils/post-as-form'
-import config from '../../../config'
-import addEvent from '../../../utils/addEvent'
-import { fetchBaseSuccess, updateBase } from './../../base/actions/baseActions'
+import { UPGRADE_BUILDING_WAIT, CREATE_BUILDING_START, CREATE_BUILDING_END, UPGRADE_BUILDING_END, UPGRADE_BUILDING_START, SELECT_BUILDING } from './../actionTypes/BuildingActionTypes';
+import { postAsForm, fetch } from '../utils/post-as-form'
+import config from '../config'
+import addEvent from '../utils/addEvent'
+import { fetchBaseSuccess, updateBase } from './baseActions'
 import { normalize, arrayOf } from 'normalizr'
-import { base } from '../../../schema/schemas'
-import { notify } from '../../core/actions/appActions'
+import { base } from '../schema/schemas'
+import { notify } from './appActions'
 
 function createBuildingStart (base, building, meta) {
     return {

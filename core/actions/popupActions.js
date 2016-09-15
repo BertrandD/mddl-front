@@ -1,4 +1,4 @@
-import * as PopupActions from './PopupActionTypes'
+import * as PopupActions from './../actionTypes/PopupActionTypes'
 
 export function openPopup(type, data) {
     return {

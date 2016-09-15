@@ -15,7 +15,7 @@ module.exports = {
   },
   resolve: {
     root: [
-      path.resolve('./assets')
+      path.resolve('./core')
     ]
   },
   devtool: 'source-map',

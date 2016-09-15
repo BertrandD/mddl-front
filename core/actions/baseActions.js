@@ -1,12 +1,12 @@
-import * as actions from './BaseActionTypes';
-import { postAsForm, fetch } from '../../../utils/post-as-form'
+import * as actions from './../actionTypes/BaseActionTypes';
+import { postAsForm, fetch } from '../utils/post-as-form'
 import { push } from 'react-router-redux'
 import { normalize, arrayOf } from 'normalizr'
-import { base } from '../../../schema/schemas.js'
-import { upgradeBuildingWait, upgradeBuildingStart, upgradeBuildingEnd, createBuildingEnd } from './../../buildings/actions/buildingActions'
-import config from '../../../config'
-import addEvent from '../../../utils/addEvent'
-import forEach from 'lodash/forEach'
+import { base } from '../schema/schemas.js'
+import { upgradeBuildingWait, upgradeBuildingStart, upgradeBuildingEnd, createBuildingEnd } from './buildingActions'
+import config from '../config'
+import addEvent from '../utils/addEvent'
+import forEach from '../../node_modules/lodash/forEach'
 
 export function fetchBaseSuccess(base, meta = null) {
     return {

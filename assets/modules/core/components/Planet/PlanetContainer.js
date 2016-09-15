@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import format from '../../../../utils/numberFormat'
+import format from 'utils/numberFormat'
 import map from 'lodash/map'
 import Planet from './Planet'
 import './PlanetContainer.scss'
@@ -83,8 +83,8 @@ class PlanetContainer extends Component {
     }
 }
 
-import { getPopulatedCurrentBase } from '../../../base/reducers/baseReducer'
-import { getStaticBuildings, getStaticItems } from '../../../static/reducers/staticReducer'
+import { getPopulatedCurrentBase } from 'reducers/baseReducer'
+import { getStaticBuildings, getStaticItems } from 'reducers/staticReducer'
 
 function mapStateToProps(state) {
     return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state)  };

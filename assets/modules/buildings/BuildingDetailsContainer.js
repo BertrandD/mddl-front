@@ -32,14 +32,14 @@ class BuildingDetailsContainer extends Component {
     }
 }
 
-import { getPopulatedCurrentBase } from '../base/reducers/baseReducer'
-import { getStaticBuildings, getStaticItems } from '../static/reducers/staticReducer'
-import { getSelectedBuilding } from './reducers/buildingReducer'
+import { getPopulatedCurrentBase } from '../../../core/reducers/baseReducer'
+import { getStaticBuildings, getStaticItems } from '../../../core/reducers/staticReducer'
+import { getSelectedBuilding } from './../../../core/reducers/buildingReducer'
 function mapStateToProps(state) {
     return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state), building: getSelectedBuilding(state)  };
 }
 
-import { upgradeBuilding, createBuilding } from '../buildings/actions/buildingActions'
+import { upgradeBuilding, createBuilding } from '../../../core/actions/buildingActions'
 
 function mapDispatchToProps(dispatch) {
     return {actions: bindActionCreators({ upgradeBuilding, createBuilding }, dispatch)}

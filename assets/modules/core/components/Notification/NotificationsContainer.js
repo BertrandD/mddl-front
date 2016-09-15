@@ -19,8 +19,8 @@ class NotificationContainer extends Component {
     }
 }
 
-import { getNotifications } from '../../reducers/notificationReducer'
-import { closeNotif } from '../../actions/appActions'
+import { getNotifications } from 'reducers/notificationReducer'
+import { closeNotif } from 'actions/appActions'
 
 function mapStateToProps(state) {
     return {notifications: getNotifications(state)};

@@ -1,4 +1,4 @@
-import * as LoginActions from '../actions/LoginActionTypes';
+import * as LoginActions from '../actionTypes/LoginActionTypes';
 
 export function getUser (state) {
   return state.user;

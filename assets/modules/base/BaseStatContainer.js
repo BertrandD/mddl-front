@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import Base from './components/Base'
-import format from '../../utils/numberFormat'
+import format from 'utils/numberFormat'
 
 class BaseStatContainer extends Component {
 
@@ -35,7 +35,7 @@ class BaseStatContainer extends Component {
     }
 }
 
-import { getPopulatedCurrentBase } from './reducers/baseReducer'
+import { getPopulatedCurrentBase } from 'reducers/baseReducer'
 
 function mapStateToProps(state) {
     return { base: getPopulatedCurrentBase(state) };

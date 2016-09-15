@@ -1,6 +1,6 @@
-import * as BuildingActions from '../../buildings/actions/BuildingActionTypes'
-import * as LoginActions from '../../auth/actions/LoginActionTypes';
-import * as AppActions from '../../core/actions/AppActionTypes';
+import * as BuildingActions from '../actionTypes/BuildingActionTypes'
+import * as LoginActions from '../actionTypes/LoginActionTypes';
+import * as AppActions from '../actionTypes/AppActionTypes';
 
 export function getNotifications(state) {
     return state.notifications;

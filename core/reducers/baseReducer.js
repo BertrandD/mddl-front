@@ -1,12 +1,12 @@
-import * as BaseActions from '../actions/BaseActionTypes';
-import * as BuldingsActions from '../../buildings/actions/BuildingActionTypes';
-import * as AppActions from '../../core/actions/AppActionTypes';
-import * as LoginActions from '../../auth/actions/LoginActionTypes';
-import clone from 'lodash/clone';
-import map from 'lodash/map';
-import omit from 'lodash/omit';
-import forEach from 'lodash/forEach'
-import sum from 'lodash/sum'
+import * as BaseActions from '../actionTypes/BaseActionTypes';
+import * as BuldingsActions from '../actionTypes/BuildingActionTypes';
+import * as AppActions from '../actionTypes/AppActionTypes';
+import * as LoginActions from '../actionTypes/LoginActionTypes';
+import clone from '../../node_modules/lodash/clone';
+import map from '../../node_modules/lodash/map';
+import omit from '../../node_modules/lodash/omit';
+import forEach from '../../node_modules/lodash/forEach'
+import sum from '../../node_modules/lodash/sum'
 
 export function getCurrentBase (state) {
     return state.entities.bases[state.currentBase.id];

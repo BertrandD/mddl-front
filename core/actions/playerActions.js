@@ -1,9 +1,9 @@
-import { SELECT_PLAYER, FETCH_PLAYER_FAILURE, FETCH_PLAYER_REQUEST, FETCH_PLAYER_SUCCESS, CREATE_PLAYER_SUCCESS, CREATE_PLAYER_FAILURE, ACCEPT_FRIEND_SUCCESS, REQUEST_FRIEND_SUCCESS } from './PlayerActionTypes';
-import { postAsForm, fetch } from '../../../utils/post-as-form'
+import { SELECT_PLAYER, FETCH_PLAYER_FAILURE, FETCH_PLAYER_REQUEST, FETCH_PLAYER_SUCCESS, CREATE_PLAYER_SUCCESS, CREATE_PLAYER_FAILURE, ACCEPT_FRIEND_SUCCESS, REQUEST_FRIEND_SUCCESS } from './../actionTypes/PlayerActionTypes';
+import { postAsForm, fetch } from '../utils/post-as-form'
 import { push } from 'react-router-redux'
 import { normalize, arrayOf } from 'normalizr'
-import { player } from '../../../schema/schemas.js'
-import config from '../../../config'
+import { player } from '../schema/schemas.js'
+import config from '../config'
 
 
 function fetchPlayerSuccess (player) {

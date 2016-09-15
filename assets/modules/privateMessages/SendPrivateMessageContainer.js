@@ -53,13 +53,13 @@ class SendPrivateMessageContainer extends Component {
     }
 }
 
-import { getAllPlayers, getcurrentPlayer } from '../player/reducers/playerReducer'
+import { getAllPlayers, getcurrentPlayer } from 'reducers/playerReducer'
 
 function mapStateToProps(state) {
     return { players: getAllPlayers(state), player: getcurrentPlayer(state) };
 }
 
-import { sendMessage } from './actions/privateMessagesActions'
+import { sendMessage } from 'actions/privateMessagesActions'
 
 function mapDispatchToProps(dispatch) {
     return {actions: bindActionCreators({ sendMessage }, dispatch)}

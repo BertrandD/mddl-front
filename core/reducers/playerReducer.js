@@ -1,5 +1,5 @@
-import { FETCH_PLAYER_SUCCESS, CREATE_PLAYER_SUCCESS, CREATE_PLAYER_FAILURE, SELECT_PLAYER, ACCEPT_FRIEND_SUCCESS, REQUEST_FRIEND_SUCCESS } from '../actions/PlayerActionTypes';
-import * as LoginActions from '../../auth/actions/LoginActionTypes';
+import { FETCH_PLAYER_SUCCESS, CREATE_PLAYER_SUCCESS, CREATE_PLAYER_FAILURE, SELECT_PLAYER, ACCEPT_FRIEND_SUCCESS, REQUEST_FRIEND_SUCCESS } from '../actionTypes/PlayerActionTypes';
+import * as LoginActions from '../actionTypes/LoginActionTypes';
 
 export function getcurrentPlayer(state) {
     return state.entities.players[state.currentPlayer.id]

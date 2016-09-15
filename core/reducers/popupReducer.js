@@ -1,4 +1,4 @@
-import * as PopupActions from '../actions/PopupActionTypes'
+import * as PopupActions from '../actionTypes/PopupActionTypes'
 
 export function popup(state = {}, action) {
     switch(action.type) {

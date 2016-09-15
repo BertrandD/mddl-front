@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createPlayer } from './actions/playerActions';
+import { createPlayer } from 'actions/playerActions';
 import { Link } from 'react-router';
 
 import PlayerCreation from './components/PlayerCreation'
@@ -32,7 +32,7 @@ class PlayerCreationContainer extends Component {
     }
 }
 
-import { getcurrentPlayer } from './reducers/playerReducer'
+import { getcurrentPlayer } from 'reducers/playerReducer'
 
 function mapStateToProps(state) {
     return { player: getcurrentPlayer(state)  };

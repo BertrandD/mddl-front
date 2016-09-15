@@ -1,4 +1,4 @@
-import * as Actions from '../actions/StaticActionTypes';
+import * as Actions from '../actionTypes/StaticActionTypes';
 
 
 export function getStaticBuildings(state) {

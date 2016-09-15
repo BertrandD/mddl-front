@@ -1,8 +1,8 @@
-import * as StaticActionTypes from './StaticActionTypes';
-import { postAsForm, fetch } from '../../../utils/post-as-form'
+import * as StaticActionTypes from './../actionTypes/StaticActionTypes';
+import { postAsForm, fetch } from '../utils/post-as-form'
 import { normalize, arrayOf } from 'normalizr'
-import { staticBuilding, staticItem } from '../../../schema/schemas.js'
-import config from '../../../config'
+import { staticBuilding, staticItem } from '../schema/schemas.js'
+import config from '../config'
 
 
 function fetchBuildingsSuccess (buildings) {
