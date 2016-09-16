@@ -15,6 +15,11 @@ module.exports = {
     publicPath: "/dist/",
     filename: 'app.min.js'
   },
+  resolve: {
+    root: [
+      path.resolve('./core')
+    ]
+  },
   module: {
     loaders: [
       {
