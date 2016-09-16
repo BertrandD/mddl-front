@@ -39,8 +39,8 @@ class TopMenu extends Component {
                         <span className="color-yellow">{items[item.templateId].name}:</span> {Math.round(item.count)} ({base.production[item.templateId]}/h) - &nbsp;
                        </span>
                     ))}
-                    {base && map(base.resources, (item) => (
-                        <span key={item.id}>
+                    {base && map(base.resources, (item, id) => (
+                        <span key={id}>
                             <span className="color-yellow">{items[item.templateId].name}: </span>
                             <span className={Math.round(item.count) == item.maxVolume &&"color-error"}>
                                 {Math.round(item.count)} / {item.maxVolume} ({item.production}/h)

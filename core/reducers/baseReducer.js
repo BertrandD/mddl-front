@@ -112,26 +112,21 @@ function base (state = {
 
             const base = clone(state);
 
-            forEach(base.production, (prod, id) => {
-                const resource = base.inventory.items[id];
-                if (!resource) {
-                    console.warn('Trying to produce a resources not present in inventory !!');
-                    return;
-                }
-                const toProduce =  (prod / 3600) * ((now - base.inventory.lastRefresh) / 1000);
-                const currentStorage = countResources(base);
-                resource.count += Math.min(toProduce, base.inventory.maxVolume - currentStorage);
-                base.inventory.lastRefresh = now;
+            forEach(base.resources, (item, id) => {
+                const deltaSeconds = (now - item.lastRefresh) / 1000;
+
+                const productionForDeltaSeconds = item.production * deltaSeconds / 3600;
+
+                const effectiveProduction = Math.min(productionForDeltaSeconds, item.maxVolume - item.count);
+
+                item.count += effectiveProduction;
+                item.lastRefresh = now;
             });
 
             return base;
         default:
             return state;
     }
-}
-
-function countResources (base) {
-    return sum(map(base.inventory.items, 'count'));
 }
 
 export default base;
