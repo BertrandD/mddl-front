@@ -20,7 +20,7 @@ class ModuleFactory extends Component {
                     Modules disponibles :
                 </h3>
 
-                {building.modules[building.currentLevel] && building.modules[building.currentLevel].map((module) => (
+                {building.unlockModules[building.currentLevel] && building.unlockModules[building.currentLevel].map((module) => (
                     <div key={module} className="margin-bottom-inner">
                         <span className="color-yellow">
                             {sItems[module].name}

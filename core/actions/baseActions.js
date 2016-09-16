@@ -2,7 +2,7 @@ import * as actions from './../actionTypes/BaseActionTypes';
 import { postAsForm, fetch } from '../utils/post-as-form'
 import { push } from 'react-router-redux'
 import { normalize, arrayOf } from 'normalizr'
-import { base } from '../schema/schemas.js'
+import { base } from 'schema/schemas.js'
 import { upgradeBuildingWait, upgradeBuildingStart, upgradeBuildingEnd, createBuildingEnd } from './buildingActions'
 import config from '../config'
 import addEvent from '../utils/addEvent'

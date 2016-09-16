@@ -76,7 +76,7 @@ class BuildingDetails extends Component {
                                     <div className="margin-bottom-inner">
                                         <span className="color-yellow">Modules : </span>
                                         <span className="color-white">
-                                            {building.modules && building.modules.length || 0} / {building.maxModules || 0}
+                                            {building.modules && building.modules.length || 0} / {building.maxModules}
                                         </span>
                                     </div>
 
