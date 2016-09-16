@@ -16,11 +16,6 @@ class TopMenu extends Component {
                 <div className="TopMenu">&nbsp;</div>
             )
         }
-        let resourcesCount = 0;
-
-        map(base.inventory.items, (resource) => {
-            resourcesCount += resource.count;
-        });
 
         return (
             <div className="TopMenu">
@@ -38,15 +33,20 @@ class TopMenu extends Component {
                         <span className="font-bold">Messagerie</span>
                     </Link>
                 </div>
-                <div className={resourcesCount >= base.inventory.maxVolume && "color-error"}>
+                <div>
                     {base && map(base.inventory.items, (item) => (
                         <span key={item.id}>
                         <span className="color-yellow">{items[item.templateId].name}:</span> {Math.round(item.count)} ({base.production[item.templateId]}/h) - &nbsp;
                        </span>
                     ))}
-                <span>&nbsp;
-                    Storage: {Math.round(resourcesCount)} / {base.inventory.maxVolume} ({(100*resourcesCount/(base.inventory.maxVolume+0.1)).toFixed(0)}%)
-                </span>
+                    {base && map(base.resources, (item) => (
+                        <span key={item.id}>
+                            <span className="color-yellow">{items[item.templateId].name}: </span>
+                            <span className={Math.round(item.count) == item.maxVolume &&"color-error"}>
+                                {Math.round(item.count)} / {item.maxVolume} ({item.production}/h)
+                            </span>&nbsp;♦&nbsp;
+                        </span>
+                    ))}
                 </div>
                 <div>
                     <Link to="/base">

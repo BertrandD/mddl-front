@@ -68,15 +68,24 @@ class BuildingDetails extends Component {
 
                                     <div className="margin-bottom-inner">
                                         <span className="color-yellow">Temps de construction : </span>
-                                    <span className="color-white">
-                                        <Duration milliseconds={building.buildTimes[building.currentLevel || 0]} />
-                                    </span>
+                                        <span className="color-white">
+                                            <Duration milliseconds={building.buildTimes[building.currentLevel || 0]} />
+                                        </span>
                                     </div>
 
-                                    <span className="color-yellow">Consomation au niveau {building.currentLevel + 1 || 1} : </span>
-                                    <span className="color-white">
-                                        <span className="fa fa-bolt color-yellow">&nbsp;</span>{building.useEnergy[building.currentLevel || 0]}
-                                    </span>
+                                    <div className="margin-bottom-inner">
+                                        <span className="color-yellow">Modules : </span>
+                                        <span className="color-white">
+                                            {building.modules && building.modules.length || 0} / {building.maxModules || 0}
+                                        </span>
+                                    </div>
+
+                                    <Link to={"/base/buildings/" + building.id}>
+                                        <button className="button--primary">
+                                            Inspecter
+                                        </button>
+                                    </Link>
+
                                 </div>
                         </div>
                     </div>

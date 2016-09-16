@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import Base from './components/Base'
 import format from 'utils/numberFormat'
+import map from 'lodash/map'
 
 class BaseStatContainer extends Component {
 
@@ -12,7 +13,7 @@ class BaseStatContainer extends Component {
     }
 
     render() {
-        const { base } = this.props;
+        const { base, sItems } = this.props;
         if (!base) {
             return (
                 <div>
@@ -29,6 +30,18 @@ class BaseStatContainer extends Component {
                 <p>
                     <span className="color-yellow fa fa-heart"> </span> {format(base.baseStat.BASE_HEALTH)} / {format(base.baseStat.BASE_MAX_HEALTH)}
                 </p>
+
+                <h3>
+                    Inventaire :
+                </h3>
+
+                <ul>
+                    {map(base.inventory, (item, id) => (
+                        <li key={id}>
+                            {sItems[item.templateId].name} ► {item.count}
+                        </li>
+                    ))}
+                </ul>
             </div>
         );
 
@@ -36,9 +49,10 @@ class BaseStatContainer extends Component {
 }
 
 import { getPopulatedCurrentBase } from 'reducers/baseReducer'
+import { getStaticItems } from 'reducers/staticReducer'
 
 function mapStateToProps(state) {
-    return { base: getPopulatedCurrentBase(state) };
+    return { base: getPopulatedCurrentBase(state), sItems: getStaticItems(state) };
 }
 
 function mapDispatchToProps(dispatch) {

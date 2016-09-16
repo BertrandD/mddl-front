@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-class Storage extends Component {
+class Silo extends Component {
 
     constructor(props, context) {
         super(props, context);
@@ -17,7 +17,7 @@ class Storage extends Component {
     }
 }
 
-Storage.propTypes = {
+Silo.propTypes = {
 };
 
-export default Storage;
+export default Silo;

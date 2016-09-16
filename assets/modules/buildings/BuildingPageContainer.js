@@ -4,9 +4,10 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import BuildingDetails from './components/BuildingDetails'
 import * as BuildingIds from './BuildingIds'
+import ProgressBar from '../core/components/ProgressBar'
 
 import ModuleFactory from './components/buildings/ModuleFactory'
-import Storage from './components/buildings/Storage'
+import Silo from './components/buildings/Silo'
 
 class BuildingPageContainer extends Component {
 
@@ -15,10 +16,17 @@ class BuildingPageContainer extends Component {
     }
 
     getBuildingComponent(building) {
+
+        if (building.endsAt > 0) {
+            return (
+                <ProgressBar start={building.startedAt} end={building.endsAt} />
+            )
+        }
+
         switch (building.buildingId) {
-            case BuildingIds.STORAGE:
+            case BuildingIds.SILO:
                 return (
-                    <Storage building={building}/>
+                    <Silo building={building}/>
                 );
             case BuildingIds.MODULE_FACTORY:
                 return (
@@ -59,6 +67,21 @@ class BuildingPageContainer extends Component {
                 {building.description}
 
                 {this.getBuildingComponent(building)}
+
+                {building.modules.length > 0 && (
+                    <div>
+                        <h3>
+                            Modules installés : {building.modules.length} / {building.maxModules}
+                        </h3>
+                        <ul>
+                            {building.modules.map(module => (
+                                <li>
+                                    {module}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
             </div>
         );
 

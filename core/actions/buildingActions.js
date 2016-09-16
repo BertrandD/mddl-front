@@ -1,4 +1,4 @@
-import { UPGRADE_BUILDING_WAIT, CREATE_BUILDING_START, CREATE_BUILDING_END, UPGRADE_BUILDING_END, UPGRADE_BUILDING_START, SELECT_BUILDING } from './../actionTypes/BuildingActionTypes';
+import { UPGRADE_BUILDING_WAIT, CREATE_BUILDING_START, CREATE_BUILDING_END, UPGRADE_BUILDING_END, UPGRADE_BUILDING_START, SELECT_BUILDING, CREATE_MODULE_SUCCESS } from './../actionTypes/BuildingActionTypes';
 import { postAsForm, fetch } from '../utils/post-as-form'
 import config from '../config'
 import addEvent from '../utils/addEvent'
@@ -6,6 +6,15 @@ import { fetchBaseSuccess, updateBase } from './baseActions'
 import { normalize, arrayOf } from 'normalizr'
 import { base } from '../schema/schemas'
 import { notify } from './appActions'
+
+function createModulesuccess (module) {
+    return {
+        type: CREATE_MODULE_SUCCESS,
+        payload: {
+            module
+        }
+    }
+}
 
 function createBuildingStart (base, building, meta) {
     return {
@@ -131,6 +140,21 @@ export function upgradeBuilding (currentBase, { id }) {
                 }catch (e) {
                     console.error(e);
                 }
+            })
+    }
+}
+
+export function createModule (moduleId) {
+    return dispatch => {
+        return postAsForm(config.api.url + '/modulefactory/create/' + moduleId)
+            .catch(res => {
+                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                return Promise.reject(res);
+            })
+            .then(res => {
+                dispatch(createModulesuccess(res.payload));
+                dispatch(updateBase(res.payload)); //TODO : not so pretty. Prefer add paramter to function like others
+                dispatch(notify(moduleId + ' has been successfully created !'));
             })
     }
 }

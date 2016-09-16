@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 
 class ModuleFactory extends Component {
@@ -9,9 +11,8 @@ class ModuleFactory extends Component {
 
     render() {
 
-        const { building, sItems } = this.props;
+        const { building, sItems, actions } = this.props;
 
-        console.log(this.props);
 
         return (
             <div>
@@ -19,11 +20,14 @@ class ModuleFactory extends Component {
                     Modules disponibles :
                 </h3>
 
-                {building.modules[building.currentLevel].map((module) => (
-                    <div key={module}>
+                {building.modules[building.currentLevel] && building.modules[building.currentLevel].map((module) => (
+                    <div key={module} className="margin-bottom-inner">
                         <span className="color-yellow">
                             {sItems[module].name}
                         </span>
+                        &nbsp;<button className="button--primary" onClick={actions.createModule.bind(null, module)}>
+                            Produire 1
+                        </button>
                     </div>
                 ))}
             </div>
@@ -36,4 +40,16 @@ ModuleFactory.propTypes = {
     sItems: PropTypes.object.isRequired
 };
 
-export default ModuleFactory;
+
+
+function mapStateToProps(state, ownProps) {
+    return {  };
+}
+
+import { createModule } from 'actions/buildingActions'
+
+function mapDispatchToProps(dispatch) {
+    return {actions: bindActionCreators({ createModule }, dispatch)}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModuleFactory);
