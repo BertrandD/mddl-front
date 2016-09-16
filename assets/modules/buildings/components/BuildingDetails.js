@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import ProgressBar from '../../core/components/ProgressBar'
 import BuildingList from '../../buildings/components/BuildingList'
 import Duration from '../../core/components/Duration'
+import Requirements from '../../core/components/Requirements'
 import format from 'utils/numberFormat'
 
 class BuildingDetails extends Component {
@@ -12,10 +13,6 @@ class BuildingDetails extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {};
-    }
-
-    hasRequirement (building, level, requirement) {
-        return building.requirements[level] && building.requirements[level][requirement] && building.requirements[level][requirement].length > 0
     }
 
     render() {
@@ -34,37 +31,9 @@ class BuildingDetails extends Component {
                                 Consomation : <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.useEnergy[building.currentLevel-1] || 0}</span>
                             </p>
                                 <div className="BuildingRequirements">
-                                    {building.requirements[building.currentLevel+1 || 1] && (
-                                        <div>
-                                            <p className="color-yellow">Prérequis pour le niveau {building.currentLevel + 1 || 1}:</p>
+                                    <p className="color-yellow">Prérequis pour le niveau {building.currentLevel + 1 || 1}:</p>
 
-                                            {this.hasRequirement(building, building.currentLevel + 1 || 1, 'buildings') && (
-                                                <div>
-                                                    <p>Bâtiment:</p>
-                                                    <ul>
-                                                        {building.requirements[building.currentLevel + 1 || 1].buildings.map((req) => (
-                                                            <li key={req.id}>
-                                                                <span className="color-yellow">{sBuildings[req.id].name}:</span> <span className="color-white">{req.level}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            )}
-
-                                            {this.hasRequirement(building, building.currentLevel + 1 || 1, 'items') && (
-                                                <div>
-                                                    <p>Items:</p>
-                                                    <ul>
-                                                        {building.requirements[building.currentLevel + 1 || 1].items.map((req) => (
-                                                            <li key={req.id}>
-                                                                <span className="color-yellow">{sItems[req.id].name}:</span> <span className="color-white">{format(req.count)}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            )}
-                                        </div>
-                                        )}
+                                    <Requirements requirements={building.requirements} level={building.currentLevel + 1 || 1} sItems={sItems} sBuildings={sBuildings} />
 
                                     <div className="margin-bottom-inner">
                                         <span className="color-yellow">Temps de construction : </span>

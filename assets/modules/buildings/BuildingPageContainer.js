@@ -34,7 +34,7 @@ class BuildingPageContainer extends Component {
                 );
             case BuildingIds.MODULE_FACTORY:
                 return (
-                    <ModuleFactory building={building} sItems={this.props.sItems}/>
+                    <ModuleFactory building={building}/>
                 );
             default :
                 return (
@@ -67,8 +67,6 @@ class BuildingPageContainer extends Component {
             )
         }
 
-        console.log(building);
-
         return (
             <div className="Block">
                 <h1>
@@ -89,7 +87,7 @@ class BuildingPageContainer extends Component {
 
                     {building.maxModules > 0 && (!building.modules || building.maxModules > building.modules.length) && (
                         <ul>
-                            {filter(base.inventory, item => item.type === ItemTypes.MODULE).map(module => (
+                            {filter(base.inventory, item => item.type === ItemTypes.MODULE).filter(item => building.availableModules.some(modu => modu === item.templateId)).map(module => (
                                 <li key={module.id}>{sItems[module.templateId].name} ♦
                                     <button className="button--primary" onClick={actions.attachModule.bind(null, building, module)}>
                                         Installer ce module
