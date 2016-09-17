@@ -57,9 +57,16 @@ class Building extends Component {
                         </div>
                     )}
                 </div>
-                <div className="BuildingBody" onClick={this.props.onSelectBuilding}>
-                    <div className="BuildingImage">
+                <div className="BuildingBody">
+                    <div className="BuildingImage" onClick={this.props.onSelectBuilding}>
                         <img src={"http://dummyimage.com/512x512/0a222c/2898c1.jpg&text="+(building.buildingId || building.id)} alt=""/>
+                    </div>
+                    <div className="BuildingModules">
+                        {[...Array(building.maxModules)].map(() => (
+                            <div className="BuildingModule">
+                                <img src={"http://dummyimage.com/32x32/0a222c/2898c1.jpg&text= mod"} alt=""/>
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div className="BuildingFooter">
