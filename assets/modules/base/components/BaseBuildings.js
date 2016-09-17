@@ -27,9 +27,9 @@ class BaseBuilings extends Component {
         const buildingsAvailable = [];
 
         forEach(this.props.sBuildings, (sBuilding) => {
-            if (!buildings.some(b => b.buildingId === sBuilding.id)) {
+            //if (!buildings.some(b => b.buildingId === sBuilding.id)) {
                 buildingsAvailable.push(sBuilding);
-            }
+            //}
         });
 
         return (
