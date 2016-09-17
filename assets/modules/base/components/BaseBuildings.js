@@ -16,14 +16,9 @@ class BaseBuilings extends Component {
         this.state = {};
     }
 
-    hasRequirement (building, level, requirement) {
-        return building.requirements[level] && building.requirements[level][requirement] && building.requirements[level][requirement].length > 0
-    }
-
     render() {
 
-        const { buildings, sItems, sBuildings } = this.props;
-        const { building } = this.state;
+        const { buildings, sItems, sBuildings, strings } = this.props;
         const buildingsAvailable = [];
 
         forEach(this.props.sBuildings, (sBuilding) => {
@@ -34,64 +29,8 @@ class BaseBuilings extends Component {
 
         return (
             <div className="BaseBuildings">
-                {building && (
-                    <div className="BuildingDetails">
-                        <div className="BuildingName">{building.name}</div>
-                        <div className="BuildingDescription">{building.description}</div>
 
-                        <div className="BuildingStats">
-                            <p className="margin-bottom-inner">
-                                Consomation : <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.useEnergy[building.currentLevel-1] || 0}</span>
-                            </p>
-                            {building.currentLevel < building.maxLevel && (
-                                <div className="BuildingRequirements">
-                                    <p className="color-yellow">Prérequis pour le niveau {building.currentLevel + 1}:</p>
-
-                                    {this.hasRequirement(building, building.currentLevel + 1, 'buildings') && (
-                                        <div>
-                                            <p>Bâtiment:</p>
-                                            <ul>
-                                                {building.requirements[building.currentLevel + 1].buildings.map((req) => (
-                                                    <li key={req.id}>
-                                                        <span className="color-yellow">{sBuildings[req.id].name}:</span> <span className="color-white">{req.level}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-
-                                    {this.hasRequirement(building, building.currentLevel + 1, 'items') && (
-                                        <div>
-                                            <p>Items:</p>
-                                            <ul>
-                                                {building.requirements[building.currentLevel + 1].items.map((req) => (
-                                                    <li key={req.id}>
-                                                        <span className="color-yellow">{sItems[req.id].name}:</span> <span className="color-white">{format(req.count)}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-
-                                    <div className="margin-bottom-inner">
-                                        <span className="color-yellow">Temps de construction : </span>
-                                    <span className="color-white">
-                                        <Duration milliseconds={building.buildTimes[building.currentLevel]} />
-                                    </span>
-                                    </div>
-
-                                    <span className="color-yellow">Consomation au niveau {building.currentLevel + 1} : </span>
-                                    <div className="color-white">
-                                        <span className="fa fa-bolt color-yellow">&nbsp;</span>{building.useEnergy[building.currentLevel]}
-                                    </div>
-
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                )}
-
-                <h2>Vos bâtiments</h2>
+                <h2>{ strings.buildings.your }</h2>
                 <BuildingList sItems={sItems}
                               buildings={buildings}
                               sBuildings={sBuildings}
@@ -99,7 +38,7 @@ class BaseBuilings extends Component {
                               onCreateBuilding={this.props.onCreateBuilding}
                               onSelectBuilding={this.props.onSelectBuilding.bind(this)}/>
 
-                <h2>Bâtiments constructibles</h2>
+                <h2>{ strings.buildings.available }</h2>
                 <BuildingList sItems={sItems}
                               buildings={buildingsAvailable}
                               sBuildings={sBuildings}
@@ -118,7 +57,8 @@ BaseBuilings.propTypes = {
     sBuildings: PropTypes.object.isRequired,
     onUpgradeBuilding: PropTypes.func.isRequired,
     onCreateBuilding: PropTypes.func.isRequired,
-    onSelectBuilding: PropTypes.func.isRequired
+    onSelectBuilding: PropTypes.func.isRequired,
+    strings: PropTypes.object.isRequired
 };
 
 export default BaseBuilings;

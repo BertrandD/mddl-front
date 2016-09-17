@@ -13,6 +13,7 @@ function configureStore(initialState = {}) {
 
   if (localStorage.token) {
     initialState.user = {
+      lang: 'en',
       token: localStorage.token
     }
   }

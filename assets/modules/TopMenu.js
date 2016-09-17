@@ -7,8 +7,12 @@ import './TopMenu.scss'
 
 class TopMenu extends Component {
 
+    handleChange (event) {
+        this.props.actions.changeLanguage(event.target.value);
+    }
+
     render() {
-        const { base, player, items } = this.props;
+        const { base, player, items, user } = this.props;
 
         //FIXME : don't do that, this is a hack
         if (!base) {
@@ -60,17 +64,12 @@ class TopMenu extends Component {
                         <i className="fa fa-lock"/>
                         <span className="cursor-pointer" onClick={this.props.actions.logout.bind(null)}>Logout</span>
                     </a>
-                    {/*{ version }*/}
-                    {/*<span ng-repeat="language in app.availableLanguages">
-                     <label class="cursor-pointer">
-                     <input type="radio"
-                     class="cursor-pointer"
-                     ng-click="app.changeLanguage()"
-                     ng-value="language"
-                     ng-model="app.language">
-                     {{:: language }}
-                     </label>
-                     </span>*/}
+
+                    <select onChange={this.handleChange.bind(this)} value={user.lang}>
+                        <option value="EN">en</option>
+                        <option value="FR">fr</option>
+                    </select>
+
                 </div>
             </div>
         );
@@ -81,14 +80,16 @@ import { getcurrentPlayer } from 'reducers/playerReducer'
 import { getCurrentBase } from 'reducers/baseReducer'
 import { getStaticItems } from 'reducers/staticReducer'
 import { getUser } from 'reducers/userReducer'
-import { logout } from 'actions/loginActions'
 
 function mapStateToProps(state) {
     return {user: getUser(state), items: getStaticItems(state), player: getcurrentPlayer(state), base: getCurrentBase(state)};
 }
 
+import { logout } from 'actions/loginActions'
+import { changeLanguage } from 'actions/appActions'
+
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ logout }, dispatch)}
+    return {actions: bindActionCreators({ logout, changeLanguage }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopMenu);

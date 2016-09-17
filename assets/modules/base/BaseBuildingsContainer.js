@@ -12,7 +12,7 @@ class BaseBuildingsContainer extends Component {
     }
 
     render() {
-        const { base, sBuildings, sItems, actions } = this.props;
+        const { base, sBuildings, sItems, actions, strings } = this.props;
         if (!base) {
             return (
                 <div>
@@ -27,6 +27,7 @@ class BaseBuildingsContainer extends Component {
                                onCreateBuilding={actions.createBuilding.bind(null, base)}
                                onSelectBuilding={actions.selectBuilding.bind(null)}
                                sBuildings={sBuildings}
+                               strings={strings}
                                sItems={sItems}/>
             </div>
         );
@@ -36,9 +37,10 @@ class BaseBuildingsContainer extends Component {
 
 import { getPopulatedCurrentBase } from 'reducers/baseReducer'
 import { getStaticBuildings, getStaticItems } from 'reducers/staticReducer'
+import { getStrings } from 'reducers/userReducer'
 
 function mapStateToProps(state) {
-    return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state)  };
+    return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state), strings: getStrings(state)  };
 }
 
 import { upgradeBuilding, createBuilding, selectBuilding } from 'actions/buildingActions'
