@@ -12,7 +12,7 @@ class TopMenu extends Component {
     }
 
     render() {
-        const { base, player, items, user } = this.props;
+        const { base, player, items, user, strings } = this.props;
 
         //FIXME : don't do that, this is a hack
         if (!base) {
@@ -26,15 +26,15 @@ class TopMenu extends Component {
                 <div>
                     <Link to="/">
                         <i className="fa fa-home"/>
-                        <span className="font-bold">Home</span>
+                        <span className="font-bold">{ strings.menu.home }</span>
                     </Link>
                     <Link to="/friends">
                         <i className="fa fa-people"/>
-                        <span className="font-bold">Amis</span>
+                        <span className="font-bold">{ strings.friends.word }</span>
                     </Link>
                     <Link to="/messenger">
                         <i className="fa fa-people"/>
-                        <span className="font-bold">Messagerie</span>
+                        <span className="font-bold">{ strings.messages.menu }</span>
                     </Link>
                 </div>
                 <div>
@@ -54,7 +54,7 @@ class TopMenu extends Component {
                 </div>
                 <div>
                     <Link to="/base">
-                        Active base : { base ? base.name : 'No base selected' }
+                        { strings.menu.active_base } { base ? base.name : 'No base selected' }
                     </Link>
                     <a>
                         <i className="fa fa-user"/>
@@ -62,7 +62,7 @@ class TopMenu extends Component {
                     </a>
                     <a>
                         <i className="fa fa-lock"/>
-                        <span className="cursor-pointer" onClick={this.props.actions.logout.bind(null)}>Logout</span>
+                        <span className="cursor-pointer" onClick={this.props.actions.logout.bind(null)}>{ strings.menu.logout }</span>
                     </a>
 
                     <select onChange={this.handleChange.bind(this)} value={user.lang}>
@@ -79,10 +79,10 @@ class TopMenu extends Component {
 import { getcurrentPlayer } from 'reducers/playerReducer'
 import { getCurrentBase } from 'reducers/baseReducer'
 import { getStaticItems } from 'reducers/staticReducer'
-import { getUser } from 'reducers/userReducer'
+import { getUser, getStrings } from 'reducers/userReducer'
 
 function mapStateToProps(state) {
-    return {user: getUser(state), items: getStaticItems(state), player: getcurrentPlayer(state), base: getCurrentBase(state)};
+    return {user: getUser(state), items: getStaticItems(state), player: getcurrentPlayer(state), base: getCurrentBase(state), strings: getStrings(state)};
 }
 
 import { logout } from 'actions/loginActions'

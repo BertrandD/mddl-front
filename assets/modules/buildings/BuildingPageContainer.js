@@ -44,16 +44,16 @@ class BuildingPageContainer extends Component {
     }
 
     render() {
-        const { base, building, sBuildings, sItems, actions } = this.props;
+        const { base, building, sBuildings, sItems, actions, strings } = this.props;
         if (!building) {
             return (
                 <div className="Block">
                     <p>
-                        Ce bâtiment n'existe pas !
+                        { strings.buildings.notExist }
                     </p>
 
                     <Link to="/base">
-                        <button className="button--primary">Retour à la base</button>
+                        <button className="button--primary">{ strings.base.goBack }</button>
                     </Link>
                 </div>
             )
@@ -62,7 +62,7 @@ class BuildingPageContainer extends Component {
         if (!base) {
             return (
                 <div className="Block">
-                    Loading base...
+                    { strings.app.loading }
                 </div>
             )
         }
@@ -72,7 +72,7 @@ class BuildingPageContainer extends Component {
                 <h1>
                     <span className="color-yellow">{building.name}</span> <span className="font-size-small">
                         <Link to="/base">
-                            Retour à la base
+                            { strings.base.goBack }
                         </Link>
                     </span>
                 </h1>
@@ -82,7 +82,7 @@ class BuildingPageContainer extends Component {
 
                 <div>
                     <h3>
-                        Modules installés : {building.modules && building.modules.length || 0} / {building.maxModules}
+                        { strings.modules.installed } {building.modules && building.modules.length || 0} / {building.maxModules}
                     </h3>
 
                     {building.maxModules > 0 && (!building.modules || building.maxModules > building.modules.length) && (
@@ -90,7 +90,7 @@ class BuildingPageContainer extends Component {
                             {filter(base.inventory, item => item.type === ItemTypes.MODULE).filter(item => building.availableModules.some(modu => modu === item.templateId)).map(module => (
                                 <li key={module.id}>{sItems[module.templateId].name} ♦
                                     <button className="button--primary" onClick={actions.attachModule.bind(null, building, module)}>
-                                        Installer ce module
+                                        { strings.modules.install }
                                     </button>
                                 </li>
                             ))}
@@ -114,9 +114,10 @@ class BuildingPageContainer extends Component {
 import { getPopulatedCurrentBase } from 'reducers/baseReducer'
 import { getStaticBuildings, getStaticItems } from 'reducers/staticReducer'
 import { getBuilding } from 'reducers/buildingReducer'
+import { getStrings } from 'reducers/userReducer'
 
 function mapStateToProps(state, ownProps) {
-    return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state), building: getBuilding(state, ownProps.params.buildingId)  };
+    return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state), building: getBuilding(state, ownProps.params.buildingId), strings: getStrings(state)  };
 }
 
 import { upgradeBuilding, createBuilding, attachModule } from 'actions/buildingActions'

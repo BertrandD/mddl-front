@@ -18,10 +18,10 @@ class BaseBuilings extends Component {
 
     render() {
 
-        const { buildings, sItems, sBuildings, strings } = this.props;
+        const { buildings, sBuildings, strings } = this.props;
         const buildingsAvailable = [];
 
-        forEach(this.props.sBuildings, (sBuilding) => {
+        forEach(sBuildings, (sBuilding) => {
             //if (!buildings.some(b => b.buildingId === sBuilding.id)) {
                 buildingsAvailable.push(sBuilding);
             //}
@@ -31,17 +31,15 @@ class BaseBuilings extends Component {
             <div className="BaseBuildings">
 
                 <h2>{ strings.buildings.your }</h2>
-                <BuildingList sItems={sItems}
+                <BuildingList strings={strings}
                               buildings={buildings}
-                              sBuildings={sBuildings}
                               onUpgradeBuilding={this.props.onUpgradeBuilding}
                               onCreateBuilding={this.props.onCreateBuilding}
                               onSelectBuilding={this.props.onSelectBuilding.bind(this)}/>
 
                 <h2>{ strings.buildings.available }</h2>
-                <BuildingList sItems={sItems}
+                <BuildingList strings={strings}
                               buildings={buildingsAvailable}
-                              sBuildings={sBuildings}
                               onUpgradeBuilding={this.props.onUpgradeBuilding}
                               onCreateBuilding={this.props.onCreateBuilding}
                               onSelectBuilding={this.props.onSelectBuilding.bind(this)}/>
@@ -53,7 +51,6 @@ class BaseBuilings extends Component {
 
 BaseBuilings.propTypes = {
     buildings: PropTypes.array.isRequired,
-    sItems: PropTypes.object.isRequired,
     sBuildings: PropTypes.object.isRequired,
     onUpgradeBuilding: PropTypes.func.isRequired,
     onCreateBuilding: PropTypes.func.isRequired,

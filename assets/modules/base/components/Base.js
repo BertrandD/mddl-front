@@ -14,23 +14,23 @@ class Base extends Component {
 
     render() {
 
-        const { base } = this.props;
+        const { base, strings } = this.props;
 
         return (
             <div className="Base">
                 <div className="BaseName">
-                    Base : { base.name || "¤" }
+                    { strings.base.word } : { base.name || "¤" }
                 </div>
 
-                <BaseBuildingsContainer base={base}>
-                </BaseBuildingsContainer>
+                <BaseBuildingsContainer base={base} />
             </div>
         )
     }
 }
 
 Base.propTypes = {
-    base: PropTypes.object.isRequired
+    base: PropTypes.object.isRequired,
+    strings: PropTypes.object.isRequired
 };
 
 export default Base;

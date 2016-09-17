@@ -11,17 +11,17 @@ class BaseContainer extends Component {
     }
 
     render() {
-        const { base } = this.props;
+        const { base, strings } = this.props;
         if (!base) {
             return (
                 <div>
-                    Loading base...
+                    { strings.app.loading }
                 </div>
             )
         }
         return (
             <div>
-                <Base base={base} />
+                <Base base={base} strings={strings} />
             </div>
         );
 
@@ -29,9 +29,10 @@ class BaseContainer extends Component {
 }
 
 import { getPopulatedCurrentBase } from 'reducers/baseReducer'
+import { getStrings } from 'reducers/userReducer'
 
 function mapStateToProps(state) {
-    return { base: getPopulatedCurrentBase(state) };
+    return { base: getPopulatedCurrentBase(state), strings: getStrings(state) };
 }
 
 function mapDispatchToProps(dispatch) {

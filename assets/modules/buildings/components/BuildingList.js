@@ -11,15 +11,14 @@ class BuildingList extends Component {
 
     render() {
 
-        const { buildings, sItems, sBuildings } = this.props;
+        const { buildings, strings } = this.props;
 
         return (
             <div className="BuildingList">
                 {buildings.map((building, index) => (
                     <Building key={index}
                               building={building}
-                              sItems={sItems}
-                              sBuildings={sBuildings}
+                              strings={strings}
                               onUpgradeBuilding={this.props.onUpgradeBuilding.bind(null, building)}
                               onCreateBuilding={this.props.onCreateBuilding.bind(null, building)}
                               onSelectBuilding={this.props.onSelectBuilding.bind(null, building)}/>
@@ -30,8 +29,7 @@ class BuildingList extends Component {
 }
 
 BuildingList.propTypes = {
-    sItems: PropTypes.object.isRequired,
-    sBuildings: PropTypes.object.isRequired,
+    strings: PropTypes.object.isRequired,
     buildings: PropTypes.array.isRequired,
     onUpgradeBuilding: PropTypes.func.isRequired,
     onCreateBuilding: PropTypes.func.isRequired,

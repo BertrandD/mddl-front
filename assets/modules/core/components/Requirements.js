@@ -9,7 +9,7 @@ class Requirements extends Component {
 
     render() {
 
-        const { requirements, sItems, sBuildings, level } = this.props;
+        const { requirements, sItems, sBuildings, level, strings } = this.props;
 
         return (
             <div>
@@ -17,7 +17,7 @@ class Requirements extends Component {
                     <div>
                         {this.hasRequirement(requirements, level, 'buildings') && (
                             <div>
-                                <p>Bâtiment:</p>
+                                <p>{ strings.buildings.word }</p>
                                 <ul>
                                     {requirements[level].buildings.map((req) => (
                                         <li key={req.id}>
@@ -30,7 +30,7 @@ class Requirements extends Component {
 
                         {this.hasRequirement(requirements, level, 'items') && (
                             <div>
-                                <p>Items:</p>
+                                <p>{ strings.items.word }</p>
                                 <ul>
                                     {requirements[level].items.map((req) => (
                                         <li key={req.id}>
@@ -51,6 +51,7 @@ Requirements.propTypes = {
     requirements: PropTypes.object.isRequired,
     sItems: PropTypes.object.isRequired,
     sBuildings: PropTypes.object.isRequired,
+    strings: PropTypes.object.isRequired,
     level: PropTypes.number.isRequired
 };
 

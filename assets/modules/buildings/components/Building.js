@@ -26,7 +26,7 @@ class Building extends Component {
 
     render() {
 
-        const { building, sItems, sBuildings } = this.props;
+        const { building, strings } = this.props;
 
         return (
             <div className="Building">
@@ -36,7 +36,7 @@ class Building extends Component {
                             <span>{building.name}</span>
                         ) || (
                             <Link to={"/base/buildings/" + building.id}>
-                                {building.name} <span>- Lvl {building.currentLevel}</span>
+                                {building.name} <span>- { strings.app.lvl } {building.currentLevel}</span>
                             </Link>
                         )}
 
@@ -75,8 +75,7 @@ class Building extends Component {
 }
 
 Building.propTypes = {
-    sItems: PropTypes.object.isRequired,
-    sBuildings: PropTypes.object.isRequired,
+    strings: PropTypes.object.isRequired,
     building: PropTypes.object.isRequired,
     onUpgradeBuilding: PropTypes.func.isRequired,
     onCreateBuilding: PropTypes.func.isRequired,

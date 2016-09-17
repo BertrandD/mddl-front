@@ -13,17 +13,17 @@ class BaseStatContainer extends Component {
     }
 
     render() {
-        const { base, sItems } = this.props;
+        const { base, sItems, strings } = this.props;
         if (!base) {
             return (
                 <div>
-                    Loading base...
+                    { strings.app.loading }
                 </div>
             )
         }
         return (
             <div className="Block">
-                <h2>Statisitiques de la base :</h2>
+                <h2>{ strings.base.stats }</h2>
                 <p>
                     <span className="color-yellow fa fa-shield"> </span> {format(base.baseStat.BASE_SHIELD)} / {format(base.baseStat.BASE_MAX_SHIELD)}
                 </p>
@@ -32,7 +32,7 @@ class BaseStatContainer extends Component {
                 </p>
 
                 <h3>
-                    Inventaire :
+                    { strings.base.inventory } :
                 </h3>
 
                 <ul>
@@ -50,9 +50,10 @@ class BaseStatContainer extends Component {
 
 import { getPopulatedCurrentBase } from 'reducers/baseReducer'
 import { getStaticItems } from 'reducers/staticReducer'
+import { getStrings } from 'reducers/userReducer'
 
 function mapStateToProps(state) {
-    return { base: getPopulatedCurrentBase(state), sItems: getStaticItems(state) };
+    return { base: getPopulatedCurrentBase(state), sItems: getStaticItems(state), strings: getStrings(state) };
 }
 
 function mapDispatchToProps(dispatch) {

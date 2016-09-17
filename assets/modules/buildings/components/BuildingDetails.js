@@ -17,33 +17,33 @@ class BuildingDetails extends Component {
 
     render() {
 
-        const { building, sItems, sBuildings } = this.props;
+        const { building, sItems, sBuildings, strings } = this.props;
 
         return (
             <div className="BaseBuildings">
                 {building && (
                     <div className="BuildingDetails">
-                        <div className="BuildingName">{building.name} {building.currentLevel && (<span> - Lvl {building.currentLevel}</span>)}</div>
+                        <div className="BuildingName">{building.name} {building.currentLevel && (<span> - { strings.app.lvl } {building.currentLevel}</span>)}</div>
                         <div className="BuildingDescription">{building.description}</div>
 
                         <div className="BuildingStats">
                             <p className="margin-bottom-inner">
-                                Consomation : <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.useEnergy[building.currentLevel-1] || 0}</span>
+                                { strings.buildings.consumption} <span className="fa fa-bolt color-yellow"> </span> <span className="color-white">{building.useEnergy[building.currentLevel-1] || 0}</span>
                             </p>
                                 <div className="BuildingRequirements">
-                                    <p className="color-yellow">Prérequis pour le niveau {building.currentLevel + 1 || 1}:</p>
+                                    <p className="color-yellow">{ strings.requirements.forLevel } {building.currentLevel + 1 || 1}:</p>
 
-                                    <Requirements requirements={building.requirements} level={building.currentLevel + 1 || 1} sItems={sItems} sBuildings={sBuildings} />
+                                    <Requirements strings={strings} requirements={building.requirements} level={building.currentLevel + 1 || 1} sItems={sItems} sBuildings={sBuildings} />
 
                                     <div className="margin-bottom-inner">
-                                        <span className="color-yellow">Temps de construction : </span>
+                                        <span className="color-yellow">{ strings.buildings.buildTime } </span>
                                         <span className="color-white">
                                             <Duration milliseconds={building.buildTimes[building.currentLevel || 0]} />
                                         </span>
                                     </div>
 
                                     <div className="margin-bottom-inner">
-                                        <span className="color-yellow">Modules : </span>
+                                        <span className="color-yellow">{ strings.modules.word } </span>
                                         <span className="color-white">
                                             {building.modules && building.modules.length || 0} / {building.maxModules}
                                         </span>
@@ -51,7 +51,7 @@ class BuildingDetails extends Component {
 
                                     <Link to={"/base/buildings/" + building.id}>
                                         <button className="button--primary">
-                                            Inspecter
+                                            { strings.app.inspect }
                                         </button>
                                     </Link>
 
@@ -65,6 +65,7 @@ class BuildingDetails extends Component {
 }
 
 BuildingDetails.propTypes = {
+    strings: PropTypes.object.isRequired,
     sItems: PropTypes.object.isRequired,
     sBuildings: PropTypes.object.isRequired,
     onUpgradeBuilding: PropTypes.func.isRequired,

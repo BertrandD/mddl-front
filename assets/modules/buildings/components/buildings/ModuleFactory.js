@@ -12,13 +12,13 @@ class ModuleFactory extends Component {
 
     render() {
 
-        const { building, sItems, sBuildings, actions } = this.props;
+        const { building, sItems, sBuildings, actions, strings } = this.props;
 
 
         return (
             <div>
                 <h3>
-                    Modules disponibles :
+                    { strings.modules.available }
                 </h3>
 
                 {building.unlockModules[building.currentLevel] && building.unlockModules[building.currentLevel].map((module) => (
@@ -28,13 +28,13 @@ class ModuleFactory extends Component {
                         </span>
                         &nbsp;
                         <button className="float-right button--primary" onClick={actions.createModule.bind(null, module)}>
-                            Produire 1
+                            { strings.modules.create }
                         </button>
 
                         <div>
-                            Prérequis :
+                            { strings.requirements.word }
 
-                            <Requirements requirements={[sItems[module].requirement]} level={0} sItems={sItems} sBuildings={sBuildings} />
+                            <Requirements strings={strings} requirements={[sItems[module].requirement]} level={0} sItems={sItems} sBuildings={sBuildings} />
                         </div>
                     </div>
                 ))}
@@ -48,9 +48,10 @@ ModuleFactory.propTypes = {
 };
 
 import { getStaticBuildings, getStaticItems } from 'reducers/staticReducer'
+import { getStrings } from 'reducers/userReducer'
 
 function mapStateToProps(state, ownProps) {
-    return { sItems: getStaticItems(state), sBuildings: getStaticBuildings(state) };
+    return { sItems: getStaticItems(state), sBuildings: getStaticBuildings(state), strings: getStrings(state) };
 }
 
 import { createModule } from 'actions/buildingActions'

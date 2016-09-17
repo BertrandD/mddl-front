@@ -11,11 +11,11 @@ class BuildingDetailsContainer extends Component {
     }
 
     render() {
-        const { base, building, sBuildings, sItems, actions } = this.props;
+        const { base, building, sBuildings, sItems, actions, strings } = this.props;
         if (!building) {
             return (
                 <div className="Block">
-                    Sélectionnez un bâtiment pour voir les informations détaillées
+                    { strings.buildings.view_details }
                 </div>
             )
         }
@@ -23,6 +23,7 @@ class BuildingDetailsContainer extends Component {
             <div className="Block">
                 <BuildingDetails onUpgradeBuilding={actions.upgradeBuilding.bind(null, base)}
                                  onCreateBuilding={actions.createBuilding.bind(null, base)}
+                                 strings={strings}
                                  building={building}
                                  sBuildings={sBuildings}
                                  sItems={sItems}/>
@@ -32,11 +33,14 @@ class BuildingDetailsContainer extends Component {
     }
 }
 
-import { getPopulatedCurrentBase } from '../../../core/reducers/baseReducer'
-import { getStaticBuildings, getStaticItems } from '../../../core/reducers/staticReducer'
-import { getSelectedBuilding } from './../../../core/reducers/buildingReducer'
+import { getPopulatedCurrentBase } from 'reducers/baseReducer'
+import { getStaticBuildings, getStaticItems } from 'reducers/staticReducer'
+import { getSelectedBuilding } from 'reducers/buildingReducer'
+import { getStrings } from 'reducers/userReducer'
+
+
 function mapStateToProps(state) {
-    return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state), building: getSelectedBuilding(state)  };
+    return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state), building: getSelectedBuilding(state), strings: getStrings(state)  };
 }
 
 import { upgradeBuilding, createBuilding } from '../../../core/actions/buildingActions'
