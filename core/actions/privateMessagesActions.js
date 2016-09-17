@@ -4,6 +4,7 @@ import * as PMActions from './../actionTypes/PrivateMessageActionTypes'
 import { pm } from '../schema/schemas.js'
 import { notify } from './appActions'
 import { normalize, arrayOf } from 'normalizr'
+import { push } from 'react-router-redux'
 
 export function sendMessageSuccess(pm) {
     return {
@@ -36,6 +37,8 @@ export function sendMessage({ id }, message) {
         return postAsForm(config.api.url + '/pm', {receiver: id, message})
             .then(res => {
                 dispatch(sendMessageSuccess(normalize(res.payload, pm).entities));
+                dispatch(notify('Message sent !'));
+                dispatch(push('/messenger'));
             })
             .catch(res => {
                 dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'Could not send message'));
