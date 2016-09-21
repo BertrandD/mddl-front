@@ -25,7 +25,8 @@ class BaseBuildingsContainer extends Component {
                 <BaseBuildings buildings={base.buildings}
                                onUpgradeBuilding={actions.upgradeBuilding.bind(null, base)}
                                onCreateBuilding={actions.createBuilding.bind(null, base)}
-                               onSelectBuilding={actions.selectBuilding.bind(null)}
+                               onSelectBuilding={actions.viewBuildingDetails.bind(null)}
+                               onSelectModule={actions.viewModuleDetails.bind(null)}
                                sBuildings={sBuildings}
                                strings={strings}/>
             </div>
@@ -42,10 +43,10 @@ function mapStateToProps(state) {
     return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), strings: getStrings(state)  };
 }
 
-import { upgradeBuilding, createBuilding, selectBuilding } from 'actions/buildingActions'
+import { upgradeBuilding, createBuilding, viewBuildingDetails, viewModuleDetails } from 'actions/buildingActions'
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ upgradeBuilding, createBuilding, selectBuilding }, dispatch)}
+    return {actions: bindActionCreators({ upgradeBuilding, createBuilding, viewBuildingDetails, viewModuleDetails }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BaseBuildingsContainer);

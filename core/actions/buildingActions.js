@@ -1,4 +1,4 @@
-import { UPGRADE_BUILDING_WAIT, CREATE_BUILDING_START, CREATE_BUILDING_END, UPGRADE_BUILDING_END, UPGRADE_BUILDING_START, SELECT_BUILDING, CREATE_MODULE_SUCCESS, ATTACH_MODULE_SUCCESS } from './../actionTypes/BuildingActionTypes';
+import * as BuildingActions from './../actionTypes/BuildingActionTypes';
 import { postAsForm, fetch } from '../utils/post-as-form'
 import config from '../config'
 import addEvent from '../utils/addEvent'
@@ -9,7 +9,7 @@ import { notify } from './appActions'
 
 function createModuleSuccess (base) {
     return {
-        type: CREATE_MODULE_SUCCESS,
+        type: BuildingActions.CREATE_MODULE_SUCCESS,
         payload: {
             base
         }
@@ -18,7 +18,7 @@ function createModuleSuccess (base) {
 
 function attachModulesuccess (base) {
     return {
-        type: ATTACH_MODULE_SUCCESS,
+        type: BuildingActions.ATTACH_MODULE_SUCCESS,
         payload: {
             base
         }
@@ -27,7 +27,7 @@ function attachModulesuccess (base) {
 
 function createBuildingStart (base, building, meta) {
     return {
-        type: CREATE_BUILDING_START,
+        type: BuildingActions.CREATE_BUILDING_START,
         payload: {
             base,
             building
@@ -38,7 +38,7 @@ function createBuildingStart (base, building, meta) {
 
 export function createBuildingEnd (base, building) {
     return {
-        type: CREATE_BUILDING_END,
+        type: BuildingActions.CREATE_BUILDING_END,
         payload: {
             base,
             building
@@ -48,7 +48,7 @@ export function createBuildingEnd (base, building) {
 
 export function upgradeBuildingStart (base, building, startedAt, endsAt) {
     return {
-        type: UPGRADE_BUILDING_START,
+        type: BuildingActions.UPGRADE_BUILDING_START,
         payload: {
             base,
             building
@@ -62,7 +62,7 @@ export function upgradeBuildingStart (base, building, startedAt, endsAt) {
 
 export function upgradeBuildingWait (base, building, event) {
     return {
-        type: UPGRADE_BUILDING_WAIT,
+        type: BuildingActions.UPGRADE_BUILDING_WAIT,
         payload: {
             base,
             building
@@ -75,7 +75,7 @@ export function upgradeBuildingWait (base, building, event) {
 
 export function upgradeBuildingEnd (base, building) {
     return {
-        type: UPGRADE_BUILDING_END,
+        type: BuildingActions.UPGRADE_BUILDING_END,
         payload: {
             base,
             building
@@ -83,12 +83,24 @@ export function upgradeBuildingEnd (base, building) {
     }
 }
 
-export function selectBuilding ({ id, baseId }) {
+export function viewBuildingDetails ({ id, baseId }) {
     return {
-        type: SELECT_BUILDING,
+        type: BuildingActions.SELECT_BUILDING,
         payload: {
             id: id,
-            type: baseId ? "ENTITY" : "STATIC"
+            type: baseId ? "BUILDING_ENTITY" : "BUILDING_STATIC"
+        }
+    }
+}
+
+export function viewModuleDetails (building, module) {
+    console.log('building', building);
+    console.log('module', module);
+    return {
+        type: BuildingActions.SELECT_MODULE,
+        payload: {
+            id: module ? module.id : building.buildingId,
+            type: module ? 'MODULE' : 'MODULE_LIST'
         }
     }
 }

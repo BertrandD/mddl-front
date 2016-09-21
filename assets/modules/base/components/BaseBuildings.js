@@ -35,14 +35,16 @@ class BaseBuilings extends Component {
                               buildings={buildings}
                               onUpgradeBuilding={this.props.onUpgradeBuilding}
                               onCreateBuilding={this.props.onCreateBuilding}
-                              onSelectBuilding={this.props.onSelectBuilding.bind(this)}/>
+                              onSelectBuilding={this.props.onSelectBuilding.bind(null)}
+                              onSelectModule={this.props.onSelectModule.bind(null)}/>
 
                 <h2>{ strings.buildings.available }</h2>
                 <BuildingList strings={strings}
                               buildings={buildingsAvailable}
                               onUpgradeBuilding={this.props.onUpgradeBuilding}
                               onCreateBuilding={this.props.onCreateBuilding}
-                              onSelectBuilding={this.props.onSelectBuilding.bind(this)}/>
+                              onSelectBuilding={this.props.onSelectBuilding.bind(null)}
+                              onSelectModule={this.props.onSelectModule.bind(null)}/>
 
             </div>
         )
@@ -55,6 +57,7 @@ BaseBuilings.propTypes = {
     onUpgradeBuilding: PropTypes.func.isRequired,
     onCreateBuilding: PropTypes.func.isRequired,
     onSelectBuilding: PropTypes.func.isRequired,
+    onSelectModule: PropTypes.func.isRequired,
     strings: PropTypes.object.isRequired
 };
 

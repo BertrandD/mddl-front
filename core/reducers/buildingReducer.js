@@ -25,22 +25,31 @@ export function getBuilding(state, id) {
     }
 }
 
-export function getSelectedBuilding(state) {
-    if (state.selectedBuilding.type === "STATIC") {
-        return state.entities.staticBuildings[state.selectedBuilding.id]
-    } else if (state.selectedBuilding.type === "ENTITY") {
-        const building = state.entities.buildings[state.selectedBuilding.id];
-        const sBuilding = state.entities.staticBuildings[building.buildingId];
-        return {
-            ...sBuilding,
-            ...building
-        }
+export function getSelectedObject(state) {
+    switch (state.selectedObject.type) {
+        case "BUILDING_STATIC":
+            return state.entities.staticBuildings[state.selectedObject.id]
+        case "BUILDING_ENTITY":
+            const building = state.entities.buildings[state.selectedObject.id];
+            const sBuilding = state.entities.staticBuildings[building.buildingId];
+            return {
+                ...sBuilding,
+                ...building
+            };
+        case "MODULE":
+            return state.entities.staticItems[state.selectedObject.id];
     }
+
 }
 
-export function selectedBuilding(state = {}, action) {
+export function selectedObject(state = {}, action) {
     switch(action.type) {
         case BuldingsActions.SELECT_BUILDING:
+            return {
+                id: action.payload.id,
+                type: action.payload.type
+            };
+        case BuldingsActions.SELECT_MODULE:
             return {
                 id: action.payload.id,
                 type: action.payload.type

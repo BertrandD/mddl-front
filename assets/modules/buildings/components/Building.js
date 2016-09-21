@@ -61,9 +61,9 @@ class Building extends Component {
                     <div className="BuildingImage" onClick={this.props.onSelectBuilding}>
                         <img src={"http://dummyimage.com/512x512/0a222c/2898c1.jpg&text="+(building.buildingId || building.id)} alt=""/>
                     </div>
-                    <div className="BuildingModules">
-                        {[...Array(building.maxModules)].map(() => (
-                            <div className="BuildingModule">
+                    <div className="BuildingModules" onClick={this.props.onSelectModule.bind(null, null)}>
+                        {[...Array(building.maxModules)].map((x, i) => (
+                            <div className="BuildingModule" key={i}>
                                 <img src={"http://dummyimage.com/32x32/0a222c/2898c1.jpg&text= mod"} alt=""/>
                             </div>
                         ))}
@@ -86,7 +86,8 @@ Building.propTypes = {
     building: PropTypes.object.isRequired,
     onUpgradeBuilding: PropTypes.func.isRequired,
     onCreateBuilding: PropTypes.func.isRequired,
-    onSelectBuilding: PropTypes.func.isRequired
+    onSelectBuilding: PropTypes.func.isRequired,
+    onSelectModule: PropTypes.func.isRequired
 };
 
 export default Building;
