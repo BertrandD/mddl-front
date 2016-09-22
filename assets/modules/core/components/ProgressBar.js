@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Duration from './Duration'
 
 class ProgressBar extends Component {
 
@@ -30,7 +31,7 @@ class ProgressBar extends Component {
         return (
             <div className="progress">
                 <div className="progress-text">
-                    {Math.round(this.state.progress)}%
+                    <Duration milliseconds={this.props.end - Date.now()}/>
                 </div>
                 <div className="progress-bar" style={{transform: 'translateX(' + (-100 + this.state.progress) + '%)'}}>&nbsp;</div>
             </div>

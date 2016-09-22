@@ -20,13 +20,6 @@ class BuildingPageContainer extends Component {
     }
 
     getBuildingComponent(building) {
-
-        if (building.endsAt > 0) {
-            return (
-                <ProgressBar start={building.startedAt} end={building.endsAt} />
-            )
-        }
-
         switch (building.buildingId) {
             case BuildingIds.SILO:
                 return (
@@ -77,6 +70,10 @@ class BuildingPageContainer extends Component {
                     </span>
                 </h1>
                 {building.description}
+
+                {building.endsAt > 0&&  (
+                    <ProgressBar start={building.startedAt} end={building.endsAt} />
+                )}
 
                 {this.getBuildingComponent(building)}
 
