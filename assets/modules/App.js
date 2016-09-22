@@ -4,6 +4,8 @@ import BottomMenu from './BottomMenu'
 import Popup from './core/components/Popup/Popup'
 import NotificationContainer from './core/components/Notification/NotificationsContainer'
 import './App.scss'
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 class App extends Component {
 
@@ -35,4 +37,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App);

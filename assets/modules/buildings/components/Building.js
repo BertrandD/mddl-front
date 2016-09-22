@@ -6,6 +6,8 @@ import keys from 'lodash/keys'
 import map from 'lodash/map'
 import './Building.scss';
 
+import ModuleSlot from '../../items/components/ModuleSlot'
+
 class Building extends Component {
 
     constructor(props, context) {
@@ -64,7 +66,7 @@ class Building extends Component {
                     <div className="BuildingModules" onClick={this.props.onSelectModule.bind(null, null)}>
                         {[...Array(building.maxModules)].map((x, i) => (
                             <div className="BuildingModule" key={i}>
-                                <img src={"http://dummyimage.com/32x32/0a222c/2898c1.jpg&text= mod"} alt=""/>
+                                <ModuleSlot modules={building.availableModules} onDropModule={this.props.onAttachModule}/>
                             </div>
                         ))}
                     </div>
@@ -87,7 +89,8 @@ Building.propTypes = {
     onUpgradeBuilding: PropTypes.func.isRequired,
     onCreateBuilding: PropTypes.func.isRequired,
     onSelectBuilding: PropTypes.func.isRequired,
-    onSelectModule: PropTypes.func.isRequired
+    onSelectModule: PropTypes.func.isRequired,
+    onAttachModule: PropTypes.func.isRequired
 };
 
 export default Building;

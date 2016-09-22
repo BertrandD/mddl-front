@@ -22,7 +22,8 @@ class BuildingList extends Component {
                               onUpgradeBuilding={this.props.onUpgradeBuilding.bind(null, building)}
                               onCreateBuilding={this.props.onCreateBuilding.bind(null, building)}
                               onSelectBuilding={this.props.onSelectBuilding.bind(null, building)}
-                              onSelectModule={this.props.onSelectModule.bind(null, building)}/>
+                              onSelectModule={this.props.onSelectModule.bind(null, building)}
+                              onAttachModule={this.props.onAttachModule.bind(null, building)}/>
                 ))}
             </div>
         )
@@ -35,7 +36,8 @@ BuildingList.propTypes = {
     onUpgradeBuilding: PropTypes.func.isRequired,
     onCreateBuilding: PropTypes.func.isRequired,
     onSelectBuilding: PropTypes.func.isRequired,
-    onSelectModule: PropTypes.func.isRequired
+    onSelectModule: PropTypes.func.isRequired,
+    onAttachModule: PropTypes.func.isRequired
 };
 
 export default BuildingList;

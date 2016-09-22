@@ -6,6 +6,8 @@ import Base from './components/Base'
 import format from 'utils/numberFormat'
 import map from 'lodash/map'
 
+import DraggableModule from '../items/components/DraggableModule'
+
 class BaseStatContainer extends Component {
 
     constructor(props, context) {
@@ -38,7 +40,7 @@ class BaseStatContainer extends Component {
                 <ul>
                     {map(base.inventory, (item, id) => (
                         <li key={id}>
-                            {sItems[item.templateId].name} ► {item.count}
+                            <DraggableModule sItem={sItems[item.templateId]} item={item} /> ► {item.count}
                         </li>
                     ))}
                 </ul>

@@ -13,7 +13,6 @@ class ObjectDetailsContainer extends Component {
     render() {
         const { base, object, sBuildings, sItems, actions, strings } = this.props;
 
-        console.log(object);
         if (!object) {
             return (
                 <div className="Block">
