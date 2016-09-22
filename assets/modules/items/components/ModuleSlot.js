@@ -47,7 +47,7 @@ class ModuleSlot extends Component {
                 width: '100%',
                 height: '100%'
               }}>
-                <img src={"http://dummyimage.com/32x32/0a222c/2898c1.jpg&text= mod"} alt=""/>
+                <img src={"http://dummyimage.com/32x32/0a222c/2898c1.jpg&text= empty"} alt=""/>
                 {isOver && !canDrop && this.renderOverlay('red')}
                 {!isOver && canDrop && this.renderOverlay('yellow')}
                 {isOver && canDrop && this.renderOverlay('green')}
