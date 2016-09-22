@@ -20,8 +20,7 @@ class ModuleFactory extends Component {
                 <h3>
                     { strings.modules.available }
                 </h3>
-
-                {building.unlockModules[building.currentLevel] && building.unlockModules[building.currentLevel].map((module) => (
+                {building.unlockModules[building.currentLevel] && [...Array(building.currentLevel)].map((x, i) => building.unlockModules[i+1].map((module) => (
                     <div key={module} className="margin-bottom-inner Block">
                         <span className="color-yellow">
                             {sItems[module].name}
@@ -37,7 +36,7 @@ class ModuleFactory extends Component {
                             <Requirements strings={strings} requirements={[sItems[module].requirement]} level={0} sItems={sItems} sBuildings={sBuildings} />
                         </div>
                     </div>
-                ))}
+                )))}
             </div>
         )
     }
