@@ -94,12 +94,10 @@ export function viewBuildingDetails ({ id, baseId }) {
 }
 
 export function viewModuleDetails (building, module) {
-    console.log('building', building);
-    console.log('module', module);
     return {
         type: BuildingActions.SELECT_MODULE,
         payload: {
-            id: module ? module.id : building.buildingId,
+            id: module ? module : building.buildingId ? building.buildingId : building.id,
             type: module ? 'MODULE' : 'MODULE_LIST'
         }
     }

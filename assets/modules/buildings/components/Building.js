@@ -63,14 +63,14 @@ class Building extends Component {
                     <div className="BuildingImage" onClick={this.props.onSelectBuilding}>
                         <img src={"http://dummyimage.com/512x512/0a222c/2898c1.jpg&text="+(building.buildingId || building.id)} alt=""/>
                     </div>
-                    <div className="BuildingModules" onClick={this.props.onSelectModule.bind(null, null)}>
+                    <div className="BuildingModules">
                         {map(building.modules, (mod) => (
-                            <div className="BuildingModule BuildingModuleFull">
+                            <div className="BuildingModule BuildingModuleFull" key={mod} onClick={this.props.onSelectModule.bind(null, mod)}>
                                 <img src={"http://dummyimage.com/32x32/0a222c/2898c1.jpg&text= "+mod} alt=""/>
                             </div>
                         ))}
                         {[...Array(building.maxModules - (building.modules && building.modules.length || 0))].map((x, i) => (
-                            <div className="BuildingModule" key={i}>
+                            <div className="BuildingModule" key={i} onClick={this.props.onSelectModule.bind(null, null)}>
                                 <ModuleSlot modules={building.availableModules} onDropModule={this.props.onAttachModule}/>
                             </div>
                         ))}

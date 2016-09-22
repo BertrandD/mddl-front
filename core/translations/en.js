@@ -22,7 +22,10 @@ export default {
         view_details: "Please select a building to view details",
         consumption: "Consumption :",
         buildTime: "Build time :",
-        notExist: "This building does not exists"
+        notExist: "This building does not exists",
+        modules: {
+            canBeAttached: "You can attach these modules at this place"
+        }
     },
     items: {
         word: "Items"

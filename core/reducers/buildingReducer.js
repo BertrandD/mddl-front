@@ -25,10 +25,14 @@ export function getBuilding(state, id) {
     }
 }
 
+export function getSelectedObjectType(state) {
+    return state.selectedObject.type;
+}
+
 export function getSelectedObject(state) {
     switch (state.selectedObject.type) {
         case "BUILDING_STATIC":
-            return state.entities.staticBuildings[state.selectedObject.id]
+            return state.entities.staticBuildings[state.selectedObject.id];
         case "BUILDING_ENTITY":
             const building = state.entities.buildings[state.selectedObject.id];
             const sBuilding = state.entities.staticBuildings[building.buildingId];
@@ -38,6 +42,8 @@ export function getSelectedObject(state) {
             };
         case "MODULE":
             return state.entities.staticItems[state.selectedObject.id];
+        case "MODULE_LIST":
+            return state.entities.staticBuildings[state.selectedObject.id].availableModules;
     }
 
 }
