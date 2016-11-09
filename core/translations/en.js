@@ -4,6 +4,9 @@ export default {
         lvl: "Lvl",
         inspect: "Inspect"
     },
+    words: {
+        date: "Date"
+    },
     requirements: {
         word: "Requirements :",
         forLevel: "Requirements for level"
@@ -39,7 +42,14 @@ export default {
         word: "Friends"
     },
     messages: {
-        menu: "Messages"
+        menu: "Messages",
+        author: "Author",
+        receiver: "Receiver",
+        message: "Message",
+        received: "Received",
+        sent: "Sent",
+        send: "Send a message",
+        yours: "Your messages"
     },
     base: {
         word: "Base",
