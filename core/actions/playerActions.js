@@ -87,6 +87,16 @@ export function createPlayer ({ playerName }) {
     }
 }
 
+export function fetchAccount() {
+    return dispatch => {
+        return fetch(config.api.url + '/me/')
+            .catch(res => {
+                dispatch(push('/login'));
+                return Promise.reject();
+            })
+    }
+}
+
 export function fetchPlayer () {
     return dispatch => {
         return fetch(config.api.url + '/me/player/')

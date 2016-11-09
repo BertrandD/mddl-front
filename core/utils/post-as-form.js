@@ -1,17 +1,23 @@
 // npm module - safe deep cloning
 import clone from 'safe-clone-deep'
-import httpFetch from 'isomorphic-fetch'
 
 function makeAuthenticatedRequest(url, opts = {}) {
     if (localStorage.token) {
         opts.headers = opts.headers || {};
         opts.headers['X-auth-token'] = localStorage.token;
     }
-    return httpFetch(url, opts);
+    return global.fetch(url, opts);
 }
 
 export function fetch (url, data) {
+
     return makeAuthenticatedRequest(url, data)
+        //.then(res => {
+        //    if (res.status == 401) {
+        //        location.href = '/login';
+        //    }
+        //    return res;
+        //})
         .then(res => res.json())
         .then(response => {
             if (response.status === "ok") {

@@ -44,7 +44,7 @@ function configureStore(initialState = {}) {
   return store
 }
 import { fetchAuthentication } from './../core/actions/loginActions'
-import { fetchPlayer, fetchAllPlayers } from './../core/actions/playerActions'
+import { fetchPlayer, fetchAllPlayers, fetchAccount } from './../core/actions/playerActions'
 import { fetchMyBases } from './../core/actions/baseActions'
 import { fetchBuildings, fetchItems } from '../core/actions/staticActions'
 import { refresh } from './../core/actions/appActions'
@@ -53,7 +53,7 @@ import { fetchMessages } from './../core/actions/privateMessagesActions'
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
-const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchAllPlayers, fetchItems, fetchBuildings, refresh, fetchMessages }, store.dispatch);
+const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchAccount, fetchAllPlayers, fetchItems, fetchBuildings, refresh, fetchMessages }, store.dispatch);
 
 function requireSimpleAuth (nextState, replace, next) {
   const state = store.getState();
@@ -95,6 +95,9 @@ function requireFullAuth(nextState, replace, next) {
       });
     promises.push(p3);
   }
+
+  const p4 = actions.fetchAccount();
+  promises.push(p4);
 
 
   Promise.all(promises).then(() => {
