@@ -1,4 +1,35 @@
+@import "../../../scss/modules/table/table";
+@import "../../../scss/utils";
+
 .SendPrivateMessage {
   max-width: 700px;
   margin: auto;
+}
+
+.pm-block {
+  display: flex;
+}
+
+.pm-list {
+  min-width: 40%;
+}
+
+.pm-detail {
+  padding-left: $spacing-inner;
+}
+
+.pm-detail__message {
+  padding-left: $spacing-inner;
+  white-space: pre-line;
+}
+
+
+.pm-table {
+  @extend .table;
+
+  tbody {
+    tr {
+      cursor: pointer;
+    }
+  }
 }

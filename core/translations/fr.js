@@ -50,7 +50,9 @@ export default {
         received: "Reçus",
         sent: "Envoyés",
         send: "Envoyer un message",
-        yours: "Vos messages"
+        yours: "Vos messages",
+        title: "Titre",
+        from: "De"
     },
     base: {
         word: "Base",

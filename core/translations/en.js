@@ -49,7 +49,9 @@ export default {
         received: "Received",
         sent: "Sent",
         send: "Send a message",
-        yours: "Your messages"
+        yours: "Your messages",
+        title: "Title",
+        from: "From"
     },
     base: {
         word: "Base",
