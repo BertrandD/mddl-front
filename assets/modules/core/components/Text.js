@@ -9,13 +9,13 @@ class Text extends Component {
     }
 
     getTranslation(key) {
-        console.log(key);
         const words = key.split('.');
         let trans = this.props.strings;
         words.forEach((t) => {
             trans = trans[t]
         });
         if (!trans) {
+            console.warn("Translation key "+key+" not found !");
             return "%"+key+"%";
         }
         return trans
