@@ -97,14 +97,10 @@ function base (state = {
         case BuldingsActions.CREATE_BUILDING_START:
             const buildingPositions = state.buildingPositions;
             return Object.assign({}, state, {
-                buildingPositions: {
+                buildingPositions: { // TODO : is it still used ?
                     ...buildingPositions,
                     [action.meta.position]: action.payload.building.id
-                },
-                buildings: [
-                    ...state.buildings,
-                    action.payload.building.id
-                ]
+                }
             });
         case AppActions.REFRESH:
 

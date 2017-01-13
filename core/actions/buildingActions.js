@@ -111,11 +111,13 @@ export function createBuilding (currentBase, { id }, position = -1) {
                 return Promise.reject(res);
             })
             .then(res => {
-                setTimeout(() => {
-                    dispatch(createBuildingEnd(currentBase, res.payload));
-                    dispatch(updateBase(currentBase));
-                }, res.payload.endsAt - Date.now());
-                dispatch(createBuildingStart(currentBase, res.payload, {position}));
+                dispatch(
+                    addEvent(
+                        Date.now(),
+                        res.payload.endsAt,
+                        createBuildingStart(currentBase, res.payload, {position}),
+                        [createBuildingEnd(currentBase, res.payload),updateBase(currentBase)])
+                );
                 try {
                     dispatch(fetchBaseSuccess(normalize(res.meta.base, base).entities));
                 }catch (e) {
