@@ -32,6 +32,9 @@ class BaseStatContainer extends Component {
                 <p>
                     <span className="color-yellow fa fa-heart"> </span> {format(base.baseStat.BASE_HEALTH)} / {format(base.baseStat.BASE_MAX_HEALTH)}
                 </p>
+                <p>
+                    <span className="color-yellow fa fa-bolt"> </span> {format(base.baseStat.ENERGY)}
+                </p>
 
                 <h3>
                     { strings.base.inventory } :
