@@ -13,7 +13,7 @@ export default function (start, endsAt, actionStart, actionEnd) {
             dispatch(actionStart);
         }, start - Date.now());
 
-        return {
+        dispatch({
             type: 'ADD_EVENT',
             payload: {
                 start,
@@ -21,6 +21,6 @@ export default function (start, endsAt, actionStart, actionEnd) {
                 actionStart,
                 actionEnd
             }
-        }
+        })
     }
 }
