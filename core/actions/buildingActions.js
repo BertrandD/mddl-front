@@ -133,28 +133,28 @@ export function upgradeBuilding (currentBase, { id }) {
                 return Promise.reject(res);
             })
             .then(res => {
-                //if (res.meta.queue.length === 0 ) {
-                //    console.warn("Meta queue empty after an upgrade ???");
-                //} else if (res.meta.queue.length === 1 ) {
-                //    dispatch(
-                //        addEvent(
-                //            Date.now(),
-                //            res.meta.queue[0].endsAt,
-                //            upgradeBuildingStart(currentBase, res.payload, Date.now(), res.meta.queue[0].endsAt),
-                //            [upgradeBuildingEnd(currentBase, res.payload), updateBase(currentBase)]
-                //        )
-                //    );
-                //} else { //res.meta.queue.length >= 2
-                //    dispatch(
-                //        addEvent(
-                //            res.meta.queue[res.meta.queue.length - 2].endsAt+1,
-                //            res.meta.queue[res.meta.queue.length - 1].endsAt,
-                //            upgradeBuildingStart(currentBase, res.payload, res.meta.queue[res.meta.queue.length - 2].endsAt+1, res.meta.queue[res.meta.queue.length - 1].endsAt),
-                //            [upgradeBuildingEnd(currentBase, res.payload), updateBase(currentBase)]
-                //        )
-                //    );
-                //    dispatch(upgradeBuildingWait(currentBase, res.payload, res.meta.queue[res.meta.queue.length - 1]))
-                //}
+                if (res.meta.queue.length === 0 ) {
+                   console.warn("Meta queue empty after an upgrade ???");
+                } else if (res.meta.queue.length === 1 ) {
+                   dispatch(
+                       addEvent(
+                           Date.now(),
+                           res.meta.queue[0].endsAt,
+                           upgradeBuildingStart(currentBase, res.payload, Date.now(), res.meta.queue[0].endsAt),
+                           [upgradeBuildingEnd(currentBase, res.payload), updateBase(currentBase)]
+                       )
+                   );
+                } else { //res.meta.queue.length >= 2
+                   dispatch(
+                       addEvent(
+                           res.meta.queue[res.meta.queue.length - 2].endsAt+1,
+                           res.meta.queue[res.meta.queue.length - 1].endsAt,
+                           upgradeBuildingStart(currentBase, res.payload, res.meta.queue[res.meta.queue.length - 2].endsAt+1, res.meta.queue[res.meta.queue.length - 1].endsAt),
+                           [upgradeBuildingEnd(currentBase, res.payload), updateBase(currentBase)]
+                       )
+                   );
+                   dispatch(upgradeBuildingWait(currentBase, res.payload, res.meta.queue[res.meta.queue.length - 1]))
+                }
                 try {
                     dispatch(fetchBaseSuccess(normalize(res.meta.base, base).entities));
                 }catch (e) {
