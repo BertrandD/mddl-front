@@ -21,7 +21,7 @@ $left-width: 400px;
     overflow: auto;
 
     flex-wrap: wrap;
-    @media #{$md-up} {
+    @media #{$lg-up} {
         flex-wrap: nowrap;
         justify-content: flex-start;
     }

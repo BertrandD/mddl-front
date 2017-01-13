@@ -1,10 +1,12 @@
 @mixin icon() {
-  width: 32px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
   display: inline-block;
   cursor: pointer;
+  background-position: bottom;
+  background-size: cover;
   &:hover {
-    background-position: bottom;
+    background-position: top;
   }
 }
 

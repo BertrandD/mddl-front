@@ -1,8 +1,8 @@
 @import "colors";
 
-$spacing-inner-small: 5px;
-$spacing-inner: 10px;
-$spacing-gutter: 20px;
+$spacing-inner-small: 2px;
+$spacing-inner: 5px;
+$spacing-gutter: 10px;
 
 $border-radius-base: 5px;
 
@@ -38,7 +38,7 @@ $sm-min: $sm;
 $md:       992px;
 $md-min:   $md;
 
-$lg:         1160px;
+$lg:         1370px;
 $lg-min:     $lg;
 
 $xs-max: ($sm-min - 1);

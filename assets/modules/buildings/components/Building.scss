@@ -1,9 +1,9 @@
 @import '../../../../scss/mixins/mixins';
 @import '../../../../scss/variables/variables';
 
-$header-height: 40px;
-$building-width: 150px;
-$building-height: 150px;
+$header-height: 30px;
+$building-width: 100px;
+$building-height: 100px;
 
 .Building {
   @include block-light();
