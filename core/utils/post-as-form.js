@@ -1,12 +1,23 @@
 // npm module - safe deep cloning
-import clone from 'safe-clone-deep'
+import clone from 'lodash/cloneDeep'
 
 function makeAuthenticatedRequest(url, opts = {}) {
-    if (localStorage.token) {
+    if (localStorage && localStorage.getItem("token")) {
         opts.headers = opts.headers || {};
-        opts.headers['X-auth-token'] = localStorage.token;
+        opts.headers['X-auth-token'] = localStorage.getItem("token");
+    } else {
+        console.error("Yolooooooo", url, opts);
     }
-    return global.fetch(url, opts);
+
+    if (global && global.fetch) {
+        return global.fetch(url, opts);
+    } else {
+        if (AI) {
+            var globalFetch = require('node-fetch');
+            return globalFetch(url, opts);
+        }
+    }
+
 }
 
 export function fetch (url, data) {

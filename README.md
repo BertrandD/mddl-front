@@ -1,14 +1,28 @@
 # Middlewar game #
-## Web app with React & Redux ##
-
-Webpack Hot Module reloading is enabled
 
 `git clone git@bitbucket.org:middlewar/middlewar-game.git`
 
 `npm install`
 
-`npm run dev`
+Copy `src/config.js.dist` to `src/config.js`
+Copy `core/config.js.dist` to `core/config.js`
 
-open `http://localhost:3000`
+## Game UI ##
+
+Run `npm run dev`
+
+Open `http://localhost:3000`
 
 Enjoy !
+
+## AI ##
+
+### Detailed logs ###
+Run `node ai/remoteDev`
+
+Open `http://localhost:8000`
+
+### Run AI ###
+Run `npm run ai`
+
+Run `npm run run-ai`

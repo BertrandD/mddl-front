@@ -5,3 +5,6 @@ node_modules
 /src/config.js
 /core/config.js
 /dist
+/.scratch
+/build
+*.sqlite3

@@ -55,6 +55,7 @@ module.exports = {
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }),
     new webpack.DefinePlugin({
+      'AI': false,
       'process.env.NODE_ENV':
         argv.p
           ? '"production"'

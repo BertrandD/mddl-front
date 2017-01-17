@@ -35,7 +35,7 @@ function user (state = {lang: 'en'}, action) {
           };
     case LoginActions.FETCH_LOGIN_SUCCESS:
       console.info('Logged in :', action.payload);
-        localStorage.token = action.payload.token;
+        localStorage.setItem("token", action.payload.token);
       return Object.assign({}, state, action.payload);
     case LoginActions.FETCH_LOGIN_ERROR:
       return Object.assign({}, state, action.payload);
