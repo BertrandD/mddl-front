@@ -3,6 +3,7 @@ import { createStore, applyMiddleware, compose, bindActionCreators } from 'redux
 import { composeWithDevTools } from 'remote-redux-devtools';
 import thunkMiddleware from 'redux-thunk'
 import isEmpty from 'lodash/isEmpty'
+import eventHandler from './eventHandler'
 
 if (typeof localStorage === "undefined" || localStorage === null) {
     var LocalStorage = require('node-localstorage').LocalStorage;
@@ -32,7 +33,8 @@ function configureStore(initialState = {}) {
         initialState,
         composeEnhancers(applyMiddleware(
             thunkMiddleware,
-            logger
+            logger,
+            eventHandler
             ), f => f)
     );
     return store
