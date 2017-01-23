@@ -16,29 +16,34 @@ $left-width: 400px;
     position: relative;
     flex-shrink: 1;
     justify-content: center;
-    width: 100%;
     padding: 0 $spacing-gutter;
     overflow: auto;
 
-    flex-wrap: wrap;
-    @media #{$lg-up} {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
+    width: 45%;
+    @media #{$md-up} {
+        width: 100%;
     }
+
 }
 
 .AppLeftColumn {
     padding: $spacing-gutter;
-    width: $left-width;
+    width: 25%;
+    @media #{$md-up} {
+        width: $left-width;
+    }
     margin-right: $spacing-gutter;
     flex-shrink: 0;
 }
 
 .AppRightColumn {
     padding: $spacing-gutter;
-    width: $left-width;
     margin-left: $spacing-gutter;
     flex-shrink: 0;
+    width: 25%;
+    @media #{$md-up} {
+        width: $left-width;
+    }
 }
 
 .AppCenter {
