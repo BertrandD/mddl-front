@@ -81,12 +81,6 @@ export function fetchMyBases() {
                     dispatch(push('/create/base'));
                 } else {
                     dispatch(fetchBaseSuccess(normalize(res.payload, arrayOf(base)).entities));
-                    try {
-                        dispatch(selectBase(res.payload[0])); // FIXME select currentBase
-                    } catch (e) {
-                        console.error(e);
-                    }
-                    dispatch(fetchBase(res.payload[0])); // FIXME move it ?
                 }
             })
             .catch(res => {
