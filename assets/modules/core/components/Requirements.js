@@ -21,7 +21,7 @@ class Requirements extends Component {
                                 <ul>
                                     {requirements[level].buildings.map((req) => (
                                         <li key={req.id}>
-                                            <span className="color-yellow">{sBuildings[req.id].name}:</span> <span className="color-white">{req.level}</span>
+                                            <span onClick={this.props.onSelectBuilding.bind(null, sBuildings[req.templateId])} className="color-yellow cursor-pointer">{sBuildings[req.templateId].name}:</span> <span className="color-white">{req.level}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -48,6 +48,7 @@ class Requirements extends Component {
 }
 
 Requirements.propTypes = {
+    onSelectBuilding: PropTypes.func.isRequired,
     requirements: PropTypes.object.isRequired,
     sItems: PropTypes.object.isRequired,
     sBuildings: PropTypes.object.isRequired,

@@ -33,7 +33,7 @@ class BuildingDetails extends Component {
                                 <div className="BuildingRequirements">
                                     <p className="color-yellow">{ strings.requirements.forLevel } {building.currentLevel + 1 || 1}:</p>
 
-                                    <Requirements strings={strings} requirements={building.requirements} level={building.currentLevel + 1 || 1} sItems={sItems} sBuildings={sBuildings} />
+                                    <Requirements strings={strings} onSelectBuilding={this.props.onSelectBuilding} requirements={building.requirements} level={building.currentLevel + 1 || 1} sItems={sItems} sBuildings={sBuildings} />
 
                                     <div className="margin-bottom-inner">
                                         <span className="color-yellow">{ strings.buildings.buildTime } </span>
@@ -54,6 +54,17 @@ class BuildingDetails extends Component {
                                             { strings.app.inspect }
                                         </button>
                                     </Link>
+                                    {building.currentLevel && (
+                                        <button className="button--primary" onClick={this.props.onUpgradeBuilding}>
+                                            { strings.buildings.upgrade }
+                                        </button>
+                                    ) || (
+                                        <button className="button--primary" onClick={this.props.onCreateBuilding}>
+                                            { strings.buildings.build }
+                                        </button>
+                                    )}
+
+
 
                                 </div>
                         </div>
@@ -68,6 +79,7 @@ BuildingDetails.propTypes = {
     strings: PropTypes.object.isRequired,
     sItems: PropTypes.object.isRequired,
     sBuildings: PropTypes.object.isRequired,
+    onSelectBuilding: PropTypes.func.isRequired,
     onUpgradeBuilding: PropTypes.func.isRequired,
     onCreateBuilding: PropTypes.func.isRequired
 };

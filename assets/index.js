@@ -45,15 +45,19 @@ function configureStore(initialState = {}) {
 }
 import { fetchAuthentication } from './../core/actions/loginActions'
 import { fetchPlayer, fetchAllPlayers, fetchAccount } from './../core/actions/playerActions'
-import { fetchMyBases } from './../core/actions/baseActions'
+import { fetchMyBases, fetchBase, selectBase } from './../core/actions/baseActions'
 import { fetchBuildings, fetchItems } from '../core/actions/staticActions'
 import { refresh } from './../core/actions/appActions'
 import { fetchMessages } from './../core/actions/privateMessagesActions'
 
+import { getBase } from './../core/reducers/baseReducer'
+import { getcurrentPlayer } from './../core/reducers/playerReducer'
+
 const store = configureStore();
+window.store = store;
 const history = syncHistoryWithStore(browserHistory, store);
 
-const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchPlayer, fetchAccount, fetchAllPlayers, fetchItems, fetchBuildings, refresh, fetchMessages }, store.dispatch);
+const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchBase, selectBase, fetchPlayer, fetchAccount, fetchAllPlayers, fetchItems, fetchBuildings, refresh, fetchMessages }, store.dispatch);
 
 function requireSimpleAuth (nextState, replace, next) {
   const state = store.getState();
@@ -90,7 +94,11 @@ function requireFullAuth(nextState, replace, next) {
   if (!state.currentBase || !state.currentBase.id || isEmpty(state.currentBase.id)) {
     const p3 = actions.fetchPlayer().then(() => {
         actions.fetchMyBases().then(() => {
-          window.timer = setTimeout(refreshApp, 3000);
+          const base = getBase(store.getState(), getcurrentPlayer(store.getState()).currentBase);
+            actions.selectBase(base);
+            actions.fetchBase(base).then(() => {
+                window.timer = setTimeout(refreshApp, 3000);
+            });
         })
       });
     promises.push(p3);

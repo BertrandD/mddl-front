@@ -28,7 +28,9 @@ export default {
         notExist: "Ce bâtiment n'existe pas !",
         modules: {
             canBeAttached: "Vous pouvez installer ces modules :"
-        }
+        },
+        upgrade: "Améliorer",
+        build: "Construire",
 
     },
     items: {

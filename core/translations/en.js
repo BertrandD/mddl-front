@@ -28,7 +28,9 @@ export default {
         notExist: "This building does not exists",
         modules: {
             canBeAttached: "You can attach these modules at this place"
-        }
+        },
+        upgrade: "Upgrade",
+        build: "Build",
     },
     items: {
         word: "Items"

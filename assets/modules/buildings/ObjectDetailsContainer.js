@@ -36,8 +36,9 @@ class ObjectDetailsContainer extends Component {
                 {objectType === "MODULE" && (
                     <ModuleDetails module={object} strings={strings} />
                 ) || (
-                    <BuildingDetails onUpgradeBuilding={actions.upgradeBuilding.bind(null, base)}
-                                     onCreateBuilding={actions.createBuilding.bind(null, base)}
+                    <BuildingDetails onUpgradeBuilding={actions.upgradeBuilding.bind(null, base, object, null)}
+                                     onCreateBuilding={actions.createBuilding.bind(null, base, object, null)}
+                                     onSelectBuilding={actions.viewBuildingDetails.bind(null)}
                                      strings={strings}
                                      building={object}
                                      sBuildings={sBuildings}
@@ -59,10 +60,10 @@ function mapStateToProps(state) {
     return { base: getPopulatedCurrentBase(state), sBuildings: getStaticBuildings(state), sItems: getStaticItems(state), object: getSelectedObject(state), objectType: getSelectedObjectType(state), strings: getStrings(state)  };
 }
 
-import { upgradeBuilding, createBuilding } from '../../../core/actions/buildingActions'
+import { upgradeBuilding, createBuilding, viewBuildingDetails } from '../../../core/actions/buildingActions'
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ upgradeBuilding, createBuilding }, dispatch)}
+    return {actions: bindActionCreators({ upgradeBuilding, createBuilding, viewBuildingDetails }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ObjectDetailsContainer);

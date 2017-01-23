@@ -8,6 +8,10 @@ import omit from '../../node_modules/lodash/omit';
 import forEach from '../../node_modules/lodash/forEach'
 import sum from '../../node_modules/lodash/sum'
 
+export function getBase (state, id) {
+    return state.entities.bases[id];
+}
+
 export function getCurrentBase (state) {
     return state.entities.bases[state.currentBase.id];
 }
