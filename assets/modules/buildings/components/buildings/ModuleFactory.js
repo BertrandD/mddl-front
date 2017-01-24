@@ -33,7 +33,12 @@ class ModuleFactory extends Component {
                         <div>
                             { strings.requirements.word }
 
-                            <Requirements strings={strings} requirements={[sItems[module].requirement]} level={0} sItems={sItems} sBuildings={sBuildings} />
+                            <Requirements strings={strings}
+                                          onSelectBuilding={this.props.viewBuildingDetails}
+                                          requirements={{0: sItems[module].requirement}}
+                                          level={0}
+                                          sItems={sItems}
+                                          sBuildings={sBuildings} />
                         </div>
                     </div>
                 )))}
@@ -53,10 +58,10 @@ function mapStateToProps(state, ownProps) {
     return { sItems: getStaticItems(state), sBuildings: getStaticBuildings(state), strings: getStrings(state) };
 }
 
-import { createModule } from 'actions/buildingActions'
+import { createModule, viewBuildingDetails } from 'actions/buildingActions'
 
 function mapDispatchToProps(dispatch) {
-    return {actions: bindActionCreators({ createModule }, dispatch)}
+    return {actions: bindActionCreators({ createModule, viewBuildingDetails }, dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModuleFactory);

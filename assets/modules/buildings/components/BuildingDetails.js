@@ -33,7 +33,12 @@ class BuildingDetails extends Component {
                                 <div className="BuildingRequirements">
                                     <p className="color-yellow">{ strings.requirements.forLevel } {building.currentLevel + 1 || 1}:</p>
 
-                                    <Requirements strings={strings} onSelectBuilding={this.props.onSelectBuilding} requirements={building.requirements} level={building.currentLevel + 1 || 1} sItems={sItems} sBuildings={sBuildings} />
+                                    <Requirements strings={strings}
+                                                  onSelectBuilding={this.props.onSelectBuilding}
+                                                  requirements={building.requirements}
+                                                  level={building.currentLevel + 1 || 1}
+                                                  sItems={sItems}
+                                                  sBuildings={sBuildings} />
 
                                     <div className="margin-bottom-inner">
                                         <span className="color-yellow">{ strings.buildings.buildTime } </span>
