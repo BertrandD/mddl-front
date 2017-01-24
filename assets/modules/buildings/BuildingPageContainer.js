@@ -10,6 +10,7 @@ import ProgressBar from '../core/components/ProgressBar'
 
 import ModuleFactory from './components/buildings/ModuleFactory'
 import Silo from './components/buildings/Silo'
+import SpatialElevator from './components/buildings/SpatialElevator'
 
 import * as ItemTypes from 'types/ItemTypes'
 
@@ -28,6 +29,10 @@ class BuildingPageContainer extends Component {
             case BuildingIds.MODULE_FACTORY:
                 return (
                     <ModuleFactory building={building}/>
+                );
+            case BuildingIds.SPATIAL_ELEVATOR:
+                return (
+                    <SpatialElevator building={building}/>
                 );
             default :
                 return (
