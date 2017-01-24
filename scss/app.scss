@@ -20,6 +20,7 @@
 @import "modules/button/button";
 @import "modules/table/table";
 @import "modules/list/list";
+@import "modules/select/select";
 
 @include scrollbars(.5em, $color-blue, $color-darker);
 

@@ -1,0 +1,15 @@
+@import '../../variables/variables';
+
+select {
+  border-radius: $border-radius-base;
+  border: 0;
+  padding: $spacing-inner-small;
+}
+
+.select--primary {
+  background-color: $color-blue;
+}
+
+.select--dark {
+  background-color: $color-dark;
+}
