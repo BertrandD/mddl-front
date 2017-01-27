@@ -18,6 +18,11 @@ export default {
         installed: "Modules installés:",
         install: "Installer ce module"
     },
+    structures: {
+        word: "Structures:",
+        available: "Structures disponibles:",
+        create: "Produire 1",
+    },
     buildings: {
         word: "Bâtiment",
         your: "Vos bâtiments",

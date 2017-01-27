@@ -16,6 +16,15 @@ function createModuleSuccess (base) {
     }
 }
 
+function createStructureSuccess (base) {
+    return {
+        type: BuildingActions.CREATE_STRUCTURE_SUCCESS,
+        payload: {
+            base
+        }
+    }
+}
+
 function attachModulesuccess (base) {
     return {
         type: BuildingActions.ATTACH_MODULE_SUCCESS,
@@ -177,6 +186,21 @@ export function createModule (moduleId) {
                 dispatch(createModuleSuccess(res.payload));
                 dispatch(fetchBaseSuccess(normalize(res.payload, base).entities));
                 dispatch(notify(moduleId + ' has been successfully created !'));
+            })
+    }
+}
+
+export function createStructure (structureId) {
+    return dispatch => {
+        return postAsForm(config.api.url + '/structurefactory/create/' + structureId)
+            .catch(res => {
+                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                return Promise.reject(res);
+            })
+            .then(res => {
+                dispatch(createStructureSuccess(res.payload));
+                dispatch(fetchBaseSuccess(normalize(res.payload, base).entities));
+                dispatch(notify(structureId + ' has been successfully created !'));
             })
     }
 }

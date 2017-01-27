@@ -28,7 +28,7 @@ export function createShip(itemId, count, attachments) {
             })
             .then(res => {
                 dispatch(createShipSuccess(res.payload));
-                dispatch(fetchBaseSuccess(normalize(res.meta, base).entities));
+                dispatch(fetchBaseSuccess(normalize(res.meta.base, base).entities));
                 dispatch(notify(count + ' ' + itemId + ' has been successfully created !'));
             })
     }
