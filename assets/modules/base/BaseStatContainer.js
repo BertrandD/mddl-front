@@ -47,6 +47,18 @@ class BaseStatContainer extends Component {
                         </li>
                     ))}
                 </ul>
+
+                <h3>
+                    { strings.base.fleet } :
+                </h3>
+                <ul>
+                    {map(base.ships, (ship, id) => (
+                        <li key={id}>
+                            {sItems[ship.structureId].name} ► {ship.count}
+                        </li>
+                    ))}
+                </ul>
+
             </div>
         );
 

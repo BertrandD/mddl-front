@@ -64,6 +64,7 @@ export default {
         word: "Base",
         stats: "Base statistics",
         inventory: "Inventory",
+        fleet: "Fleet",
         goBack: "Back to base"
     }
 }
