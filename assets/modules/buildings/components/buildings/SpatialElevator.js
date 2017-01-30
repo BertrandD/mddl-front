@@ -4,7 +4,11 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import filter from 'lodash/filter'
 import * as ItemTypes from 'types/ItemTypes'
+import Item from '../../../items/components/Item'
+import ItemSlot from '../../../items/components/ItemSlot'
+import DraggableItem from '../../../items/components/DraggableItem'
 
+import './recipe.scss'
 
 class SpatialElevator extends Component {
 
@@ -17,6 +21,7 @@ class SpatialElevator extends Component {
     }
 
     handleStructureChange(event) {
+        console.log(event);
         this.setState({structure: event.target.value});
     }
 
@@ -29,6 +34,20 @@ class SpatialElevator extends Component {
         const { sBuildings, sItems, strings } = this.props;
         return (
             <div>
+                <div className="Recipe">
+                    <div className="RecipeLeft">
+                        {filter(sItems, (b) => b.type == ItemTypes.STRUCTURE).map((b) => (
+                            <DraggableItem key={b.itemId} item={b} />
+                        ))}
+                    </div>
+                    <div className="RecipeRight">
+                        Structure :
+                        <ItemSlot target="structure" onDropModule={this.handleStructureChange}/>
+                    </div>
+                </div>
+
+
+
                 <h3>Lancer la production de vaisseaux</h3>
                 <div>
                     Structure :&nbsp;

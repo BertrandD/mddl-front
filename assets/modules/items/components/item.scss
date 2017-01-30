@@ -1,0 +1,13 @@
+@import '../../../../scss/mixins/mixins';
+@import '../../../../scss/variables/variables';
+
+.Item {
+  @include block-light();
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+}
+
+.ItemEmpty {
+  border-style: dashed;
+}

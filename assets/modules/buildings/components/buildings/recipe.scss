@@ -1,0 +1,19 @@
+@import '../../../../../scss/mixins/mixins';
+@import '../../../../../scss/variables/variables';
+
+.Recipe {
+  display: flex;
+}
+
+.RecipeLeft, .RecipeRight {
+  padding: $spacing-inner;
+  width: 50%;
+}
+
+.RecipeLeft {
+
+}
+
+.RecipeRight {
+  border-left: $color-blue 1px solid;
+}
