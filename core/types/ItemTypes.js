@@ -1,3 +1,3 @@
 export const MODULE = "MODULE";
-export const STRUCTURE = "structure";
+export const STRUCTURE = "STRUCTURE";
 export const ITEM = "ITEM";

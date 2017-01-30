@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
-import Base from './components/Base'
+import Inventory from '../inventory/components/Inventory'
 import format from 'utils/numberFormat'
 import map from 'lodash/map'
-
-import DraggableModule from '../items/components/DraggableModule'
+import * as ItemTypes from '../../../core/types/ItemTypes'
 
 class BaseStatContainer extends Component {
 
@@ -40,13 +38,8 @@ class BaseStatContainer extends Component {
                     { strings.base.inventory } :
                 </h3>
 
-                <ul>
-                    {map(base.inventory, (item, id) => (
-                        <li key={id}>
-                            <DraggableModule sItem={sItems[item.templateId]} item={item} /> ► {item.count}
-                        </li>
-                    ))}
-                </ul>
+
+                <Inventory defaultPane={ItemTypes.MODULE}/>
 
                 <h3>
                     { strings.base.fleet } :

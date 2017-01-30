@@ -12,6 +12,11 @@ export function getBase (state, id) {
     return state.entities.bases[id];
 }
 
+export function getInventory(state) {
+    const base = getCurrentBase(state);
+    return base ? base.inventory : null;
+}
+
 export function getCurrentBase (state) {
     return state.entities.bases[state.currentBase.id];
 }

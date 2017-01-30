@@ -11,5 +11,5 @@ export function getDroppedElement() {
 }
 
 export function canDropElement(authorisedIds) {
-    return some(authorisedIds, (id) => id === draggedElement.templateId)
+    return some(authorisedIds, (id) => id == draggedElement.itemId)
 }

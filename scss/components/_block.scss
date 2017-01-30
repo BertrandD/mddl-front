@@ -4,3 +4,12 @@
 .Block {
   @include block();
 }
+
+.BlockTitle {
+  text-align: center;
+  color: $color-yelow;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-large;
+  text-transform: uppercase;
+  margin-bottom: $spacing-gutter;
+}

@@ -205,7 +205,7 @@ export function createStructure (structureId) {
     }
 }
 
-export function attachModule ({ id: buildingId }, { templateId: moduleId }) {
+export function attachModule ({ id: buildingId }, { itemId: moduleId }) {
     return dispatch => {
         return postAsForm(config.api.url + '/building/' + buildingId + '/attach/module/' + moduleId)
             .catch(res => {

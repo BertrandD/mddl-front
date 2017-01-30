@@ -125,6 +125,7 @@ import LoginContainer from './modules/auth/LoginContainer';
 import BaseContainer from './modules/base/BaseContainer';
 import BaseStatContainer from './modules/base/BaseStatContainer';
 import BaseBuildingsContainer from './modules/base/BaseBuildingsContainer';
+import InventoryContainer from './modules/inventory/InventoryContainer';
 import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
 import PlayerProfileContainer from './modules/player/PlayerProfileContainer';
 import BaseCreationContainer from './modules/base/BaseCreationContainer';
@@ -141,6 +142,7 @@ render(
           <IndexRoute components={{left: BaseStatContainer, center: PlanetContainer }} />
 
           <Route path="base" components={{left: BaseStatContainer, center: BaseContainer, right: ObjectDetailsContainer }} />
+          <Route path="base/inventory" components={{left: BaseStatContainer, center: InventoryContainer, right: ObjectDetailsContainer }} />
           /*<Route path="base/buildings" components={{left: BaseStatContainer, center: BaseBuildingsContainer }} />*/
           <Route path="base/buildings/:buildingId" components={{left: BaseStatContainer, center: BuildingPageContainer }} />
 

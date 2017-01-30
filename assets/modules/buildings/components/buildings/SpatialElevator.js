@@ -1,14 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import filter from 'lodash/filter'
 import range from 'lodash/range'
 import map from 'lodash/map'
-import * as ItemTypes from 'types/ItemTypes'
 import Item from '../../../items/components/Item'
 import ItemSlot from '../../../items/components/ItemSlot'
-import DraggableItem from '../../../items/components/DraggableItem'
 import Text from '../../../core/components/Text'
+import Inventory from '../../../inventory/components/Inventory'
 
 import './recipe.scss'
 
@@ -38,9 +36,7 @@ class SpatialElevator extends Component {
             <div>
                 <div className="Recipe">
                     <div className="RecipeLeft">
-                        {filter(sItems, (b) => b.type == ItemTypes.STRUCTURE).map((b) => (
-                            <DraggableItem key={b.itemId} item={b} />
-                        ))}
+                        <Inventory />
                     </div>
                     <div className="RecipeRight">
                         <h3><Text string="structures.word"/></h3>

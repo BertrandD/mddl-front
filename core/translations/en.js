@@ -10,6 +10,7 @@ export default {
         WEAPON: "Weapon",
         CARGO: "Cargo",
         ENGINE: "Engine",
+        STRUCTURE: "Structure",
         MODULE: "Module",
         TECHNOLOGY: "Technology",
     },

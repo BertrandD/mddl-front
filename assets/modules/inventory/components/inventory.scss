@@ -1,0 +1,28 @@
+@import '../../../../scss/mixins/mixins';
+@import '../../../../scss/variables/variables';
+
+.InventoryPanes, .InventoryContent {
+  padding: $spacing-inner;
+}
+
+.InventoryPanes {
+  border: 1px solid;
+  margin-bottom: $spacing-gutter;
+  display: flex;
+  span {
+    flex-grow: 1;
+    cursor: pointer;
+    text-align: center;
+  }
+}
+
+.InventoryPanesActive {
+  font-weight: bold;
+}
+
+.InventoryContent {
+  &>span {
+    margin-right: $spacing-inner;
+    margin-bottom: $spacing-inner;
+  }
+}

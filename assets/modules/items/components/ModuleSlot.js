@@ -60,4 +60,4 @@ ModuleSlot.propTypes = {
     isOver: PropTypes.bool.isRequired
 };
 
-export default DropTarget(ItemTypes.MODULE, moduleTarget, collect)(ModuleSlot);
+export default DropTarget(ItemTypes.ITEM, moduleTarget, collect)(ModuleSlot);
