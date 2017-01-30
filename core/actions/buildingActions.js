@@ -177,7 +177,7 @@ export function upgradeBuilding (currentBase, { id }) {
 
 export function createModule (moduleId) {
     return dispatch => {
-        return postAsForm(config.api.url + '/modulefactory/create/' + moduleId)
+        return postAsForm(config.api.url + '/factory/module/create/' + moduleId)
             .catch(res => {
                 dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
                 return Promise.reject(res);
@@ -192,7 +192,7 @@ export function createModule (moduleId) {
 
 export function createStructure (structureId) {
     return dispatch => {
-        return postAsForm(config.api.url + '/structurefactory/create/' + structureId)
+        return postAsForm(config.api.url + '/factory/structure/create/' + structureId)
             .catch(res => {
                 dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
                 return Promise.reject(res);
