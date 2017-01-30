@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -32,6 +32,9 @@ class Text extends Component {
     }
 }
 
+Text.propTypes = {
+    string: PropTypes.string.isRequired
+};
 import { getStrings } from 'reducers/userReducer'
 
 function mapStateToProps(state) {

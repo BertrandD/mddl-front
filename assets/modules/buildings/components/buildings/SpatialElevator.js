@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
 import filter from 'lodash/filter'
+import range from 'lodash/range'
+import map from 'lodash/map'
 import * as ItemTypes from 'types/ItemTypes'
 import Item from '../../../items/components/Item'
 import ItemSlot from '../../../items/components/ItemSlot'
 import DraggableItem from '../../../items/components/DraggableItem'
+import Text from '../../../core/components/Text'
 
 import './recipe.scss'
 
@@ -14,15 +16,14 @@ class SpatialElevator extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {number: 1, structure: ''};
+        this.state = {number: 1, structure: null};
 
         this.handleStructureChange = this.handleStructureChange.bind(this);
         this.handleNumberChange = this.handleNumberChange.bind(this);
     }
 
-    handleStructureChange(event) {
-        console.log(event);
-        this.setState({structure: event.target.value});
+    handleStructureChange(structure) {
+        this.setState({structure});
     }
 
     handleNumberChange(event) {
@@ -32,6 +33,7 @@ class SpatialElevator extends Component {
     render() {
 
         const { sBuildings, sItems, strings } = this.props;
+        const { structure } = this.state;
         return (
             <div>
                 <div className="Recipe">
@@ -41,23 +43,36 @@ class SpatialElevator extends Component {
                         ))}
                     </div>
                     <div className="RecipeRight">
-                        Structure :
-                        <ItemSlot target="structure" onDropModule={this.handleStructureChange}/>
+                        <h3><Text string="structures.word"/></h3>
+                        { structure && (
+                            <span>
+                                <Item item={structure}/>
+                                <span className="cursor-pointer" onClick={this.handleStructureChange.bind(this, null)}>
+                                    (<Text string="words.remove"/>)
+                                </span>
+                            </span>
+                        ) || (
+                            <ItemSlot target="structure" onDropModule={this.handleStructureChange}/>
+                        )}
+                        { structure && map(structure.slots, (count, type) => (
+                            <div>
+                                <hr/>
+                                <h3><Text string={"words."+type} /></h3>
+                                {map(range(count), () => (
+                                    <ItemSlot target={type} onDropModule={this.handleStructureChange}/>
+                                ))}
+                                {count == 0 && (
+                                    <span>
+                                        <Text string="structures.noSlot"/> <Text string={"words."+type} />
+
+                                    </span>
+                                )}
+                            </div>
+                        ))}
                     </div>
                 </div>
 
-
-
                 <h3>Lancer la production de vaisseaux</h3>
-                <div>
-                    Structure :&nbsp;
-                    <select value={this.state.structure} onChange={this.handleStructureChange}>
-                        <option value=""> </option>
-                        {filter(sItems, (b) => b.type == ItemTypes.STRUCTURE).map((b) => (
-                            <option key={b.itemId} value={b.itemId}>{b.name}</option>
-                        ))}
-                    </select>
-                </div>
                 <div>
                     Quantité :&nbsp;
                     <input type="number"

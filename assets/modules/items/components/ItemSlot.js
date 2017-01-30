@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import * as ItemTypes from 'types/ItemTypes';
 import { DropTarget } from 'react-dnd';
 import { canDropElement, getDroppedElement } from '../../core/DragCore'
+import Item from './Item'
 
 const itemTarget = {
     canDrop(props) {
@@ -44,10 +45,9 @@ class ItemSlot extends Component {
         return connectDropTarget(
             <div style={{
                 position: 'relative',
-                width: '100%',
-                height: '100%'
+                display: 'inline-block'
               }}>
-                <img src={"http://dummyimage.com/32x32/0a222c/2898c1.jpg&text= empty"} alt=""/>
+                <Item/>
                 {isOver && !canDrop && this.renderOverlay('red')}
                 {!isOver && canDrop && this.renderOverlay('yellow')}
                 {isOver && canDrop && this.renderOverlay('green')}

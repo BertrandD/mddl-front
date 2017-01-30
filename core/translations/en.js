@@ -5,7 +5,13 @@ export default {
         inspect: "Inspect"
     },
     words: {
-        date: "Date"
+        date: "Date",
+        remove: "Remove",
+        WEAPON: "Weapon",
+        CARGO: "Cargo",
+        ENGINE: "Engine",
+        MODULE: "Module",
+        TECHNOLOGY: "Technology",
     },
     requirements: {
         word: "Requirements :",
@@ -22,6 +28,7 @@ export default {
         word: "Structures:",
         available: "Structures available:",
         create: "Create 1",
+        noSlot: "This structure has no slot"
     },
     buildings: {
         word: "Buildings",

@@ -15,7 +15,7 @@ function createShipSuccess(ship) {
     }
 }
 
-export function createShip(itemId, count, attachments) {
+export function createShip({ itemId }, count, attachments) {
     return dispatch => {
         return postAsForm(config.api.url + '/ship', {
             structureId: itemId,

@@ -14,18 +14,14 @@ class Item extends Component {
 
         if (item == undefined) {
             return (
-                <div>
-                    <div className="Item ItemEmpty">
+                <div className="Item ItemEmpty">
 
-                    </div>
                 </div>
             )
         }
         return (
-            <div>
-                <div className="Item">
-                    {item.name}
-                </div>
+            <div className="Item">
+                {item.name}
             </div>
         )
     }
