@@ -7,6 +7,7 @@ import map from 'lodash/map'
 import './Building.scss';
 
 import ModuleSlot from '../../items/components/ModuleSlot'
+import Tooltip from '../../core/components/Tooltip/Tooltip'
 
 class Building extends Component {
 
@@ -32,6 +33,7 @@ class Building extends Component {
 
         return (
             <div className="Building">
+                <Tooltip text={building.name}>
                 <div className="BuildingHeader">
                     <div className="BuildingName">
                         {!building.currentLevel && (
@@ -59,6 +61,7 @@ class Building extends Component {
                         </div>
                     )}
                 </div>
+                </Tooltip>
                 <div className="BuildingBody">
                     <div className="BuildingImage" onClick={this.props.onSelectBuilding}>
                         <img src={"http://dummyimage.com/512x512/0a222c/2898c1.jpg&text="+(building.buildingId || building.id)} alt=""/>

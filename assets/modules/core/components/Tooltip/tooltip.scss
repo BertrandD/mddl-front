@@ -1,0 +1,20 @@
+@import '../../../../../scss/variables/variables';
+
+.Tooltip {
+  display: none;
+  position: absolute;
+  top: -25px;
+  left: 0;
+  padding: $spacing-inner-small;
+  border: 1px solid $color-blue;
+  border-radius: $border-radius-base;
+  background-color: $color-darker;
+  white-space: nowrap;
+}
+
+.TooltipHolder {
+  position: relative;
+  &:hover .Tooltip{
+    display: inline;
+  }
+}

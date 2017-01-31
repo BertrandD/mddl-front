@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import './item.scss'
+import Tooltip from '../../core/components/Tooltip/Tooltip'
 
 class Item extends Component {
 
@@ -20,9 +21,11 @@ class Item extends Component {
             )
         }
         return (
-            <div className="Item">
-                {item.name}
-            </div>
+            <Tooltip text={item.name}>
+                <div className="Item">
+                    {item.name}
+                </div>
+            </Tooltip>
         )
     }
 }
