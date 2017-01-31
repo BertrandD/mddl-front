@@ -12,7 +12,6 @@ class Inventory extends Component {
 
     constructor(props, context) {
         super(props, context);
-        console.log(props);
         this.state = {Ifilter: props.defaultPane || 'STRUCTURE'};
 
         this.handleFilterChange = this.handleFilterChange.bind(this);
@@ -37,7 +36,7 @@ class Inventory extends Component {
                 </div>
                 <div className="InventoryContent">
                     {filter(inventory, (b) => b.type == Ifilter).map((b) => (
-                        <span>
+                        <span key={b.templateId}>
                             <DraggableItem key={b.templateId} item={sItems[b.templateId]} />
                             &nbsp;x {b.count}
                         </span>

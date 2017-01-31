@@ -13,7 +13,13 @@ class BaseBuilings extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {};
+        this.state = {layout: ''};
+
+        this.toggleLayoutChange = this.toggleLayoutChange.bind(this);
+    }
+
+    toggleLayoutChange() {
+        this.setState({layout:this.state.layout == 'table' ? 'grid' : 'table'});
     }
 
     render() {
@@ -29,9 +35,10 @@ class BaseBuilings extends Component {
 
         return (
             <div className="BaseBuildings">
-
+                <span className="cursor-pointer" onClick={this.toggleLayoutChange}>Toggle layout</span>
                 <h2>{ strings.buildings.your }</h2>
                 <BuildingList strings={strings}
+                              layout={this.state.layout}
                               buildings={buildings}
                               onUpgradeBuilding={this.props.onUpgradeBuilding}
                               onCreateBuilding={this.props.onCreateBuilding}
@@ -41,6 +48,7 @@ class BaseBuilings extends Component {
 
                 <h2>{ strings.buildings.available }</h2>
                 <BuildingList strings={strings}
+                              layout={this.state.layout}
                               buildings={buildingsAvailable}
                               onUpgradeBuilding={this.props.onUpgradeBuilding}
                               onCreateBuilding={this.props.onCreateBuilding}
