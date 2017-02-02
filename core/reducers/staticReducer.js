@@ -9,6 +9,14 @@ export function getStaticItems(state) {
     return state.entities.staticItems
 }
 
+export function getStaticItemsFromType(state, type) {
+    const items = {};
+    state.shortcuts[type].forEach((itemId) => {
+        items[itemId] = state.entities.staticItems[itemId];
+    });
+    return items;
+}
+
 export function staticBuildings (state = {}, action) {
     switch (action.type) {
         case Actions.FETCH_BUILDINGS_SUCCESS:
