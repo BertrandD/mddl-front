@@ -67,8 +67,8 @@ class Building extends Component {
                         <img src={"http://dummyimage.com/512x512/0a222c/2898c1.jpg&text="+(building.buildingId || building.id)} alt=""/>
                     </div>
                     <div className="BuildingModules">
-                        {map(building.modules, (mod) => (
-                            <div className="BuildingModule BuildingModuleFull" key={mod} onClick={this.props.onSelectModule.bind(null, mod)}>
+                        {map(building.modules, (mod, i) => (
+                            <div className="BuildingModule BuildingModuleFull" key={i} onClick={this.props.onSelectModule.bind(null, mod)}>
                                 <img src={"http://dummyimage.com/32x32/0a222c/2898c1.jpg&text= "+mod} alt=""/>
                             </div>
                         ))}

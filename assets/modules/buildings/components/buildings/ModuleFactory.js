@@ -34,7 +34,7 @@ class ModuleFactory extends Component {
                             { strings.requirements.word }
 
                             <Requirements strings={strings}
-                                          onSelectBuilding={this.props.viewBuildingDetails}
+                                          onSelectBuilding={this.props.actions.viewBuildingDetails}
                                           requirements={{0: sItems[module].requirement}}
                                           level={0}
                                           sItems={sItems}
