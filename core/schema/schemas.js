@@ -7,6 +7,7 @@ export const player = new Schema('players');
 export const base = new Schema('bases');
 export const building = new Schema('buildings');
 export const pm = new Schema('pms');
+export const report = new Schema('report');
 
 player.define({
     bases: arrayOf(base),

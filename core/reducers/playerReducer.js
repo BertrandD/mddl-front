@@ -1,5 +1,6 @@
 import { FETCH_PLAYER_SUCCESS, CREATE_PLAYER_SUCCESS, CREATE_PLAYER_FAILURE, SELECT_PLAYER, ACCEPT_FRIEND_SUCCESS, REQUEST_FRIEND_SUCCESS } from '../actionTypes/PlayerActionTypes';
 import * as LoginActions from '../actionTypes/LoginActionTypes';
+import filter from 'lodash/filter'
 
 export function getcurrentPlayer(state) {
     return state.entities.players[state.currentPlayer.id]
@@ -7,6 +8,10 @@ export function getcurrentPlayer(state) {
 
 export function getAllPlayers(state) {
     return state.entities.players;
+}
+
+export function getOtherPlayers(state) {
+    return filter(state.entities.players, p => p.id !== state.currentPlayer.id);
 }
 
 export function currentPlayer (state = {

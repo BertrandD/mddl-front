@@ -49,6 +49,7 @@ import { fetchMyBases, fetchBase, selectBase } from './../core/actions/baseActio
 import { fetchBuildings, fetchItems } from '../core/actions/staticActions'
 import { refresh } from './../core/actions/appActions'
 import { fetchMessages } from './../core/actions/privateMessagesActions'
+import { fetchReports } from '../core/actions/reportsActions'
 
 import { getBase } from './../core/reducers/baseReducer'
 import { getcurrentPlayer } from './../core/reducers/playerReducer'
@@ -57,7 +58,7 @@ const store = configureStore();
 window.store = store;
 const history = syncHistoryWithStore(browserHistory, store);
 
-const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchBase, selectBase, fetchPlayer, fetchAccount, fetchAllPlayers, fetchItems, fetchBuildings, refresh, fetchMessages }, store.dispatch);
+const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchBase, selectBase, fetchPlayer, fetchAccount, fetchAllPlayers, fetchItems, fetchBuildings, refresh, fetchMessages, fetchReports }, store.dispatch);
 
 function requireSimpleAuth (nextState, replace, next) {
   const state = store.getState();
@@ -124,7 +125,7 @@ import rootReducer from './reducers';
 import LoginContainer from './modules/auth/LoginContainer';
 import BaseContainer from './modules/base/BaseContainer';
 import BaseStatContainer from './modules/base/BaseStatContainer';
-import BaseBuildingsContainer from './modules/base/BaseBuildingsContainer';
+import SystemContainer from './modules/system/SystemContainer';
 import InventoryContainer from './modules/inventory/InventoryContainer';
 import PlayerCreationContainer from './modules/player/PlayerCreationContainer';
 import PlayerProfileContainer from './modules/player/PlayerProfileContainer';
@@ -134,6 +135,7 @@ import ObjectDetailsContainer from './modules/buildings/ObjectDetailsContainer'
 import BuildingPageContainer from './modules/buildings/BuildingPageContainer'
 import PrivateMessageContainer from './modules/privateMessages/PrivateMessageContainer'
 import SendPrivateMessageContainer from './modules/privateMessages/SendPrivateMessageContainer'
+import ReportsContainer from './modules/reports/ReportsContainer'
 
 render(
     <Provider store={store}>
@@ -143,12 +145,15 @@ render(
 
           <Route path="base" components={{left: BaseStatContainer, center: BaseContainer, right: ObjectDetailsContainer }} />
           <Route path="base/inventory" components={{left: BaseStatContainer, center: InventoryContainer, right: ObjectDetailsContainer }} />
-          /*<Route path="base/buildings" components={{left: BaseStatContainer, center: BaseBuildingsContainer }} />*/
           <Route path="base/buildings/:buildingId" components={{left: BaseStatContainer, center: BuildingPageContainer }} />
 
           <Route path="friends" components={{center: PlayerProfileContainer }} onEnter={actions.fetchAllPlayers}/>
           <Route path="messenger" components={{center: PrivateMessageContainer }} onEnter={actions.fetchMessages}/>
           <Route path="messenger/send" components={{center: SendPrivateMessageContainer }} onEnter={actions.fetchAllPlayers}/>
+
+          <Route path="system" components={{left: BaseStatContainer, center: SystemContainer }} onEnter={actions.fetchAllPlayers}/>
+
+          <Route path="reports" components={{left: BaseStatContainer, center: ReportsContainer }} onEnter={actions.fetchReports}/>
         </Route>
         <Route path="/create" component={App} onEnter={requireSimpleAuth}>
 

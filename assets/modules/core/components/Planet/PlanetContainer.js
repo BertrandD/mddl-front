@@ -62,9 +62,11 @@ class PlanetContainer extends Component {
                     <button>
                         Scanner l'orbite
                     </button>
-                    <button>
-                        Scanner la base
-                    </button>
+                    <Link to="/system">
+                        <button>
+                            Scanner le système
+                        </button>
+                    </Link>
                 </div>
 
                 <div className="PlanetActions">

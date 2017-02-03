@@ -36,6 +36,11 @@ class TopMenu extends Component {
                         <i className="fa fa-people"/>
                         <span className="font-bold">{ strings.messages.menu }</span>
                     </Link>
+
+                    <Link to="/reports">
+                        <i className="fa fa-people"/>
+                        <span className="font-bold">Reports</span>
+                    </Link>
                 </div>
                 <div>
                     {base && map(base.inventory.items, (item) => (

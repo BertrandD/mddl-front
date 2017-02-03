@@ -9,8 +9,9 @@ import { popup } from 'reducers/popupReducer'
 import { privateMessages } from 'reducers/privateMessageReducer'
 import { notifications } from 'reducers/notificationReducer'
 import { shortcuts } from 'reducers/shortcutsReducer'
+import { reports } from 'reducers/reportReducer'
 
-const entities = combineReducers({staticBuildings, staticItems, bases, players, buildings});
+const entities = combineReducers({staticBuildings, staticItems, bases, players, buildings, reports});
 
 const u = combineReducers({ routing: routerReducer, entities, user, currentBase, selectedObject, currentPlayer, popup, notifications, privateMessages, shortcuts });
 
