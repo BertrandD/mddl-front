@@ -6,7 +6,7 @@ import { player } from '../schema/schemas.js'
 import config from '../config'
 
 
-function fetchPlayerSuccess (player) {
+export function fetchPlayerSuccess (player) {
     return {
         type: FETCH_PLAYER_SUCCESS,
         payload: player

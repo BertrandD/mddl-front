@@ -8,6 +8,7 @@ export const base = new Schema('bases');
 export const building = new Schema('buildings');
 export const pm = new Schema('pms');
 export const report = new Schema('report');
+export const astralObject = new Schema('astralObject');
 
 player.define({
     bases: arrayOf(base),
@@ -15,5 +16,10 @@ player.define({
 });
 
 base.define({
-    buildings: arrayOf(building)
+    buildings: arrayOf(building),
+    planet: astralObject
+});
+
+astralObject.define({
+    satellites: arrayOf(astralObject)
 });

@@ -18,6 +18,7 @@ function configureStore(initialState = {}) {
     }
   }
   const logger = createLogger({
+      predicate: (getState, action) => action.type !== 'REFRESH',
     collapsed: true
   });
 
@@ -50,6 +51,7 @@ import { fetchBuildings, fetchItems } from '../core/actions/staticActions'
 import { refresh } from './../core/actions/appActions'
 import { fetchMessages } from './../core/actions/privateMessagesActions'
 import { fetchReports } from '../core/actions/reportsActions'
+import { fetchMyStar } from '../core/actions/spaceActions'
 
 import { getBase } from './../core/reducers/baseReducer'
 import { getcurrentPlayer } from './../core/reducers/playerReducer'
@@ -58,7 +60,7 @@ const store = configureStore();
 window.store = store;
 const history = syncHistoryWithStore(browserHistory, store);
 
-const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchBase, selectBase, fetchPlayer, fetchAccount, fetchAllPlayers, fetchItems, fetchBuildings, refresh, fetchMessages, fetchReports }, store.dispatch);
+const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchBase, selectBase, fetchPlayer, fetchAccount, fetchAllPlayers, fetchItems, fetchBuildings, refresh, fetchMessages, fetchReports, fetchMyStar }, store.dispatch);
 
 function requireSimpleAuth (nextState, replace, next) {
   const state = store.getState();
@@ -94,10 +96,10 @@ function requireFullAuth(nextState, replace, next) {
 
   if (!state.currentBase || !state.currentBase.id || isEmpty(state.currentBase.id)) {
     const p3 = actions.fetchPlayer().then(() => {
-        actions.fetchMyBases().then(() => {
+        return actions.fetchMyBases().then(() => {
           const base = getBase(store.getState(), getcurrentPlayer(store.getState()).currentBase);
             actions.selectBase(base);
-            actions.fetchBase(base).then(() => {
+            return actions.fetchBase(base).then(() => {
                 window.timer = setTimeout(refreshApp, 3000);
             });
         })
@@ -112,6 +114,13 @@ function requireFullAuth(nextState, replace, next) {
   Promise.all(promises).then(() => {
     next();
   });
+}
+
+function requireSystemFetched(nextState, replace, next) {
+  const promise = actions.fetchMyStar();
+  Promise.all([promise]).then(() => {
+    next();
+  })
 }
 
 function refreshApp() {
@@ -151,7 +160,7 @@ render(
           <Route path="messenger" components={{center: PrivateMessageContainer }} onEnter={actions.fetchMessages}/>
           <Route path="messenger/send" components={{center: SendPrivateMessageContainer }} onEnter={actions.fetchAllPlayers}/>
 
-          <Route path="system" components={{left: BaseStatContainer, center: SystemContainer }} onEnter={actions.fetchAllPlayers}/>
+          <Route path="system" components={{left: BaseStatContainer, center: SystemContainer }} onEnter={requireSystemFetched}/>
 
           <Route path="reports" components={{left: BaseStatContainer, center: ReportsContainer }} onEnter={actions.fetchReports}/>
         </Route>
