@@ -1,0 +1,23 @@
+@import '../../../scss/mixins/mixins';
+@import '../../../scss/variables/variables';
+
+.Report {
+  border: 1px solid;
+  margin: $spacing-gutter 0;
+}
+
+.ReportHeader {
+  display: flex;
+  background-color: $blue-light;
+  padding:$spacing-inner;
+}
+
+.ReportDate {
+  text-align: right;
+  flex-grow:1;
+  color: $color-muted;
+}
+
+.ReportBody {
+  padding:$spacing-inner;
+}
