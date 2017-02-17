@@ -33,9 +33,33 @@ class Building extends Component {
 
         return (
             <div className="Building">
-                <Tooltip text={building.name}>
-                <div className="BuildingHeader">
-                    <div className="BuildingName">
+                    <div className="BuildingHeader BuildingHeaderLevel">
+                        {!building.currentLevel && (
+                            <span>0</span>
+                        ) || (
+                            <span>
+                                {building.currentLevel}
+                                {building.endsAt > 0 && (<span><span className="fa fa-arrow-right">&nbsp;</span> {building.currentLevel + 1}</span>)}
+                                {building.currentLevel === building.maxLevel && (<span>(max)</span>)}
+                            </span>
+                        )}
+                    </div>
+
+                    <div className="BuildingHeader BuildingHeaderAction">
+                        {!building.currentLevel && (
+                            <Tooltip text={"Build"}>
+                                <i className="fa fa-cogs cursor-pointer" onClick={this.upgradeBuilding.bind(this)}>
+                                </i>
+                            </Tooltip>
+                        ) || building.endsAt <= 0 && building.currentLevel < building.maxLevel && (
+                            <Tooltip text={"Upgrade"}>
+                                <i className="fa fa-arrow-up cursor-pointer" onClick={this.upgradeBuilding.bind(this)}>
+                                </i>
+                            </Tooltip>
+                        )}
+                    </div>
+
+                    {/*                    <div className="BuildingName">
                         {!building.currentLevel && (
                             <span>{building.name}</span>
                         ) || (
@@ -60,13 +84,14 @@ class Building extends Component {
                             )}
                         </div>
                     )}
-                </div>
-                </Tooltip>
+                </div>*/}
+                <Tooltip text={building.name}>
+
                 <div className="BuildingBody">
                     <div className="BuildingImage" onClick={this.props.onSelectBuilding}>
                         <img src={"http://dummyimage.com/512x512/0a222c/2898c1.jpg&text="+(building.buildingId || building.id)} alt=""/>
                     </div>
-                    <div className="BuildingModules">
+                    {/*<div className="BuildingModules">
                         {map(building.modules, (mod, i) => (
                             <div className="BuildingModule BuildingModuleFull" key={i} onClick={this.props.onSelectModule.bind(null, mod)}>
                                 <img src={"http://dummyimage.com/32x32/0a222c/2898c1.jpg&text= "+mod} alt=""/>
@@ -77,8 +102,9 @@ class Building extends Component {
                                 <ModuleSlot modules={building.availableModules} onDropModule={this.props.onAttachModule}/>
                             </div>
                         ))}
-                    </div>
+                    </div>*/}
                 </div>
+                </Tooltip>
                 <div className="BuildingFooter">
                     {building.endsAt > 0 && (
                         <div>

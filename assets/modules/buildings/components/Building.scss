@@ -1,7 +1,7 @@
 @import '../../../../scss/mixins/mixins';
 @import '../../../../scss/variables/variables';
 
-$header-height: 30px;
+$header-height: 10px;
 $building-width: 100px;
 $building-height: 100px;
 
@@ -15,12 +15,29 @@ $building-height: 100px;
 }
 
 .BuildingHeader {
-  width: 100%;
-  height:$header-height;
   font-size: $font-size-tiny;
   justify-content: flex-end;
   display: flex;
   position: absolute;
+  top:1px;
+  padding:$spacing-inner-small;
+  border-bottom-left-radius: $border-radius-base;
+  border-bottom-right-radius: $border-radius-base;
+  z-index:10;
+}
+
+.BuildingHeaderLevel {
+  right:5px;
+}
+
+.BuildingHeaderAction {
+  left:5px;
+}
+
+.BuildingFooter {
+  position: absolute;
+  bottom:0;
+  width:calc(100% - 1px);
 }
 
 .BuildingName {
@@ -39,7 +56,6 @@ $building-height: 100px;
   display: flex;
   height: $building-height;
   background-color: $color-dark;
-  margin-top: $header-height;
 }
 
 .BuildingImage {

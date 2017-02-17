@@ -1,10 +1,13 @@
 @import "../variables/variables";
+
+$progress-height:15px;
+
 .progress {
   background-color: #000;
   i { line-height: 3.5em; }
   position: relative;
   overflow: hidden;
-  height: 20px;
+  height: $progress-height;
   min-width: 90px;
 }
 
@@ -14,11 +17,12 @@
   transform: translate(-50%, 0);
   color: $color-dark;
   z-index:1;
+  font-size: 0.8em;
   white-space: nowrap;
 }
 
 .progress-bar {
   background-image: linear-gradient(to top, #000, $color-yelow 70%, $color-yelow);
-  transition: all 1s linear;
-  height: 20px;
+  //transition: all 1s linear;
+  height: $progress-height;
 }
