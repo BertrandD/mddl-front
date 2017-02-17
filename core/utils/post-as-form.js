@@ -19,7 +19,7 @@ function makeAuthenticatedRequest(url, opts = {}) {
     }
 
 }
-
+window.apiFetch = fetch;
 export function fetch (url, data) {
 
     return makeAuthenticatedRequest(url, data)

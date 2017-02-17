@@ -3,12 +3,12 @@ import './tooltip.scss'
 
 function Tooltip(props) {
     return (
-        <div className="TooltipHolder">
+        <span className="TooltipHolder">
             <div className="Tooltip">
                 {props.text}
             </div>
             {props.children}
-        </div>
+        </span>
     )
 }
 

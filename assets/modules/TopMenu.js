@@ -25,20 +25,30 @@ class TopMenu extends Component {
             <div className="TopMenu">
                 <div>
                     <Link to="/">
-                        <i className="fa fa-home"/>
+                        <i className="fa fa-home"/>&nbsp;
                         <span className="font-bold">{ strings.menu.home }</span>
                     </Link>
                     <Link to="/friends">
-                        <i className="fa fa-people"/>
+                        <i className="fa fa-users"/>&nbsp;
                         <span className="font-bold">{ strings.friends.word }</span>
                     </Link>
                     <Link to="/messenger">
-                        <i className="fa fa-people"/>
+                        <i className="fa fa-envelope"/>&nbsp;
                         <span className="font-bold">{ strings.messages.menu }</span>
                     </Link>
 
+                    <Link to="/base">
+                        <i className="fa fa-building"/>&nbsp;
+                        <span className="font-bold">Buildings</span>
+                    </Link>
+
+                    <Link to="/system">
+                        <i className="fa fa-globe"/>&nbsp;
+                        <span className="font-bold">Galaxy</span>
+                    </Link>
+
                     <Link to="/reports">
-                        <i className="fa fa-people"/>
+                        <i className="fa fa-book"/>&nbsp;
                         <span className="font-bold">Reports</span>
                     </Link>
                 </div>

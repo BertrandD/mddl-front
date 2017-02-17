@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import map from 'lodash/map'
 import Date from '../core/components/Date'
+import Tooltip from '../core/components/Tooltip/Tooltip'
 
 class SystemContainer extends Component {
 
@@ -43,12 +44,11 @@ class SystemContainer extends Component {
                                         </li>
                                     )}
                                     {map(planet.bases, (b) => b.id != base.id && (
-                                        <li>
+                                        <li key={b.id}>
                                             {b.name} ({b.owner.name})
-                                            <button className="button--primary" onClick={actions.spyBase.bind(null, b.id)}>
-                                                Spy
-                                            </button>
-
+                                            <Tooltip text={"Spy"}>
+                                                &nbsp;<i className="fa fa-user-secret cursor-pointer" onClick={actions.spyBase.bind(null, b.id)}/>
+                                            </Tooltip>
                                         </li>
                                     ))}
                                 </ul>
