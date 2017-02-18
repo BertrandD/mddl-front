@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TopMenu from './TopMenu'
+import TopCenter from './TopCenter'
 import BottomMenu from './BottomMenu'
 import Popup from './core/components/Popup/Popup'
 import NotificationContainer from './core/components/Notification/NotificationsContainer'
@@ -20,6 +21,7 @@ class App extends Component {
                     </div>
 
                     <div className="AppCenter">
+                        <TopCenter/>
                         {center}
                     </div>
 

@@ -13,6 +13,13 @@ export function fetchReportSuccess(report) {
     }
 }
 
+export function fetchReportStart() {
+    return {
+        type: actions.FETCH_REPORT_START,
+        payload: {}
+    }
+}
+
 export function spyBaseSuccess(report) {
     return {
         type: actions.SPY_BASE_SUCCESS,
@@ -22,6 +29,7 @@ export function spyBaseSuccess(report) {
 
 export function fetchReports() {
     return dispatch => {
+        dispatch(fetchReportStart());
         return fetch(config.api.url + '/reports')
             .then(res => {
                 dispatch(fetchReportSuccess(normalize(res.payload, arrayOf(report)).entities));

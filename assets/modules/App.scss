@@ -1,7 +1,7 @@
 @import '../../scss/mixins/mixins';
 @import '../../scss/variables/variables';
 
-$left-width: 400px;
+$left-width: 300px;
 
 .AppContainer {
     display: flex;
@@ -28,7 +28,7 @@ $left-width: 400px;
 
 .AppLeftColumn {
     padding: $spacing-gutter;
-    width: 25%;
+    width: 20%;
     @media #{$md-up} {
         width: $left-width;
     }
@@ -40,7 +40,7 @@ $left-width: 400px;
     padding: $spacing-gutter;
     margin-left: $spacing-gutter;
     flex-shrink: 0;
-    width: 25%;
+    width: 20%;
     @media #{$md-up} {
         width: $left-width;
     }

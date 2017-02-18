@@ -26,7 +26,7 @@ class ReportsContainer extends Component {
                 </div>
                 <div className="ReportBody">
                     {size(report.entries) > 0 && map(report.entries, (entry, key) => (
-                        <div>
+                        <div key={key}>
                             {key} :
                             <ul>
                                 {entry.map((e) => (
@@ -47,7 +47,6 @@ class ReportsContainer extends Component {
     }
 
     renderPlanetScanReport(report) {
-        console.log(report);
         return (
         <div className="Report" key={report.id}>
             <div className="ReportHeader">
@@ -60,7 +59,7 @@ class ReportsContainer extends Component {
             </div>
             <div className="ReportBody">
                 {size(report.entries) > 0 && map(report.entries, (entry, key) => (
-                    <div>
+                    <div key={key}>
                         {key} :
                         <ul>
                             {entry.map((e) => (
@@ -81,13 +80,18 @@ class ReportsContainer extends Component {
     }
 
     render() {
-        const { reports } = this.props;
+        const { reports, isLoading } = this.props;
 
         return (
             <div className="Block">
                 <div className="BlockTitle">
                     Reports
                 </div>
+                {isLoading && (
+                    <div>
+                        Loading...
+                    </div>
+                )}
                 {map(sortBy(reports, (o) => -o.date), (report) => {
                     switch (report.type) {
                         case "SPY_BASE":
@@ -103,9 +107,10 @@ class ReportsContainer extends Component {
 }
 
 import { getReports } from 'reducers/reportReducer'
+import { isLoading } from 'reducers/loadingReducer'
 
 function mapStateToProps(state) {
-    return { reports: getReports(state) };
+    return { reports: getReports(state), isLoading:isLoading(state, 'reports') };
 }
 
 function mapDispatchToProps(dispatch) {

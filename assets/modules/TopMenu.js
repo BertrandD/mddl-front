@@ -53,21 +53,6 @@ class TopMenu extends Component {
                     </Link>
                 </div>
                 <div>
-                    {base && map(base.inventory.items, (item) => (
-                        <span key={item.id}>
-                        <span className="color-yellow">{items[item.templateId].name}:</span> {Math.round(item.count)} ({base.production[item.templateId]}/h) - &nbsp;
-                       </span>
-                    ))}
-                    {base && map(base.resources, (item, id) => (
-                        <span key={id}>
-                            <span className="color-yellow">{items[item.templateId].name}: </span>
-                            <span className={Math.round(item.count) == item.maxVolume &&"color-error"}>
-                                {Math.round(item.count)} / {item.maxVolume} ({item.production}/h)
-                            </span>&nbsp;♦&nbsp;
-                        </span>
-                    ))}
-                </div>
-                <div>
                     <Link to="/base">
                         { strings.menu.active_base } { base ? base.name : 'No base selected' }
                     </Link>
