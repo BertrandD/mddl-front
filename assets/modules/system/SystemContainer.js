@@ -1,90 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import map from 'lodash/map'
-import Date from '../core/components/Date'
-import Tooltip from '../core/components/Tooltip/Tooltip'
 import System from './components/System'
+import AstralObjectDetail from './components/AstralObjectDetail'
 
 class SystemContainer extends Component {
 
     constructor(props, context) {
         super(props, context);
+        this.state = {};
+    }
+
+    handleOverObject(id) {
+        this.setState({
+            selected: id
+        });
+        console.log(id);
     }
 
     render() {
         const { base, star, actions } = this.props;
+        const { selected } = this.state;
         return (
-            <div className="Block">
+            <div className="SystemContainer">
                 <div className="BlockTitle">
                     System
                 </div>
 
-                <System star={star}/>
+                <System onOverObject={this.handleOverObject.bind(this)} star={star}/>
 
-                <h3>Star :</h3>
-                {star.name}
-
-                <h3>Planets : </h3>
-                <table className="table">
-                    <thead>
-                    <tr>
-                        <th>Planet name</th>
-                        <th>Bases</th>
-                        <th>Moons</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {map(star.satellites, (planet) => (
-                        <tr key={planet.id}>
-                            <td>{planet.name}</td>
-                            <td>
-                                <ul>
-                                    {planet.id == base.planet && (
-                                        <li className="color-yellow">
-                                            {base.name} ({base.owner.name})
-                                        </li>
-                                    )}
-                                    {map(planet.bases, (b) => b.id != base.id && (
-                                        <li key={b.id}>
-                                            {b.name} ({b.owner.name})
-                                            <Tooltip text={"Spy"}>
-                                                &nbsp;<i className="fa fa-user-secret cursor-pointer" onClick={actions.spyBase.bind(null, b.id)}/>
-                                            </Tooltip>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </td>
-                            <td>
-                                <ul>
-                                    {map(planet.satellites, (moon) => (
-                                        <li key={moon.name}>
-                                            {moon.name}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </td>
-                            <td className="text-center">
-                                <button className="button--primary" onClick={actions.scanAstralObject.bind(null, planet)}>
-                                Scan
-                                </button>
-                                {planet.lastScan && (
-                                    <div>
-                                        (Last scan : <Date timestamp={planet.lastScan}/>)
-                                    </div>
-                                )}
-
-                                {/*<button className="button--primary" onClick={actions.spyBase.bind(null, player.bases[0])}>*/}
-                                    {/*Spy*/}
-                                {/*</button>*/}
-                            </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-
-
+                {selected && (
+                    <AstralObjectDetail id={selected}/>
+                )}
             </div>
         );
 

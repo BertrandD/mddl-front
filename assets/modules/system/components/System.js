@@ -1,18 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from "d3";
+import './system.scss'
 
 class System extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {
-            transform: {
-                x:0,
-                y:0,
-                k:1
-            }
-        }
+        const transform = d3.zoomIdentity.translate(0, 0).scale(1);
+
+        this.state = {transform};
+        this.handleMoseover = this.handleMoseover.bind(this);
     }
 
     componentDidMount() {
@@ -20,15 +18,20 @@ class System extends Component {
     }
 
     componentDidUpdate() {
-        this.paint()
+        // this.paint()
     }
 
-    drawOrbit(context, center, satellite) {
-        context.beginPath();
-        context.arc(center.x, center.y, satellite.orbit, 0, 2 * Math.PI, false);
-        context.lineWidth = 1;
-        context.strokeStyle = '#abafaa';
-        context.stroke();
+    drawOrbit(g, center, satellite) {
+        const arc = d3.arc()
+            .innerRadius(satellite.orbit-0.08)
+            .outerRadius(satellite.orbit+0.08)
+            .startAngle(0)
+            .endAngle(2 * Math.PI);
+
+        g.append("path")
+            .attr("fill", "#abafaa")
+            .attr("d", arc)
+            .attr("transform", "translate("+center.x+","+center.y+")");
 
         const x = center.x+Math.cos(satellite.angle)*satellite.orbit;
         const y = center.y+Math.sin(satellite.angle)*satellite.orbit;
@@ -37,66 +40,71 @@ class System extends Component {
             x,
             y
         };
-        this.drawObject(context, s);
+        this.drawObject(g, s);
     }
 
-    drawObject(context, obj, color) {
-        context.beginPath();
-        context.arc(obj.x, obj.y, obj.size, 0, 2 * Math.PI, false);
-        context.fillStyle = color || 'black';
-        context.fill();
-        context.lineWidth = 1;
-        context.strokeStyle = '#000';
-        context.stroke();
-        // objects.push(obj);
+    drawObject(g, obj, color) {
+        const node = g.append("g")
+                .attr("transform", "translate("+obj.x+","+obj.y+")");
+        node.append("circle")
+            // .attr("cx", obj.x)
+            // .attr("cy", obj.y)
+            .attr("id", obj.id)
+            .attr("fill", color || 'black')
+            .attr("r", obj.size);
+        node.append("text")
+            .attr("dy", ".35em")
+            .attr("fill", "#abafaa")
+            .text(obj.name)
+            .attr("font-size", function() {
+                return Math.min(2 * obj.size, (obj.size) / this.getComputedTextLength() * 24) + "px"; });
 
         if (obj.satellites) {
             obj.satellites.forEach((s) => {
-                this.drawOrbit(context, obj, s);
+                this.drawOrbit(g, obj, s);
             })
         }
     }
 
     paint() {
-        const width = 500;
-        const height = 300;
 
-        const canvas = d3.select(ReactDOM.findDOMNode(this))
-            .attr("width", 500)
-            .attr("height", 300)
-            .call(d3.zoom().scaleExtent([1, 8]).on("zoom", zoom.bind(this)));
-        const context = canvas.node().getContext("2d");
+        const svg = d3.select(ReactDOM.findDOMNode(this))
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .call(d3.zoom().scaleExtent([1, 30]).on("zoom", zoom.bind(this)));
+        const g = svg.select("g");
 
-        context.clearRect(0, 0, context.width, context.height);
+        g.selectAll("*").remove();
 
-        const centerX = width / 2;
-        const centerY = height / 2;
+        const centerX = svg.style("width").replace("px", "") / 2;
+        const centerY = svg.style("height").replace("px", "") / 2;
 
-        context.translate(this.state.transform.x, this.state.transform.y);
-        context.scale(this.state.transform.k, this.state.transform.k);
+        g.attr("transform", this.state.transform);
 
-        this.drawObject(context, {...this.props.star, x:centerX, y:centerY}, 'yellow');
+        this.drawObject(g, {...this.props.star, x:centerX, y:centerY}, 'yellow');
 
+        g.selectAll("circle").on("mouseover", this.handleMoseover);
 
         function zoom() {
             const transform = d3.event.transform;
-            context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-            context.translate(transform.x, transform.y);
-            context.scale(transform.k, transform.k);
+            g.attr("transform", transform);
             this.setState({transform});
-            this.drawObject(context, {...this.props.star, x:centerX, y:centerY}, 'yellow');
         }
+    }
 
+    handleMoseover() {
+        this.props.onOverObject(d3.event.target.id);
     }
 
 
     render() {
-        return <canvas />;
+        return <svg><g /></svg>;
     }
 }
 
 System.propTypes = {
-    star: PropTypes.object.isRequired
+    star: PropTypes.object.isRequired,
+    onOverObject: PropTypes.func.isRequired
 };
 
 export default System;

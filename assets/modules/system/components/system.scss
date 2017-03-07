@@ -1,0 +1,19 @@
+.SystemContainer {
+  height: 100%;
+  position: relative;
+}
+
+.SystemArc {
+  color: white;
+}
+
+.SystemDetails {
+  position: absolute;
+  top:0;
+  right:0;
+}
+
+text {
+  text-anchor: middle;
+  pointer-events: none;
+}

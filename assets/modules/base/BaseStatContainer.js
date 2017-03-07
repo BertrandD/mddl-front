@@ -25,6 +25,9 @@ class BaseStatContainer extends Component {
             <div className="Block">
                 <h2>{ strings.base.stats }</h2>
                 <p>
+                    Planet: {base.planet.name}
+                </p>
+                <p>
                     <span className="color-yellow fa fa-shield"> </span> {format(base.baseStat.BASE_SHIELD)} / {format(base.baseStat.BASE_MAX_SHIELD)}
                 </p>
                 <p>

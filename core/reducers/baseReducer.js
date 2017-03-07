@@ -2,11 +2,11 @@ import * as BaseActions from '../actionTypes/BaseActionTypes';
 import * as BuldingsActions from '../actionTypes/BuildingActionTypes';
 import * as AppActions from '../actionTypes/AppActionTypes';
 import * as LoginActions from '../actionTypes/LoginActionTypes';
-import clone from '../../node_modules/lodash/clone';
-import map from '../../node_modules/lodash/map';
-import omit from '../../node_modules/lodash/omit';
-import forEach from '../../node_modules/lodash/forEach'
-import sum from '../../node_modules/lodash/sum'
+import clone from 'lodash/clone';
+import map from 'lodash/map';
+import omit from 'lodash/omit';
+import forEach from 'lodash/forEach'
+import { getAstralObject } from '../reducers/spaceReducer'
 
 export function getBase (state, id) {
     return state.entities.bases[id];
@@ -34,7 +34,9 @@ export function populateBase(state, base) {
         buildings.push(populateBuilding(state, state.entities.buildings[id]))
     });
 
-    return {...base, buildings};
+    const planet = getAstralObject(state, base.planet);
+
+    return {...base, buildings, planet};
 }
 
 export function populateBuilding (state, building) {
