@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import map from 'lodash/map'
 import Date from '../core/components/Date'
 import Tooltip from '../core/components/Tooltip/Tooltip'
+import System from './components/System'
 
 class SystemContainer extends Component {
 
@@ -18,6 +19,8 @@ class SystemContainer extends Component {
                 <div className="BlockTitle">
                     System
                 </div>
+
+                <System star={star}/>
 
                 <h3>Star :</h3>
                 {star.name}
@@ -56,7 +59,7 @@ class SystemContainer extends Component {
                             <td>
                                 <ul>
                                     {map(planet.satellites, (moon) => (
-                                        <li>
+                                        <li key={moon.name}>
                                             {moon.name}
                                         </li>
                                     ))}
