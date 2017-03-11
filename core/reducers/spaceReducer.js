@@ -1,3 +1,4 @@
+import * as BaseActions from '../actionTypes/BaseActionTypes';
 import * as SpaceActions from '../actionTypes/SpaceActionTypes';
 import { getcurrentPlayer } from './playerReducer'
 
@@ -22,6 +23,7 @@ export function getPopulatedAstralObject (state, id) {
 
 export function space (state = {}, action) {
   switch (action.type) {
+      case BaseActions.FETCH_BASE_SUCCESS:
       case SpaceActions.FETCH_SYSTEM_SUCCESS:
           return {
             ...state,
