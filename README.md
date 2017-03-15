@@ -4,8 +4,10 @@
 
 `npm install`
 
-Copy `src/config.js.dist` to `src/config.js`
-Copy `core/config.js.dist` to `core/config.js`
+```
+cp src/config.js.dist src/config.js
+cp core/config.js.dist core/config.js
+```
 
 ## Game UI ##
 
