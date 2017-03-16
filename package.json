@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "build": "webpack -p -d",
+    "nwjs": "webpack --config webpack.config.nwjs.js --debug --progress -p",
     "dev": "node src/index",
     "ai": "webpack --config webpack.config-ai.dev.js --watch",
     "run-ai": "node build/ai.js"
