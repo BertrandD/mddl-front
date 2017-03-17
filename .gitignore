@@ -8,3 +8,5 @@ node_modules
 /.scratch
 /build
 *.sqlite3
+/nwbuild
+/nwjs/dist
