@@ -6,20 +6,20 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: [
-	    './assets',
-	    './scss/index'
+        './assets',
+        './scss/index'
     ],
     output: {
         path: path.join(__dirname, 'nwjs/dist'),
         publicPath: "/dist/",
         filename: 'app.min.js'
     },
-	resolve: {
-    modules: [
-        path.join(__dirname, "core"),
-        "node_modules"
-    ],
-	},
+    resolve: {
+        modules: [
+            path.join(__dirname, "core"),
+            "node_modules"
+        ],
+    },
     module: {
         rules: [
             {
@@ -31,7 +31,7 @@ module.exports = {
                         presets: [
                             'es2015',
                             'react',
-				'stage-2'
+                            'stage-2'
                         ]
                     }
                 }

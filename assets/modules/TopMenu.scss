@@ -14,7 +14,7 @@
   display: flex;
   justify-content: space-between;
 
-  a {
+  .Link {
     @include link(#fff);
     padding: 0 $spacing-inner;
   }

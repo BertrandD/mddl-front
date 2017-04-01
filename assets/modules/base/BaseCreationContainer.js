@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createBase } from 'actions/baseActions';
-import { Link } from 'react-router';
+import Link from '../core/components/Link';
 
 import BaseCreation from './components/BaseCreation'
 

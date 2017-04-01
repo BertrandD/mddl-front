@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import Link from '../../core/components/Link';
 import ProgressBar from '../../core/components/ProgressBar'
 import Duration from '../../core/components/Duration'
 import keys from 'lodash/keys'

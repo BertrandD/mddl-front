@@ -1,11 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import forEach from 'lodash/forEach'
-import map from 'lodash/map'
-import { Link } from 'react-router';
-import ProgressBar from '../../core/components/ProgressBar'
 import BuildingList from '../../buildings/components/BuildingList'
-import Duration from '../../core/components/Duration'
-import format from 'utils/numberFormat'
 
 require('./Base.scss');
 

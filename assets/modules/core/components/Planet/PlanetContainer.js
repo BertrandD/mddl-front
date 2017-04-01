@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
-import format from 'utils/numberFormat'
-import map from 'lodash/map'
+import Link from '../Link';
 import Planet from './Planet'
 import './PlanetContainer.scss'
 

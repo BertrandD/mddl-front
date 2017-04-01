@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
+import Link from './core/components/Link';
 import map from 'lodash/map'
 import './TopMenu.scss'
 
@@ -56,14 +56,14 @@ class TopMenu extends Component {
                     <Link to="/base">
                         { strings.menu.active_base } { base ? base.name : 'No base selected' }
                     </Link>
-                    <a>
+                    <Link>
                         <i className="fa fa-user"/>
                         <span className="font-bold">{ player ? player.name : 'No player active' }</span>
-                    </a>
-                    <a>
+                    </Link>
+                    <Link>
                         <i className="fa fa-lock"/>
                         <span className="cursor-pointer" onClick={this.props.actions.logout.bind(null)}>{ strings.menu.logout }</span>
-                    </a>
+                    </Link>
 
                     <select onChange={this.handleChange.bind(this)} value={user.lang}>
                         <option value="EN">en</option>

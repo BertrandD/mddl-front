@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
+import Link from '../core/components/Link';
 import BuildingDetails from './components/BuildingDetails'
 import ModuleDetails from './components/ModuleDetails'
 import BuildingModulesList from './components/BuildingModulesList'

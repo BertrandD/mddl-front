@@ -55,6 +55,8 @@ import { fetchMyStar } from '../core/actions/spaceActions'
 
 import { getBase } from './../core/reducers/baseReducer'
 import { getcurrentPlayer } from './../core/reducers/playerReducer'
+import { push } from 'react-router-redux'
+window.push = push;
 
 const store = configureStore();
 window.store = store;

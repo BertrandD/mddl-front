@@ -1,7 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import forEach from 'lodash/forEach'
-import map from 'lodash/map'
-import { Link } from 'react-router';
 
 class ModuleDetails extends Component {
 

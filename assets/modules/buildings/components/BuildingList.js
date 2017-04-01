@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import ProgressBar from '../../core/components/ProgressBar'
-import { Link } from 'react-router';
+import Link from '../../core/components/Link';
 import Building from './Building'
 import map from 'lodash/map'
 import './BuildingList.scss';
 
 import ModuleSlot from '../../items/components/ModuleSlot'
-import Tooltip from '../../core/components/Tooltip/Tooltip'
 
 
 class BuildingList extends Component {

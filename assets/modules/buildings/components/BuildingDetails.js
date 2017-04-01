@@ -1,12 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import forEach from 'lodash/forEach'
-import map from 'lodash/map'
-import { Link } from 'react-router';
-import ProgressBar from '../../core/components/ProgressBar'
-import BuildingList from '../../buildings/components/BuildingList'
+import Link from '../../core/components/Link';
 import Duration from '../../core/components/Duration'
 import Requirements from '../../core/components/Requirements'
-import format from 'utils/numberFormat'
 
 class BuildingDetails extends Component {
 

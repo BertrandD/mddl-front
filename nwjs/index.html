@@ -5,12 +5,18 @@
     <title>Middlewar</title>
 
     <link rel="stylesheet" href="dist/app.min.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
 </head>
 <body>
     <div id="app"></div>
 
     <script src="dist/app.min.js"></script>
+    <script>
+        (function() {
+            if(store && store.dispatch && push) {
+                store.dispatch(push('/base'));
+            }
+        })();
+    </script>
 </body>
 </html>
 
