@@ -9,6 +9,13 @@ cp src/config.js.dist src/config.js
 cp core/config.js.dist core/config.js
 ```
 
+## Build app
+
+`npm run build`
+`npm run nwjs`
+
+App available in `nwjsbuild/`
+
 ## Game UI ##
 
 Run `npm run dev`
