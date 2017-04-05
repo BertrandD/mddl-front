@@ -23,6 +23,7 @@ export function getPopulatedAstralObject (state, id) {
 
 export function space (state = {}, action) {
   switch (action.type) {
+      case BaseActions.SELECT_BASE:
       case BaseActions.FETCH_BASE_SUCCESS:
       case SpaceActions.FETCH_SYSTEM_SUCCESS:
           return {

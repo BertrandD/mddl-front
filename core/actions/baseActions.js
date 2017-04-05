@@ -64,7 +64,7 @@ export function createBase({ baseName, player }) {
         return postAsForm(config.api.url + '/base', {name: baseName, player})
             .then(res => {
                 dispatch(createBaseSuccess(normalize(res.payload, base).entities));
-                dispatch(selectBase(res.payload));
+                dispatch(selectBase(normalize(res.payload, base).entities));
                 dispatch(push('/'));
             })
             .catch(res => {
