@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html style="background:rgba(0,0,0,0);">
 <head>
     <meta charset="UTF-8" />
     <title>Middlewar</title>
 
-    <link rel="stylesheet" href="dist/app.min.css">
 </head>
-<body>
-    <div id="app"></div>
-
-    <script src="dist/app.min.js"></script>
+<body style="background:rgba(0,0,0,0);">
+	<div id="appWelcome" style="color:white;font-size:2em">
+	Hello ! Welcome to Middlewar !
+	</div>
     <script>
         (function() {
-            if(store && store.dispatch && push) {
-                store.dispatch(push('/base'));
-            }
+gui = require('nw.gui');
+		setTimeout(function() {
+			gui.Window.open('/app.html',{frame:true,width:1280,height:720});
+			var win = gui.Window.get();
+			win.close();
+		},2500000)
         })();
     </script>
 </body>

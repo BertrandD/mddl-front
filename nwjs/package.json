@@ -3,8 +3,10 @@
   "main": "index.html",
   "version": "0.0.1",
   "window": {
-    "toolbar": true,
-    "width": 1280,
-    "height": 720
+    "toolbar": false,
+    "frame": false,
+    "width": 200,
+    "height": 150,
+    "transparent":true
   }
 }
