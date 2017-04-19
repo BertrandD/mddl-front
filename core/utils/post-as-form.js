@@ -13,13 +13,23 @@ function makeAuthenticatedRequest(url, opts = {}) {
         return global.fetch(url, opts);
     } else {
         if (AI) {
+            var logger = require('../../ai/logger').default
+            logger.debug("Fetching :" + url + " with options : " + JSON.stringify(opts,null,1))
             var globalFetch = require('node-fetch');
-            return globalFetch(url, opts);
+            return globalFetch(url, opts).then(function(res) {
+                logger.debug("Successfully fetched :" + url)
+                return res;
+            }).catch(function (res) {
+                logger.error("Failed fetching :" + url + " # Result :" + JSON.stringify(res,null,1))
+                Promise.reject(res)
+            });
         }
     }
 
 }
-window.apiFetch = fetch;
+if (!AI) {
+    window.apiFetch = fetch;
+}
 export function fetch (url, data) {
 
     return makeAuthenticatedRequest(url, data)
