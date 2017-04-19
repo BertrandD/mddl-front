@@ -56,6 +56,7 @@ module.exports = {
             }
         ]
     },
+    devtool: "source-map",
     plugins: [
         new webpackSourceMapSupport(),
         new webpack.DefinePlugin({

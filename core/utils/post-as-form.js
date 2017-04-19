@@ -1,5 +1,6 @@
 // npm module - safe deep cloning
 import clone from 'lodash/cloneDeep'
+import config from '../config'
 
 function makeAuthenticatedRequest(url, opts = {}) {
     if (localStorage && localStorage.getItem("token")) {
@@ -14,10 +15,14 @@ function makeAuthenticatedRequest(url, opts = {}) {
     } else {
         if (AI) {
             var logger = require('../../ai/logger').default
-            logger.debug("Fetching :" + url + " with options : " + JSON.stringify(opts,null,1))
+            if (config.debug.fetch) {
+                logger.debug("Fetching :" + url + " with options : " + JSON.stringify(opts,null,1))
+            }
             var globalFetch = require('node-fetch');
             return globalFetch(url, opts).then(function(res) {
-                logger.debug("Successfully fetched :" + url)
+                if (config.debug.fetch) {
+                    logger.debug("Successfully fetched :" + url)
+                }
                 return res;
             }).catch(function (res) {
                 logger.error("Failed fetching :" + url + " # Result :" + JSON.stringify(res,null,1))
