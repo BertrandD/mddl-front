@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html style="background:rgba(0,0,0,0);">
+<html style="background:black;">
 <head>
     <meta charset="UTF-8" />
     <title>Middlewar</title>
 
 </head>
-<body style="background:rgba(0,0,0,0);">
+<body style="background:black;">
 	<div id="appWelcome" style="color:white;font-size:2em">
 	Hello ! Welcome to Middlewar !
 	</div>
@@ -16,7 +16,7 @@ gui = require('nw.gui');
 			gui.Window.open('/app.html',{frame:true,width:1280,height:720});
 			var win = gui.Window.get();
 			win.close();
-		},2500000)
+		},2500)
         })();
     </script>
 </body>
