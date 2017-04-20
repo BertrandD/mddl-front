@@ -4,9 +4,11 @@
   "name": "Middlewar",
   "main": "http://localhost:3000",
   "scripts": {
-    "build": "webpack -p -d --progress",
+    "build": "UV_THREADPOOL_SIZE=100 webpack -p -d --progress",
     "nwjs": "nwb nwbuild -o nwbuild -p linux64,win64 -v 0.14.4-sdk ./nwjs/",
-    "dev": "node src/index"
+    "dev": "UV_THREADPOOL_SIZE=100 node src/index",
+    "ai": "webpack --config webpack.config-ai.dev.js --watch",
+    "run-ai": "node build/ai.js"
   },
   "version": "0.0.1",
   "window": {
