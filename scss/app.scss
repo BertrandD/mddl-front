@@ -37,11 +37,13 @@ html {
 }
 
 body {
-  background: url("../static/img/space.jpg") center;
-  background-size: cover;
+  //background: url("../static/img/space.jpg") center;
+  //background-size: cover;
   min-width: 1000px;
 }
 
 #app {
   height: 100%;
+  position: relative;
+  background-color: #000;
 }
