@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import * as d3 from "d3";
 import './system.scss'
 let centered = null;
-const currentCenter = [];
+const currentTransform = {x:null,y:null,k:null};
 let zoom = null;
 
 
@@ -55,6 +55,7 @@ class System extends Component {
         node.append("circle")
             .attr("id", obj.id)
             .attr("class", "planet")
+            .attr("data-size", obj.size)
             .attr("fill", obj.type === 'Planet' ? 'url(#planet)' : (color || '#404040'))
             .attr("r", "60")
             .attr("cx", "60")
@@ -157,29 +158,23 @@ class System extends Component {
     }
 
     handleClick(g, centerX, centerY) {
-        const d = d3.event.target;
-        console.log(d3.event);
-        // console.log(d.parentNode);
-        // var text = d3.select(d.parentNode).attr("transform");
-        // console.log(text);
-        // const transl = text.match(/translate\((\d+\.?\d*),(\d+\.?\d*)\)/);
+        // const d = d3.event.target;
 
+        const mouseX = d3.event.clientX // TODO use target center instead of mouse position
+        const mouseY = d3.event.clientY
 
-        const currentX = d3.event.clientX
-        const currentY = d3.event.clientY
+        // const size = d3.select(d).attr("data-size")
 
-        const moveX = currentX-currentCenter[0]
-        const moveY = currentY-currentCenter[1]
-        // currentCenter[0] = centerX - moveX
-        // currentCenter[1] = centerY - moveY
+        // const scale = 5/size
+        // console.log("zer",scale - currentTransform.k + 1);
+        // const moveX = currentTransform.x - (scale-currentTransform.k+1) * mouseX
+        // const moveY = currentTransform.y - (scale-currentTransform.k+1) * mouseY
+        const moveX = currentTransform.x - mouseX
+        const moveY = currentTransform.y - mouseY
 
-        console.log("click",currentCenter);
-
-        // Transition to the new transform.
         g.transition()
             .duration(750)
-            .call(zoom.transform, d3.zoomIdentity.translate(-moveX,-moveY).scale(currentCenter[2]))
-            // .attr("transform", "translate("+-moveX+","+-moveY+")");
+            .call(zoom.transform, d3.zoomIdentity.translate(moveX,moveY).scale(currentTransform.k))
     }
 
     paint() {
@@ -200,10 +195,9 @@ class System extends Component {
 
         const centerX = svg.style("width").replace("px", "") / 2;
         const centerY = svg.style("height").replace("px", "") / 2;
-        currentCenter[0] = centerX
-        currentCenter[1] = centerY
-        currentCenter[2] = 1
-        console.log("init",currentCenter);
+        currentTransform.x = centerX
+        currentTransform.y = centerY
+        currentTransform.k = 1
 
         g.attr("transform", this.state.transform);
 
@@ -216,11 +210,9 @@ class System extends Component {
 
         function zoomed() {
             const transform = d3.event.transform;
-            console.log(transform);
-            console.log("zoom",currentCenter);
-            currentCenter[0] = centerX + d3.event.transform.x
-            currentCenter[1] = centerY + d3.event.transform.y
-            currentCenter[2] = d3.event.transform.k
+            currentTransform.x = centerX + d3.event.transform.x
+            currentTransform.y = centerY + d3.event.transform.y
+            currentTransform.k = d3.event.transform.k
             g.attr("transform", transform);
             // this.setState({transform});
         }
