@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from "d3";
 import './system.scss'
+let first = true;
 
 class System extends Component {
 
@@ -23,8 +24,8 @@ class System extends Component {
 
     drawOrbit(g, center, satellite) {
         const arc = d3.arc()
-            .innerRadius(satellite.orbit-0.08)
-            .outerRadius(satellite.orbit+0.08)
+            .innerRadius(satellite.orbit-0.05)
+            .outerRadius(satellite.orbit+0.05)
             .startAngle(0)
             .endAngle(2 * Math.PI);
 
@@ -52,7 +53,7 @@ class System extends Component {
             .attr("transform", "")
             .append("circle")
             .attr("id", obj.id)
-            .attr("fill", "url(#planet)")
+            .attr("fill", obj.type === 'Planet' ? 'url(#planet)' : (color || '#404040'))
             .attr("r", "60")
             .attr("cx", "60")
             .attr("cy", "60")
