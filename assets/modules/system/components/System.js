@@ -2,7 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from "d3";
 import './system.scss'
-let first = true;
+let centered = null;
+const currentCenter = [];
+let zoom = null;
+
 
 class System extends Component {
 
@@ -24,8 +27,8 @@ class System extends Component {
 
     drawOrbit(g, center, satellite) {
         const arc = d3.arc()
-            .innerRadius(satellite.orbit-0.05)
-            .outerRadius(satellite.orbit+0.05)
+            .innerRadius(satellite.orbit*5-0.05)
+            .outerRadius(satellite.orbit*5+0.05)
             .startAngle(0)
             .endAngle(2 * Math.PI);
 
@@ -34,8 +37,8 @@ class System extends Component {
             .attr("d", arc)
             .attr("transform", "translate("+center.x+","+center.y+")");
 
-        const x = center.x+Math.cos(satellite.angle)*satellite.orbit;
-        const y = center.y+Math.sin(satellite.angle)*satellite.orbit;
+        const x = center.x+Math.cos(satellite.angle)*satellite.orbit*5;
+        const y = center.y+Math.sin(satellite.angle)*satellite.orbit*5;
         const s = {
             ...satellite,
             x,
@@ -49,15 +52,14 @@ class System extends Component {
                 .attr("transform", "translate("+obj.x+","+obj.y+")");
 
 
-        node.append("g")
-            .attr("transform", "")
-            .append("circle")
+        node.append("circle")
             .attr("id", obj.id)
+            .attr("class", "planet")
             .attr("fill", obj.type === 'Planet' ? 'url(#planet)' : (color || '#404040'))
             .attr("r", "60")
             .attr("cx", "60")
             .attr("cy", "60")
-            .attr("transform", " scale("+obj.size/30+") translate(-60,-60)");
+            .attr("transform", " scale("+obj.size/5+") translate(-60,-60)");
 
         //
         // node.append("circle")
@@ -73,7 +75,7 @@ class System extends Component {
             .attr("fill", "#abafaa")
             .text(obj.name)
             .attr("font-size", function() {
-                return Math.min(2 * obj.size, (obj.size) / this.getComputedTextLength() * 24) + "px"; });
+                return Math.min(2 * obj.size*5, (obj.size) / this.getComputedTextLength() * 128) + "px"; });
 
         if (obj.satellites) {
             obj.satellites.forEach((s) => {
@@ -154,12 +156,39 @@ class System extends Component {
         // })
     }
 
+    handleClick(g, centerX, centerY) {
+        const d = d3.event.target;
+        console.log(d3.event);
+        // console.log(d.parentNode);
+        // var text = d3.select(d.parentNode).attr("transform");
+        // console.log(text);
+        // const transl = text.match(/translate\((\d+\.?\d*),(\d+\.?\d*)\)/);
+
+
+        const currentX = d3.event.clientX
+        const currentY = d3.event.clientY
+
+        const moveX = currentX-currentCenter[0]
+        const moveY = currentY-currentCenter[1]
+        // currentCenter[0] = centerX - moveX
+        // currentCenter[1] = centerY - moveY
+
+        console.log("click",currentCenter);
+
+        // Transition to the new transform.
+        g.transition()
+            .duration(750)
+            .call(zoom.transform, d3.zoomIdentity.translate(-moveX,-moveY).scale(currentCenter[2]))
+            // .attr("transform", "translate("+-moveX+","+-moveY+")");
+    }
+
     paint() {
+        zoom = d3.zoom().scaleExtent([1, 100]).on("zoom", zoomed.bind(this))
 
         const svg = d3.select(ReactDOM.findDOMNode(this))
             .attr("width", "100%")
             .attr("height", "100%")
-            .call(d3.zoom().scaleExtent([1, 100]).on("zoom", zoom.bind(this)));
+            .call(zoom);
         const g = svg.select("g");
 
         g.selectAll("*").remove();
@@ -171,17 +200,29 @@ class System extends Component {
 
         const centerX = svg.style("width").replace("px", "") / 2;
         const centerY = svg.style("height").replace("px", "") / 2;
+        currentCenter[0] = centerX
+        currentCenter[1] = centerY
+        currentCenter[2] = 1
+        console.log("init",currentCenter);
 
         g.attr("transform", this.state.transform);
+
+        console.log(this.props.star);
 
         this.drawObject(g, {...this.props.star, x:centerX, y:centerY}, 'yellow');
 
         g.selectAll("circle").on("mouseover", this.handleMoseover);
+        g.selectAll("circle").on("click", this.handleClick.bind(this, svg, centerX, centerY));
 
-        function zoom() {
+        function zoomed() {
             const transform = d3.event.transform;
+            console.log(transform);
+            console.log("zoom",currentCenter);
+            currentCenter[0] = centerX + d3.event.transform.x
+            currentCenter[1] = centerY + d3.event.transform.y
+            currentCenter[2] = d3.event.transform.k
             g.attr("transform", transform);
-            this.setState({transform});
+            // this.setState({transform});
         }
     }
 
