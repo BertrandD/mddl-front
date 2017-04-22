@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from "d3";
 
-class System extends Component {
+class AppBackground extends Component {
 
     constructor(props, context) {
         super(props, context);
@@ -69,5 +69,5 @@ class System extends Component {
     }
 }
 
-export default System;
+export default AppBackground;
 
