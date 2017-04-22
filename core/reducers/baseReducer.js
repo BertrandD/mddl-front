@@ -52,6 +52,11 @@ export function currentBase (state = {
     switch(action.type) {
         case LoginActions.LOGOUT:
             return { id: ""};
+        case BaseActions.FETCH_AVAILABLE_BUILDINGS_SUCCESS:
+            return {
+                ...state,
+                availableBuildings: action.payload
+            };
         case BaseActions.SELECT_BASE:
             return Object.assign({}, state, {
                 id: action.payload.id

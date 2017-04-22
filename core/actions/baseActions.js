@@ -37,6 +37,13 @@ function createBaseFailure(message) {
     }
 }
 
+function fetchAvailableBuildingsSuccess(buildings) {
+    return {
+        type: actions.FETCH_AVAILABLE_BUILDINGS_SUCCESS,
+        payload: buildings
+    }
+}
+
 export function selectBase(base) {
     return dispatch => {
 
@@ -69,6 +76,17 @@ export function createBase({ baseName, player }) {
             })
             .catch(res => {
                 dispatch(createBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'))
+            })
+    }
+}
+
+export function fetchAvailableBuildings() {
+    return dispath => {
+        return fetch(config.api.url + '/base/buildables')
+            .then(res => {
+                dispath(fetchAvailableBuildingsSuccess([
+                    "shield"
+                ]))
             })
     }
 }
