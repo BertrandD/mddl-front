@@ -44,14 +44,14 @@ function configureStore(initialState = {}) {
 
   return store
 }
-import { fetchAuthentication } from './../core/actions/loginActions'
-import { fetchPlayer, fetchAllPlayers, fetchAccount } from './../core/actions/playerActions'
-import { fetchMyBases, fetchBase, selectBase } from './../core/actions/baseActions'
-import { fetchBuildings, fetchItems } from '../core/actions/staticActions'
-import { refresh } from './../core/actions/appActions'
-import { fetchMessages } from './../core/actions/privateMessagesActions'
-import { fetchReports } from '../core/actions/reportsActions'
-import { fetchMyStar } from '../core/actions/spaceActions'
+import * as loginActions from './../core/actions/loginActions'
+import * as playerActions from './../core/actions/playerActions'
+import * as baseActions from './../core/actions/baseActions'
+import * as staticActions from '../core/actions/staticActions'
+import * as appActions from './../core/actions/appActions'
+import * as privateMessagesActions from './../core/actions/privateMessagesActions'
+import * as reportsActions from '../core/actions/reportsActions'
+import * as spaceActions from '../core/actions/spaceActions'
 
 import { getBase } from './../core/reducers/baseReducer'
 import { getcurrentPlayer } from './../core/reducers/playerReducer'
@@ -62,7 +62,53 @@ const store = configureStore();
 window.store = store;
 const history = syncHistoryWithStore(browserHistory, store);
 
-const actions = bindActionCreators({ fetchAuthentication, fetchMyBases, fetchBase, selectBase, fetchPlayer, fetchAccount, fetchAllPlayers, fetchItems, fetchBuildings, refresh, fetchMessages, fetchReports, fetchMyStar }, store.dispatch);
+const actions = bindActionCreators({
+    ...loginActions,
+    ...playerActions,
+    ...baseActions,
+    ...staticActions,
+    ...appActions,
+    ...privateMessagesActions,
+    ...reportsActions,
+    ...spaceActions
+}, store.dispatch);
+window.actions = actions;
+
+import * as baseReducer from '../core/reducers/baseReducer'
+import * as buildingReducer from '../core/reducers/buildingReducer'
+import * as loadingReducer from '../core/reducers/loadingReducer'
+import * as notificationReducer from '../core/reducers/notificationReducer'
+import * as playerReducer from '../core/reducers/playerReducer'
+import * as popupReducer from '../core/reducers/popupReducer'
+import * as privateMessageReducer from '../core/reducers/privateMessageReducer'
+import * as reportReducer from '../core/reducers/reportReducer'
+import * as shortcutsReducer from '../core/reducers/shortcutsReducer'
+import * as spaceReducer from '../core/reducers/spaceReducer'
+import * as staticReducer from '../core/reducers/staticReducer'
+import * as userReducer from '../core/reducers/userReducer'
+
+window.store = {
+    ...store,
+    ...baseReducer,
+    ...buildingReducer,
+    ...loadingReducer,
+    ...notificationReducer,
+    ...playerReducer,
+    ...popupReducer,
+    ...privateMessageReducer,
+    ...playerReducer,
+    ...reportReducer,
+    ...shortcutsReducer,
+    ...spaceReducer,
+    ...staticReducer,
+    ...userReducer
+};
+
+window.initConsole = function () {
+  window.base = window.store.getPopulatedCurrentBase(window.store.getState());
+  window.player = window.store.getcurrentPlayer(window.store.getState());
+    console.log("### Console initiated");
+};
 
 function requireSimpleAuth (nextState, replace, next) {
   const state = store.getState();
@@ -103,6 +149,7 @@ function requireFullAuth(nextState, replace, next) {
             actions.selectBase(base);
             return actions.fetchBase(base).then(() => {
                 window.timer = setTimeout(refreshApp, 3000);
+                initConsole();
             });
         })
       });
