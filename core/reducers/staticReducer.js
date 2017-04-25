@@ -1,8 +1,11 @@
 import * as Actions from '../actionTypes/StaticActionTypes';
+import pick from 'lodash/pick'
 
-
-export function getStaticBuildings(state) {
-    return state.entities.staticBuildings
+export function getStaticBuildings(state, ids) {
+    if (!ids) {
+        return state.entities.staticBuildings
+    }
+    return pick(state.entities.staticBuildings, ids)
 }
 
 export function getStaticItems(state) {

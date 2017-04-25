@@ -84,8 +84,9 @@ export function fetchAvailableBuildings() {
     return dispath => {
         return fetch(config.api.url + '/base/buildables')
             .then(res => {
+                // TODO get result from API
                 dispath(fetchAvailableBuildingsSuccess([
-                    "shield"
+                    "mine", "silo", "module_factory", "power_factory", "spatial_elevator", "pump", "structure_factory"
                 ]))
             })
     }
@@ -112,6 +113,7 @@ export function fetchBase({ id }) {
         return fetch(config.api.url + '/me/base/' + id)
             .then(res => {
                 dispatch(fetchBaseSuccess(normalize(res.payload, base).entities, res.meta));
+                dispatch(fetchAvailableBuildings());
                 try {
                     const queue = {};
 

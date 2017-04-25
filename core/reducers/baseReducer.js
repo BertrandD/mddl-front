@@ -18,11 +18,17 @@ export function getInventory(state) {
 }
 
 export function getCurrentBase (state) {
-    return state.entities.bases[state.currentBase.id];
+    return {
+        ...state.entities.bases[state.currentBase.id],
+        ...state.currentBase
+    };
 }
 
 export function getPopulatedCurrentBase (state) {
-    return populateBase(state, state.entities.bases[state.currentBase.id]);
+    return {
+        ...populateBase(state, state.entities.bases[state.currentBase.id]),
+        ...state.currentBase
+    };
 }
 
 export function populateBase(state, base) {
