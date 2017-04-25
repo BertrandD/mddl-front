@@ -14,49 +14,54 @@ $left-width: 300px;
 
 .App {
     display: flex;
-    align-items: stretch;
+    align-items: center;
     height:100%;
     position: relative;
     flex-shrink: 1;
     justify-content: center;
-    padding: 0 $spacing-gutter;
+    //padding: 0 $spacing-gutter;
     overflow: auto;
 
-    width: 45%;
-    @media #{$md-up} {
-        width: 100%;
-    }
+    //width: 45%;
+    //@media #{$md-up} {
+    //    width: 100%;
+    //}
 
 }
 
 .AppLeftColumn {
-    padding: $spacing-gutter;
-    width: 20%;
-    @media #{$md-up} {
+    //padding: $spacing-gutter;
+    //width: 20%;
+    //@media #{$md-up} {
         width: $left-width;
-    }
+    //}
     margin-right: $spacing-gutter;
+    align-self: flex-end;
     flex-shrink: 0;
     z-index:1;
 }
 
 .AppRightColumn {
-    padding: $spacing-gutter;
+    //padding: $spacing-gutter;
     margin-left: $spacing-gutter;
     flex-shrink: 0;
-    width: 20%;
-    @media #{$md-up} {
+    //width: 20%;
+    //@media #{$md-up} {
         width: $left-width;
-    }
+    //}
     z-index:1;
 }
 
 .AppCenter {
     flex-shrink: 1;
     @media #{$md-up} {
-        padding-top: $spacing-gutter*2;
-        width: 100%;
-        max-width: 1000px;
+        //padding-top: $spacing-gutter*2;
+        flex-grow: 1;
+    }
+    > div {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
     }
 }
 

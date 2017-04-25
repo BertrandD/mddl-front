@@ -5,6 +5,7 @@ import Inventory from '../inventory/components/Inventory'
 import format from 'utils/numberFormat'
 import map from 'lodash/map'
 import * as ItemTypes from '../../../core/types/ItemTypes'
+import Link from "../core/components/Link";
 
 class BaseStatContainer extends Component {
 
@@ -13,7 +14,7 @@ class BaseStatContainer extends Component {
     }
 
     render() {
-        const { base, sItems, strings } = this.props;
+        const { base, sItems, player, strings } = this.props;
         if (!base) {
             return (
                 <div>
@@ -23,6 +24,19 @@ class BaseStatContainer extends Component {
         }
         return (
             <div className="Block">
+                <h2>Player : { player.name }</h2>
+
+                <p>
+                    <Link to="/messenger">
+                        Messages : 0 unread
+                    </Link>
+                </p>
+                <p>
+                    <Link to="/friends">
+                        Friends : 0 online of {player.friends.length}
+                    </Link>
+                </p>
+
                 <h2>{ strings.base.stats }</h2>
                 <p>
                     Planet: {base.planet.name}
@@ -61,12 +75,13 @@ class BaseStatContainer extends Component {
     }
 }
 
+import { getcurrentPlayer } from 'reducers/playerReducer'
 import { getPopulatedCurrentBase } from 'reducers/baseReducer'
 import { getStaticItems } from 'reducers/staticReducer'
 import { getStrings } from 'reducers/userReducer'
 
 function mapStateToProps(state) {
-    return { base: getPopulatedCurrentBase(state), sItems: getStaticItems(state), strings: getStrings(state) };
+    return { base: getPopulatedCurrentBase(state), sItems: getStaticItems(state), strings: getStrings(state), player: getcurrentPlayer(state) };
 }
 
 function mapDispatchToProps(dispatch) {

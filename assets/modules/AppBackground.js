@@ -34,7 +34,7 @@ class AppBackground extends Component {
 
         const svg = d3.select(ReactDOM.findDOMNode(this))
             .attr("width", "100%")
-            .attr("height", "100%");
+            .attr("height", window.innerHeight-5);
 
         const defs = svg.select("defs");
         defs.selectAll("*").remove();

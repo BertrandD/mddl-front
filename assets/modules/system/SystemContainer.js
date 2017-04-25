@@ -23,10 +23,6 @@ class SystemContainer extends Component {
         const { selected } = this.state;
         return (
             <div className="SystemContainer">
-                <div className="BlockTitle">
-                    System
-                </div>
-
                 <System onOverObject={this.handleOverObject.bind(this)} star={star}/>
 
                 {selected && (

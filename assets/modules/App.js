@@ -16,13 +16,13 @@ class App extends Component {
                 <AppBackground />
                 <div className="AppContainer">
                     <TopMenu />
+                    <TopCenter/>
                     <div className="App">
                         <div className="AppLeftColumn">
                             {left}
                         </div>
 
                         <div className="AppCenter">
-                            <TopCenter/>
                             {center}
                         </div>
 

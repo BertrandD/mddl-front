@@ -51,7 +51,7 @@ export function fetchLogin ({ username, password }) {
     return postAsForm(config.api.url + '/login', {username, password})
       .then(res => {
         dispatch(loginSuccess(res.payload));
-        dispatch(push('/'));
+        dispatch(push('/loading'));
       })
       .catch(res => {
         dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
