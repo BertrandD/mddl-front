@@ -72,7 +72,7 @@ export function createBase({ baseName, player }) {
             .then(res => {
                 dispatch(createBaseSuccess(normalize(res.payload, base).entities));
                 dispatch(selectBase(normalize(res.payload, base).entities));
-                dispatch(push('/'));
+                dispatch(push('/loading'));
             })
             .catch(res => {
                 dispatch(createBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'))

@@ -121,6 +121,14 @@ function requireSimpleAuth (nextState, replace, next) {
   next();
 }
 
+
+function redirectToHome() {
+    setTimeout(() => {
+        store.dispatch(push('/'))
+    }, 1500)
+
+}
+
 function requireFullAuth(nextState, replace, next) {
   const state = store.getState();
   if (!state.user.token) {
@@ -179,6 +187,7 @@ function refreshApp() {
 
 
 import App from './modules/App';
+import LoadingContainer from './modules/LoadingContainer';
 import rootReducer from './reducers';
 import LoginContainer from './modules/auth/LoginContainer';
 import BaseContainer from './modules/base/BaseContainer';
@@ -198,6 +207,7 @@ import ReportsContainer from './modules/reports/ReportsContainer'
 render(
     <Provider store={store}>
       <Router history={history}>
+        <Route path="/loading" components={LoadingContainer} onEnter={redirectToHome}/>
         <Route path="/" component={App} onEnter={requireFullAuth}>
           <IndexRoute components={{left: BaseStatContainer, center: PlanetContainer }} />
 

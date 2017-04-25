@@ -13,7 +13,7 @@
         (function() {
 gui = require('nw.gui');
 		setTimeout(function() {
-			gui.Window.open('/app.html',{frame:true,width:1280,height:720});
+			gui.Window.open('/app.html',{frame:true,fullscreen:true});
 			var win = gui.Window.get();
 			win.close();
 		},2500)
