@@ -21,7 +21,7 @@ export function notifications(state = {}, action) {
                 ...state,
                 [action.payload.id]: {
                     type: action.type,
-                    date: Date.now(),
+                    date: getServerTime(),
                     message: action.payload.message
                 }
             };

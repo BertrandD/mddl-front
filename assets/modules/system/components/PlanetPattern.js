@@ -6,7 +6,7 @@ class PlanetPattern extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.t0 = Date.now();
+        this.t0 = getServerTime();
     }
 
     componentDidMount() {
@@ -70,7 +70,7 @@ class PlanetPattern extends Component {
         })
 
         d3.timer(function () {
-            const delta = (Date.now() - this.t0);
+            const delta = (getServerTime() - this.t0);
             arcsSvg.forEach((arc) => {
                 arc.attr("transform", "rotate(" + arc.attr("data-rotate") * delta * 5 / 700 + ")");
             })
@@ -78,7 +78,7 @@ class PlanetPattern extends Component {
 
         // planetPattern.selectAll(".circl")[0].forEach(function(d) {
         //     d3.timer(function() {
-        //         const delta = (Date.now() - t0);
+        //         const delta = (getServerTime() - t0);
         //         const arc = d3.select(d)
         //         arc.attr("transform", "rotate("+arc.attr("data-rotate")*delta*5/700+")");
         //     })

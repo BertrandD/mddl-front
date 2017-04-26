@@ -1,3 +1,5 @@
+import { fetch } from './post-as-form'
+import config from '../config'
 
 export function uid() {
     function s4() {
@@ -7,3 +9,21 @@ export function uid() {
     }
     return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
 }
+
+let offset = 0, loaded = false;
+
+function calcOffset() {
+    loaded = true;
+    fetch(config.api.url+'/time').then(res => {
+        const dateStr = res.meta.time
+
+        offset = dateStr - Date.now()
+    })
+}
+
+function getServerTime() {
+    if (!loaded) calcOffset()
+    return Date.now() + offset;
+}
+
+window.getServerTime = getServerTime

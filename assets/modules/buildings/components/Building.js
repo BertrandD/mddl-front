@@ -14,8 +14,8 @@ class Building extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            start: Date.now(),
-            end: Date.now() + 90000
+            start: getServerTime(),
+            end: getServerTime() + 90000
         }
     }
 

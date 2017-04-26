@@ -6,7 +6,7 @@ class ProgressBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            progress: (Date.now() - this.props.start) * 100 / (this.props.end - this.props.start)
+            progress: (getServerTime() - this.props.start) * 100 / (this.props.end - this.props.start)
         };
     }
 
@@ -19,7 +19,7 @@ class ProgressBar extends Component {
     }
 
     tick() {
-        const progress = Math.min((Date.now()+1000 - this.props.start) * 100 / (this.props.end - this.props.start), 100);
+        const progress = Math.min((getServerTime()+1000 - this.props.start) * 100 / (this.props.end - this.props.start), 100);
 
         this.setState(Object.assign({}, this.state, {
             progress
@@ -31,7 +31,7 @@ class ProgressBar extends Component {
         return (
             <div className="progress">
                 <div className="progress-text">
-                    <Duration milliseconds={this.props.end - Date.now()}/>
+                    <Duration milliseconds={this.props.end - getServerTime()}/>
                 </div>
                 <div className="progress-bar" style={{transform: 'translateX(' + (-100 + this.state.progress) + '%)'}}>&nbsp;</div>
             </div>

@@ -115,7 +115,7 @@ function base (state = {
             });
         case AppActions.REFRESH:
 
-            const now = Date.now();
+            const now = getServerTime();
 
             const base = clone(state);
 

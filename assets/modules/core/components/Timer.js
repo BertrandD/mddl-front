@@ -5,7 +5,7 @@ class Timer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            left: this.props.end - Date.now()
+            left: this.props.end - getServerTime()
         };
         this.timer = setTimeout(this.tick.bind(this), 1000);
     }
@@ -15,7 +15,7 @@ class Timer extends Component {
     }
 
     tick() {
-        const seconds = this.props.end > Date.now() ? this.props.end - Date.now() : 0;
+        const seconds = this.props.end > getServerTime() ? this.props.end - getServerTime() : 0;
 
         this.setState(Object.assign({}, this.state, {
             left: seconds

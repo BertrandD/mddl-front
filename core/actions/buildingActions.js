@@ -122,7 +122,7 @@ export function createBuilding (currentBase, { id }, position = -1) {
             .then(res => {
                 dispatch(
                     addEvent(
-                        Date.now(),
+                        getServerTime(),
                         res.payload.endsAt,
                         createBuildingStart(currentBase, res.payload, {position}),
                         [createBuildingEnd(currentBase, res.payload),updateBase(currentBase)])
@@ -149,9 +149,9 @@ export function upgradeBuilding (currentBase, { id }) {
                 } else if (res.meta.queue.length === 1 ) {
                    dispatch(
                        addEvent(
-                           Date.now(),
+                           getServerTime(),
                            res.meta.queue[0].endsAt,
-                           upgradeBuildingStart(currentBase, res.payload, Date.now(), res.meta.queue[0].endsAt),
+                           upgradeBuildingStart(currentBase, res.payload, getServerTime(), res.meta.queue[0].endsAt),
                            [upgradeBuildingEnd(currentBase, res.payload), updateBase(currentBase)]
                        )
                    );

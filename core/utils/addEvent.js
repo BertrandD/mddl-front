@@ -9,9 +9,9 @@ export default function (start, endsAt, actionStart, actionEnd) {
                 } else {
                     dispatch(actionEnd);
                 }
-            }, endsAt - Date.now());
+            }, endsAt - getServerTime());
             dispatch(actionStart);
-        }, start - Date.now());
+        }, start - getServerTime());
 
         dispatch({
             type: 'ADD_EVENT',
