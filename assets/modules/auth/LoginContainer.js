@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Login from './components/Login';
 import * as actions from 'actions/loginActions';
+import AppBackground from '../AppBackground'
+import PlanetPattern from "../system/components/PlanetPattern";
+import NotificationContainer from '../core/components/Notification/NotificationsContainer'
+import "./login.scss"
 
 class LoginContainer extends Component {
 
@@ -12,21 +16,36 @@ class LoginContainer extends Component {
 
     render() {
         return (
-            <div className="app">
-                <div className="auth">
-                    <h1 className="auth__title">MiddleWar V2</h1>
-                    <div className="auth__subtitle">
-                        <strong>{ this.props.version }</strong>
-                    </div>
-                    <div className="auth__subtitle">
-                        <strong>Sign in to continue</strong>
-                    </div>
-                    <div className="auth__error">
-                        { this.props.user.message }
-                    </div>
+            <div className="LoginContainer">
+                <AppBackground />
+                <div className="Login">
+                    <div>
+                        <div className="LoginPlanet">
+                            <svg width="75" height="75">
+                                <g transform="translate(35,35)">
+                                    <circle class="planet" fill="url(#planet)" r="60" cx="60" cy="60" transform=" scale(0.6) translate(-60,-60)"></circle>
+                                </g>
+                            </svg>
+                        </div>
 
-                    <Login onRegister={this.props.actions.register} onSubmit={this.props.actions.fetchLogin}/>
+                        <div className="Block auth">
+                            <h1 className="auth__title">MiddleWar</h1>
+                            <div className="auth__subtitle">
+                                <strong>{ this.props.version }</strong>
+                            </div>
+                            <div className="auth__subtitle">
+                                <strong>Sign in to continue</strong>
+                            </div>
+
+                            <Login onRegister={this.props.actions.register} onSubmit={this.props.actions.fetchLogin}/>
+                        </div>
+                    </div>
                 </div>
+                <div className="AppNotifications">
+                    <NotificationContainer>
+                    </NotificationContainer>
+                </div>
+                <PlanetPattern/>
             </div>
         );
     }

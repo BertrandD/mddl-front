@@ -18,8 +18,6 @@ class LoadingContainer extends Component {
             <div className="LoadingContainer">
                 <AppBackground />
                 <div className="Loading">
-
-
                     <div>
                         <div className="LoadingPlanet">
                             <svg width="75" height="75">

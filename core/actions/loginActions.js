@@ -1,9 +1,8 @@
 import { FETCH_LOGIN_SUCCESS, FETCH_LOGIN_ERROR, LOGOUT } from './../actionTypes/LoginActionTypes';
 import { push } from 'react-router-redux'
 import { postAsForm, fetch } from '../utils/post-as-form'
-import { normalize, arrayOf } from 'normalizr'
-import { user } from '../schema/schemas.js'
 import config from '../config'
+import { notify } from './appActions'
 
 function loginSuccess (user) {
   return {
@@ -54,7 +53,8 @@ export function fetchLogin ({ username, password }) {
         dispatch(push('/loading'));
       })
       .catch(res => {
-        dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
+          dispatch(notify(res.meta.message ? res.meta.message : 'An error occured'));
+          dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
       })
   };
 }
