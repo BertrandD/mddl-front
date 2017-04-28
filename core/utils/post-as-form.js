@@ -23,12 +23,14 @@ window.apiFetch = fetch;
 export function fetch (url, data) {
 
     return makeAuthenticatedRequest(url, data)
-        //.then(res => {
-        //    if (res.status == 401) {
-        //        location.href = '/login';
-        //    }
-        //    return res;
-        //})
+        .then(res => {
+           if (res.status === 401) {
+               if(store && store.dispatch && push) {
+                   store.dispatch(push('/login'));
+               }
+           }
+           return res;
+        })
         .then(res => res.json())
         .then(response => {
             if (response.status === "ok") {
