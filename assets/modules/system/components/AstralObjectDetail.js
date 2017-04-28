@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import map from 'lodash/map'
 import { duration } from 'moment'
 import { bindActionCreators } from 'redux';
+import Tooltip from '../../core/components/Tooltip/Tooltip'
 
 class SystemContainer extends Component {
 
@@ -23,12 +24,12 @@ class SystemContainer extends Component {
                     Bases :
                 </div>
                 <ul>
-                    {obj.id == base.planet && (
+                    {obj.id === base.planet && (
                         <li className="color-yellow">
                             {base.name} ({base.owner.name})
                         </li>
                     )}
-                    {map(obj.bases, (b) => b.id != base.id && (
+                    {map(obj.bases, (b) => b.id !== base.id && (
                         <li key={b.id}>
                             {b.name} ({b.owner.name})
                             <Tooltip text={"Spy"}>
