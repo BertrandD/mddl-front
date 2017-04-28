@@ -24,7 +24,7 @@ const rootController = require('./root/index');
 app.use('/version', versionController);
 app.use('/', rootController);
 
-app.use('/dist', express.static(__dirname + '/../dist'));
+app.use('/dist', express.static(__dirname + '/../nwjs/dist'));
 app.use('/img', express.static(__dirname + '/../static/img'));
 
 // ## ERROR HANDLING
