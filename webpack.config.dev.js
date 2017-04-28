@@ -3,6 +3,11 @@ var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+var tag = require('child_process').execSync('git describe --abbrev=0 --tags').toString().trim()
+var version = tag+'.'+require('child_process').execSync('git rev-list '+tag+'..HEAD --count').toString().trim();
+console.log("Building version : "+version)
+version = "\"" + version + "\""
+
 module.exports = {
     entry: [
         'webpack-hot-middleware/client',
@@ -74,7 +79,8 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('development'),
-            'AI': false
+            'AI': false,
+            'VERSION': version
         })
     ]
 };

@@ -6,6 +6,7 @@ import './App.scss'
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import AppBackground from './AppBackground'
+import BottomMenu from './BottomMenu'
 
 class App extends Component {
 
@@ -34,7 +35,7 @@ class App extends Component {
                         <NotificationContainer>
                         </NotificationContainer>
                     </div>
-                    {/*<BottomMenu />*/}
+                    <BottomMenu />
                 </div>
             </div>
         );

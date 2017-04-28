@@ -8,15 +8,22 @@ class BottomMenu extends Component {
     render() {
         return (
             <div className="BottomMenu">
-                <div className="BottomMenuBlockRight">
-                    Hey !
+                <div className="BottomMenuVersion">
+                    Development build - {VERSION}
+                </div>
+                <div className="BottomMenuLastAction">
+                    {this.props.action.map(a => (
+                        <div>
+                            {a}
+                        </div>
+                    ))}
                 </div>
             </div>
         );
     }
 }
-function mapStateToProps() {
-    return {};
+function mapStateToProps(state) {
+    return { action: state.currentAction };
 }
 
 function mapDispatchToProps(dispatch) {

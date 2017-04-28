@@ -4,6 +4,11 @@ var argv = require('yargs').argv;
 var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+var tag = require('child_process').execSync('git describe --abbrev=0 --tags').toString().trim()
+var version = tag+'.'+require('child_process').execSync('git rev-list '+tag+'..HEAD --count').toString().trim();
+console.log("Building version : "+version)
+version = "\"" + version + "\""
+
 module.exports = {
     entry: [
         './assets',
@@ -71,6 +76,7 @@ module.exports = {
         new ExtractTextPlugin('app.min.css'),
         new webpack.DefinePlugin({
             'AI': false,
+            'VERSION': version,
             'process.env.NODE_ENV': argv.p
                 ? '"production"'
                 : '"development"'

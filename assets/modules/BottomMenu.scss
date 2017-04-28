@@ -1,23 +1,21 @@
 @import '../../scss/mixins/mixins';
 @import '../../scss/variables/variables';
 
-$item-size: 100px;
-
 .BottomMenu {
-  width:100%;
-  background-image: url("../../static/img/layout/barre-basse.png");
-  background-size: 100% 100%;
-  height: 67px;
-  color: #fff;
-  z-index: $z-index-bottom-menu;
+  position: absolute;
+  bottom:0;
+  height: 20px;
+  width: 100%;
+  color: wheat;
 }
 
-.BottomMenuBlockRight {
-  color: $color-blue;
-  padding:5px;
-  height: 8px;
-  width: 42%;
-  float: right;
-  margin-top: 15px;
-  font-size: $font-size-small;
+.BottomMenuVersion {
+  text-align: center;
+}
+
+.BottomMenuLastAction {
+  position: absolute;
+  font-size: 0.8em;
+  right:5px;
+  bottom:5px;
 }
