@@ -1,8 +1,8 @@
 import * as BuildingActions from './../actionTypes/BuildingActionTypes';
-import { postAsForm, fetch } from '../utils/post-as-form'
+import { postAsForm, put, fetch } from '../utils/post-as-form'
 import config from '../config'
 import addEvent from '../utils/addEvent'
-import { fetchBaseSuccess, updateBase } from './baseActions'
+import { fetchBase, updateBase } from './baseActions'
 import { normalize, arrayOf } from 'normalizr'
 import { base } from 'schema/schemas'
 import { notify } from './appActions'
@@ -114,60 +114,63 @@ export function viewModuleDetails (building, module) {
 
 export function createBuilding (currentBase, { id }, position = -1) {
     return dispatch => {
-        return postAsForm(config.api.url + '/building', { building: id, position })
+        return postAsForm(config.api.url + '/me/base/' + currentBase.id + '/building', { building: id, position })
             .catch(res => {
-                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occurred : ' + res));
                 return Promise.reject(res);
             })
             .then(res => {
                 dispatch(
                     addEvent(
                         getServerTime(),
-                        res.payload.endsAt,
-                        createBuildingStart(currentBase, res.payload, {position}),
-                        [createBuildingEnd(currentBase, res.payload),updateBase(currentBase)])
+                        res.endsAt,
+                        createBuildingStart(currentBase, res, {position}),
+                        [createBuildingEnd(currentBase, res),updateBase(currentBase)])
                 );
-                try {
-                    dispatch(fetchBaseSuccess(normalize(res.meta.base, base).entities));
-                }catch (e) {
-                    console.error(e);
-                }
+                dispatch(fetchBase(currentBase));
+                setTimeout(() => {
+                    dispatch(fetchBase(currentBase));
+                }, res.endsAt - getServerTime())
             })
     }
 }
 
 export function upgradeBuilding (currentBase, { id }) {
     return dispatch => {
-        return postAsForm(config.api.url + '/building/' + id + '/upgrade')
+        return put(config.api.url + '/me/base/' + currentBase.id + '/building/' + id + '/upgrade')
             .catch(res => {
-                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occurred : ' + res));
                 return Promise.reject(res);
             })
             .then(res => {
-                if (res.meta.queue.length === 0 ) {
+/*
+                if (res.queue.length === 0 ) {
                    console.warn("Meta queue empty after an upgrade ???");
-                } else if (res.meta.queue.length === 1 ) {
+                } else if (res.queue.length === 1 ) {
+*/
                    dispatch(
                        addEvent(
                            getServerTime(),
-                           res.meta.queue[0].endsAt,
-                           upgradeBuildingStart(currentBase, res.payload, getServerTime(), res.meta.queue[0].endsAt),
-                           [upgradeBuildingEnd(currentBase, res.payload), updateBase(currentBase)]
+                           res.endsAt,
+                           upgradeBuildingStart(currentBase, res, getServerTime(), res.endsAt),
+                           [upgradeBuildingEnd(currentBase, res), updateBase(currentBase)]
                        )
                    );
-                } else { //res.meta.queue.length >= 2
+/*
+                } else { //res.queue.length >= 2
                    dispatch(
                        addEvent(
-                           res.meta.queue[res.meta.queue.length - 2].endsAt+1,
-                           res.meta.queue[res.meta.queue.length - 1].endsAt,
-                           upgradeBuildingStart(currentBase, res.payload, res.meta.queue[res.meta.queue.length - 2].endsAt+1, res.meta.queue[res.meta.queue.length - 1].endsAt),
-                           [upgradeBuildingEnd(currentBase, res.payload), updateBase(currentBase)]
+                           res.queue[res.queue.length - 2].endsAt+1,
+                           res.queue[res.queue.length - 1].endsAt,
+                           upgradeBuildingStart(currentBase, res, res.queue[res.queue.length - 2].endsAt+1, res.queue[res.queue.length - 1].endsAt),
+                           [upgradeBuildingEnd(currentBase, res), updateBase(currentBase)]
                        )
                    );
-                   dispatch(upgradeBuildingWait(currentBase, res.payload, res.meta.queue[res.meta.queue.length - 1]))
+                   dispatch(upgradeBuildingWait(currentBase, res, res.queue[res.queue.length - 1]))
                 }
+*/
                 try {
-                    dispatch(fetchBaseSuccess(normalize(res.meta.base, base).entities));
+                    dispatch(fetchBase(currentBase));
                 }catch (e) {
                     console.error(e);
                 }
@@ -175,31 +178,31 @@ export function upgradeBuilding (currentBase, { id }) {
     }
 }
 
-export function createModule (moduleId) {
+export function createModule (base, building, moduleId) {
     return dispatch => {
-        return postAsForm(config.api.url + '/factory/module/create/' + moduleId)
+        return postAsForm(config.api.url + '/me/base/' + base.id + '/factory/' + building.id + '/create/module/' + moduleId)
             .catch(res => {
-                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occurred : ' + res));
                 return Promise.reject(res);
             })
             .then(res => {
                 dispatch(createModuleSuccess(res.payload));
-                dispatch(fetchBaseSuccess(normalize(res.payload, base).entities));
+                dispatch(fetchBase(base));
                 dispatch(notify(moduleId + ' has been successfully created !'));
             })
     }
 }
 
-export function createStructure (structureId) {
+export function createStructure (base, building, structureId) {
     return dispatch => {
-        return postAsForm(config.api.url + '/factory/structure/create/' + structureId)
+        return postAsForm(config.api.url + '/me/base/' + base.id + '/factory/' + building.id + '/create/structure/' + structureId)
             .catch(res => {
-                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occurred : ' + res));
                 return Promise.reject(res);
             })
             .then(res => {
                 dispatch(createStructureSuccess(res.payload));
-                dispatch(fetchBaseSuccess(normalize(res.payload, base).entities));
+                dispatch(fetchBase(base));
                 dispatch(notify(structureId + ' has been successfully created !'));
             })
     }
@@ -209,12 +212,12 @@ export function attachModule ({ id: buildingId }, { itemId: moduleId }) {
     return dispatch => {
         return postAsForm(config.api.url + '/building/' + buildingId + '/attach/module/' + moduleId)
             .catch(res => {
-                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                dispatch(notify(res.meta && res.meta.message ? res.meta.message : 'An error occurred : ' + res));
                 return Promise.reject(res);
             })
             .then(res => {
                 dispatch(attachModulesuccess(res.payload));
-                dispatch(fetchBaseSuccess(normalize(res.payload, base).entities));
+                dispatch(fetchBase(base));
                 dispatch(notify(moduleId + ' has been successfully attached !'));
             })
     }

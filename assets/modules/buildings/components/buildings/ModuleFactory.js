@@ -12,21 +12,22 @@ class ModuleFactory extends Component {
 
     render() {
 
-        const { building, sItems, sBuildings, actions, strings } = this.props;
+        const { base, building, sItems, sBuildings, actions, strings } = this.props;
 
+        console.log(building);
 
         return (
             <div>
                 <h3>
                     { strings.modules.available }
                 </h3>
-                {building.unlockModules[building.currentLevel] && [...Array(building.currentLevel)].map((x, i) => building.unlockModules[i+1].map((module) => (
+                {building.itemsByLevel[building.currentLevel] && [...Array(building.currentLevel)].map((x, i) => building.itemsByLevel[i+1].map((module) => (
                     <div key={module} className="margin-bottom-inner Block">
                         <span className="color-yellow">
                             {sItems[module].name}
                         </span>
                         &nbsp;
-                        <button className="float-right button--primary" onClick={actions.createModule.bind(null, module)}>
+                        <button className="float-right button--primary" onClick={actions.createModule.bind(null, base, building, module)}>
                             { strings.modules.create }
                         </button>
 
@@ -48,7 +49,8 @@ class ModuleFactory extends Component {
 }
 
 ModuleFactory.propTypes = {
-    building: PropTypes.object.isRequired
+    building: PropTypes.object.isRequired,
+    base: PropTypes.object.isRequired
 };
 
 import { getStaticBuildings, getStaticItems } from 'reducers/staticReducer'

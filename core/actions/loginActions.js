@@ -36,11 +36,11 @@ export function register({ username, password }) {
     return dispatch => {
         return postAsForm(config.api.url + '/register', {username, password})
             .then(res => {
-                dispatch(loginSuccess(res.payload));
+                dispatch(loginSuccess(res));
                 dispatch(push('/create/player'));
             })
             .catch(res => {
-                dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
+                dispatch(loginError(res.meta.message ? res.meta.message : 'An error occurred : ' + res));
             })
     };
 }
@@ -49,12 +49,17 @@ export function fetchLogin ({ username, password }) {
   return dispatch => {
     return postAsForm(config.api.url + '/login', {username, password})
       .then(res => {
-        dispatch(loginSuccess(res.payload));
+          dispatch(loginSuccess(res));
         dispatch(push('/loading'));
       })
       .catch(res => {
-          dispatch(notify(res.meta.message ? res.meta.message : 'An error occured'));
-          dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
+          if (res.status === 400) {
+              dispatch(notify('Invalid credentials'));
+              dispatch(loginError('Invalid credentials'));
+          } else {
+              dispatch(notify(res.meta.message ? res.meta.message : 'An error occurred'));
+              dispatch(loginError(res.meta.message ? res.meta.message : 'An error occurred'));
+          }
       })
   };
 }
@@ -63,7 +68,7 @@ export function fetchAuthentication () {
   return dispatch => {
     return fetch(config.api.url + '/me')
         .catch(res => {
-            dispatch(loginError(res.meta.message ? res.meta.message : 'An error occured'));
+            dispatch(loginError(res.meta.message ? res.meta.message : 'An error occurred : ' + res));
             dispatch(push('/login'));
             return Promise.reject();
         })

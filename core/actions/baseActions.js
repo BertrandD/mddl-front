@@ -51,24 +51,24 @@ export function updateBase({ id }) {
     return dispatch => {
         return fetch(config.api.url + '/me/base/' + id)
             .then(res => {
-                dispatch(fetchBaseSuccess(normalize(res.payload, base).entities, res.meta));
+                dispatch(fetchBaseSuccess(normalize(res, base).entities, res.meta));
             })
             .catch(res => {
-                dispatch(fetchBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                dispatch(fetchBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occurred : ' + res));
             })
     };
 }
 
 export function createBase({ baseName, player }) {
     return dispatch => {
-        return postAsForm(config.api.url + '/base', {name: baseName, player})
+        return postAsForm(config.api.url + '/me/base', {name: baseName, player})
             .then(res => {
-                dispatch(createBaseSuccess(normalize(res.payload, base).entities));
-                dispatch(selectBase(normalize(res.payload, base).entities));
+                dispatch(createBaseSuccess(normalize(res, base).entities));
+                dispatch(selectBase(normalize(res, base).entities));
                 dispatch(push('/loading'));
             })
             .catch(res => {
-                dispatch(createBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'))
+                dispatch(createBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occurred : ' + res))
             })
     }
 }
@@ -77,14 +77,14 @@ export function fetchMyBases() {
     return dispatch => {
         return fetch(config.api.url + '/me/base')
             .then(res => {
-                if (res.payload && res.payload.length === 0) {
+                if (res && res.length === 0) {
                     dispatch(push('/create/base'));
                 } else {
-                    dispatch(fetchBaseSuccess(normalize(res.payload, arrayOf(base)).entities));
+                    dispatch(fetchBaseSuccess(normalize(res, arrayOf(base)).entities));
                 }
             })
             .catch(res => {
-                dispatch(fetchBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                dispatch(fetchBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occurred : ' + res));
             })
     };
 }
@@ -93,11 +93,11 @@ export function fetchBase({ id }) {
     return dispatch => {
         return fetch(config.api.url + '/me/base/' + id)
             .then(res => {
-                dispatch(fetchBaseSuccess(normalize(res.payload, base).entities, res.meta));
+                dispatch(fetchBaseSuccess(normalize(res, base).entities, res.meta));
                 try {
                     const queue = {};
 
-                    res.meta.queue.forEach((event, index) => {
+                    res.queue.forEach((event, index) => {
                         queue[event.building.id] = [
                             ...queue[event.building.id] ? queue[event.building.id] : [],
                             event
@@ -110,12 +110,12 @@ export function fetchBase({ id }) {
                                 addEvent(
                                     index === 0 ? event.building.startedAt : buildingQueue[index - 1].endsAt + 1,
                                     event.endsAt,
-                                    upgradeBuildingStart(res.payload, event.building, index === 0 ? event.building.startedAt : buildingQueue[index - 1].endsAt + 1, event.endsAt),
-                                    upgradeBuildingEnd(res.payload, event.building)
+                                    upgradeBuildingStart(res, event.building, index === 0 ? event.building.startedAt : buildingQueue[index - 1].endsAt + 1, event.endsAt),
+                                    upgradeBuildingEnd(res, event.building)
                                 )
                             );
                             if (index >= 1) {
-                                setTimeout(dispatch.bind(null, upgradeBuildingWait(res.payload, event.building, event)), 0);
+                                setTimeout(dispatch.bind(null, upgradeBuildingWait(res, event.building, event)), 0);
                             }
                         })
                     })
@@ -124,7 +124,8 @@ export function fetchBase({ id }) {
                 }
             })
             .catch(res => {
-                dispatch(fetchBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occured'));
+                console.log(res);
+                dispatch(fetchBaseFailure(res.meta && res.meta.message ? res.meta.message : 'An error occurred : ' + res));
             })
     };
 }

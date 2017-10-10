@@ -11,20 +11,20 @@ class StructureFactory extends Component {
 
     render() {
 
-        const { building, sItems, sBuildings, actions, strings } = this.props;
+        const { base, building, sItems, sBuildings, actions, strings } = this.props;
         console.log(strings);
         return (
             <div>
                 <h3>
                     { strings.structures.available }
                 </h3>
-                {building.unlockStructures[building.currentLevel] && [...Array(building.currentLevel)].map((x, i) => building.unlockStructures[i+1].map((structure) => (
+                {building.itemsByLevel[building.currentLevel] && [...Array(building.currentLevel)].map((x, i) => building.itemsByLevel[i+1].map((structure) => (
                     <div key={structure} className="margin-bottom-inner Block">
                         <span className="color-yellow">
                             {sItems[structure].name}
                         </span>
                         &nbsp;
-                        <button className="float-right button--primary" onClick={actions.createStructure.bind(null, structure)}>
+                        <button className="float-right button--primary" onClick={actions.createStructure.bind(null, base, building, structure)}>
                             { strings.structures.create }
                         </button>
 
@@ -46,7 +46,8 @@ class StructureFactory extends Component {
 }
 
 StructureFactory.propTypes = {
-    building: PropTypes.object.isRequired
+    building: PropTypes.object.isRequired,
+    base: PropTypes.object.isRequired
 };
 
 import { getStaticBuildings, getStaticItems } from 'reducers/staticReducer'

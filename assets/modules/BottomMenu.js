@@ -12,8 +12,8 @@ class BottomMenu extends Component {
                     Development build - {VERSION}
                 </div>
                 <div className="BottomMenuLastAction">
-                    {this.props.action.map(a => (
-                        <div>
+                    {this.props.action.map((a, k) => (
+                        <div key={a+k}>
                             {a}
                         </div>
                     ))}

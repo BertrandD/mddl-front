@@ -122,9 +122,9 @@ function base (state = {
             forEach(base.resources, (item, id) => {
                 const deltaSeconds = (now - item.lastRefresh) / 1000;
 
-                const productionForDeltaSeconds = item.production * deltaSeconds / 3600;
+                const productionForDeltaSeconds = item.prodPerHour * deltaSeconds / 3600;
 
-                const effectiveProduction = Math.min(productionForDeltaSeconds, item.maxVolume - item.count);
+                const effectiveProduction = Math.min(productionForDeltaSeconds, item.availableCapacity - item.count);
 
                 item.count += effectiveProduction;
                 item.lastRefresh = now;

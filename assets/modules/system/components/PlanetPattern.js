@@ -71,9 +71,9 @@ class PlanetPattern extends Component {
 
         d3.timer(function () {
             const delta = (getServerTime() - this.t0);
-            arcsSvg.forEach((arc) => {
-                arc.attr("transform", "rotate(" + arc.attr("data-rotate") * delta * 5 / 700 + ")");
-            })
+//            arcsSvg.forEach((arc) => {
+  //              arc.attr("transform", "rotate(" + arc.attr("data-rotate") * delta * 5 / 700 + ")");
+    //        })
         }.bind(this));
 
         // planetPattern.selectAll(".circl")[0].forEach(function(d) {

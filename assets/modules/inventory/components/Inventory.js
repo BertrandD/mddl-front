@@ -25,17 +25,18 @@ class Inventory extends Component {
         const { sItems, inventory } = this.props;
         const { Ifilter } = this.state;
         const tabs = [ItemTypes.STRUCTURE, ItemTypes.MODULE];
+        console.log(inventory);
         return (
             <div className="Inventory">
                 <div className="InventoryPanes">
                     {tabs.map((tab) => (
-                        <span key={tab} className={ Ifilter == tab ? "InventoryPanesActive" : ""} onClick={this.handleFilterChange.bind(this, tab)}>
+                        <span key={tab} className={ Ifilter === tab ? "InventoryPanesActive" : ""} onClick={this.handleFilterChange.bind(this, tab)}>
                             <Text string={"words."+tab}/>
                         </span>
                     ))}
                 </div>
                 <div className="InventoryContent">
-                    {filter(inventory, (b) => b.type == Ifilter).map((b) => (
+                    {filter(inventory.items, (b) => b.type === Ifilter).map((b) => (
                         <span key={b.templateId}>
                             <DraggableItem key={b.templateId} item={sItems[b.templateId]} />
                             &nbsp;x {b.count}

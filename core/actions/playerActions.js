@@ -75,10 +75,10 @@ export function requestFriend ({ id }, message) {
 
 export function createPlayer ({ playerName }) {
     return dispatch => {
-        return postAsForm(config.api.url + '/player', { name: playerName })
+        return postAsForm(config.api.url + '/me/player', { name: playerName })
             .then(res => {
-                dispatch(createPlayerSuccess(normalize(res.payload, player).entities.players));
-                dispatch(selectPlayer(res.payload));
+                dispatch(createPlayerSuccess(normalize(res, player).entities.players));
+                dispatch(selectPlayer(res));
                 dispatch(push('/create/base'));
             })
             .catch(res => {

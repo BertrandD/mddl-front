@@ -20,7 +20,7 @@ class BuildingPageContainer extends Component {
         super(props, context);
     }
 
-    getBuildingComponent(building) {
+    getBuildingComponent(base, building) {
         switch (building.buildingId) {
             case BuildingIds.SILO:
                 return (
@@ -28,11 +28,11 @@ class BuildingPageContainer extends Component {
                 );
             case BuildingIds.MODULE_FACTORY:
                 return (
-                    <ModuleFactory building={building}/>
+                    <ModuleFactory base={base} building={building}/>
                 );
             case BuildingIds.STRUCTURE_FACTORY:
                 return (
-                    <StructureFactory building={building}/>
+                    <StructureFactory base={base} building={building}/>
                 );
             case BuildingIds.SPATIAL_ELEVATOR:
                 return (
@@ -84,7 +84,7 @@ class BuildingPageContainer extends Component {
                     <ProgressBar start={building.startedAt} end={building.endsAt} />
                 )}
 
-                {this.getBuildingComponent(building)}
+                {this.getBuildingComponent(base, building)}
 
                 <div>
                     <h3>

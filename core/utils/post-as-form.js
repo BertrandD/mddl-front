@@ -6,7 +6,7 @@ function makeAuthenticatedRequest(url, opts = {}) {
         opts.headers = opts.headers || {};
         opts.headers['X-auth-token'] = localStorage.getItem("token");
     } else {
-        console.error("Yolooooooo", url, opts);
+        console.error("No token found in local storage", url, opts);
     }
 
     if (global && global.fetch) {
@@ -23,6 +23,13 @@ window.apiFetch = fetch;
 export function fetch (url, data) {
 
     return makeAuthenticatedRequest(url, data)
+        .catch(res => {
+            throw {
+                meta: {
+                    message: ""+res
+                }
+            };
+        })
         .then(res => {
            if (res.status === 401) {
                if(store && store.dispatch && push) {
@@ -31,17 +38,34 @@ export function fetch (url, data) {
            }
            return res;
         })
-        .then(res => res.json())
-        .then(response => {
-            if (response.status === "ok") {
-                return response;
+        .then(res => {
+            if (res.status >= 200 && res.status < 400) {
+                return res;
             } else {
-                throw response;
+                const code = res.status;
+                return res.json().then(res => {
+                    res.meta = {
+                        message : ""
+                    };
+                    switch (code) {
+                        case 400: res.meta.message = "Unauthorized"; break;
+                        case 500: res.meta.message = "Server Error"; break;
+                        case 406: res.meta.message = res.message; break;
+                        default: res.meta.message = "Unknown error"; break;
+                    }
+                    console.log(res);
+                    throw res
+                });
             }
         })
+        .then(res => res.json())
 }
 
-export function postAsForm(url, data = {}) {
+export function put(url, data = {}) {
+    return postAsForm(url, data, 'PUT')
+}
+
+export function postAsForm(url, data = {}, method = 'POST') {
     var response;
     try {
         //safe clone of data
@@ -54,7 +78,7 @@ export function postAsForm(url, data = {}) {
         addItemsToForm(form, typeof data == 'object' ? [] : [options.name || 'model'], data);
 
         return fetch(url, {
-            method: 'POST',
+            method: method,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
@@ -63,7 +87,7 @@ export function postAsForm(url, data = {}) {
         });
 
     } catch(err) {
-        //console.error("Error from server:", err && err.stack || err);
+        console.error("Error from server:", err && err.stack || err);
         err.response = response;
         throw err;
     }

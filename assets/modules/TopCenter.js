@@ -12,16 +12,16 @@ class TopCenter extends Component {
 
         return (
             <div className={"TopCenter"}>
-                    {base && map(base.inventory.items, (item) => (
+                    {base && map(base.inventory.items, (item) => item.type !== 'RESOURCE' && (
                         <span key={item.id}>
-                        <span className="color-yellow">{items[item.templateId].name}:</span> {Math.round(item.count)} ({base.production[item.templateId]}/h) - &nbsp;
+                        <span className="color-yellow">{items[item.templateId].name}:</span> {Math.round(item.count)} {/*({base.production[item.templateId]}/h) -*/} &nbsp;
                        </span>
                     ))}
                     {base && map(base.resources, (item, id) => (
                         <span key={id}>
                             <span className="color-yellow">{items[item.templateId].name}: </span>
-                            <span className={Math.round(item.count) === item.maxVolume &&"color-error"}>
-                                {Math.round(item.count)} / {item.maxVolume} ({item.production}/h)
+                            <span className={Math.round(item.count) === item.availableCapacity &&"color-error"}>
+                                {Math.round(item.count)} / {item.availableCapacity} ({item.prodPerHour}/h)
                             </span>&nbsp;♦&nbsp;
                         </span>
                     ))}

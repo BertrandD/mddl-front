@@ -97,7 +97,7 @@ export function building (state = {}, action) {
             return Object.assign({}, state, {
                 queue: [
                     ...state.queue ? state.queue : [],
-                    action.meta.event
+                    action.meta.event // TODO remove
                 ]
             });
         case BuldingsActions.CREATE_BUILDING_END:

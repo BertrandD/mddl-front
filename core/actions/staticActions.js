@@ -38,7 +38,7 @@ export function fetchBuildings () {
         return fetch(config.api.url + '/building_static/')
             .then(res => {
                 try {
-                    dispatch(fetchBuildingsSuccess(normalize(res.payload, arrayOf(staticBuilding)).entities.staticBuildings));
+                    dispatch(fetchBuildingsSuccess(normalize(res, arrayOf(staticBuilding)).entities.staticBuildings));
                 } catch (e) {
                     console.error(e);
                 }
