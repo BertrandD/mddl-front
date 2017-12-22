@@ -7,6 +7,7 @@ import AppBackground from '../AppBackground'
 import PlanetPattern from "../system/components/PlanetPattern";
 import NotificationContainer from '../core/components/Notification/NotificationsContainer'
 import "./login.scss"
+import ServerStatus from "../core/components/ServerStatus";
 
 class LoginContainer extends Component {
 
@@ -30,6 +31,7 @@ class LoginContainer extends Component {
 
                         <div className="Block auth">
                             <h1 className="auth__title">MiddleWar</h1>
+                            <ServerStatus/>
                             <div className="auth__subtitle">
                                 <strong>{ this.props.version }</strong>
                             </div>

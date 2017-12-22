@@ -26,4 +26,14 @@ function getServerTime() {
     return Date.now() + offset;
 }
 
+function checkStatus() {
+    return global.fetch(config.api.url).then(() => {
+        return Promise.resolve("online");
+    }).catch(() => {
+        return Promise.resolve("offline");
+    });
+}
+
 window.getServerTime = getServerTime
+window.checkStatus = checkStatus
+window.serverStatus = "waiting..."

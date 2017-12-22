@@ -48,7 +48,7 @@ export function fetch (url, data) {
                         message : ""
                     };
                     switch (code) {
-                        case 400: res.meta.message = "Unauthorized"; break;
+                        case 401: res.meta.message = "Unauthorized"; break;
                         case 500: res.meta.message = "Server Error"; break;
                         case 406: res.meta.message = res.message; break;
                         default: res.meta.message = "Unknown error"; break;
